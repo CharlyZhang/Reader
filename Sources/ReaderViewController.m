@@ -40,11 +40,11 @@
 
 @implementation ReaderViewController
 {
-	ReaderDocument *document;
+	ReaderDocument *document;                               ///< pdf文档
 
-	UIScrollView *theScrollView;
+	UIScrollView *theScrollView;                            ///< scrollviewl
 
-	ReaderMainToolbar *mainToolbar;
+	ReaderMainToolbar *mainToolbar;                         ///< 工具栏
 
 	ReaderMainPagebar *mainPagebar;
 
@@ -347,11 +347,16 @@
 
 	CGRect scrollViewRect = CGRectInset(viewRect, -scrollViewOutset, 0.0f);
 	theScrollView = [[UIScrollView alloc] initWithFrame:scrollViewRect]; // All
-	theScrollView.autoresizesSubviews = NO; theScrollView.contentMode = UIViewContentModeRedraw;
-	theScrollView.showsHorizontalScrollIndicator = NO; theScrollView.showsVerticalScrollIndicator = NO;
-	theScrollView.scrollsToTop = NO; theScrollView.delaysContentTouches = NO; theScrollView.pagingEnabled = YES;
+	theScrollView.autoresizesSubviews = NO;
+    theScrollView.contentMode = UIViewContentModeRedraw;
+	theScrollView.showsHorizontalScrollIndicator = NO;
+    theScrollView.showsVerticalScrollIndicator = NO;
+	theScrollView.scrollsToTop = NO;
+    theScrollView.delaysContentTouches = NO;
+    theScrollView.pagingEnabled = YES;
 	theScrollView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-	theScrollView.backgroundColor = [UIColor clearColor]; theScrollView.delegate = self;
+	theScrollView.backgroundColor = [UIColor clearColor];
+    theScrollView.delegate = self;
 	[self.view addSubview:theScrollView];
 
 	CGRect toolbarRect = viewRect; toolbarRect.size.height = TOOLBAR_HEIGHT;
@@ -469,7 +474,8 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	if (userInterfaceIdiom == UIUserInterfaceIdiomPad) if (printInteraction != nil) [printInteraction dismissAnimated:NO];
+	if (userInterfaceIdiom == UIUserInterfaceIdiomPad)
+        if (printInteraction != nil) [printInteraction dismissAnimated:NO];
 
 	ignoreDidScroll = YES;
 }

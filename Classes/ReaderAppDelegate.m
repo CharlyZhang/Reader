@@ -52,7 +52,8 @@
 
 	mainWindow.backgroundColor = [UIColor grayColor]; // Neutral gray window background color
 
-	navigationController.navigationBar.barStyle = UIBarStyleBlack; navigationController.navigationBar.translucent = YES;
+	navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    navigationController.navigationBar.translucent = YES;
 
 	mainWindow.rootViewController = navigationController; // Set the root view controller
 
