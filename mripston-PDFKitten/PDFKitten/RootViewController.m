@@ -119,8 +119,8 @@
 - (NSString *)documentPath
 {
     // DEBUG: for now, always load Kurt the Cat
-//	return [[NSBundle mainBundle] pathForResource:@"Kurt the Cat" ofType:@"pdf"];
-    return [[NSBundle mainBundle] pathForResource:@"es_spec_3.0.4" ofType:@"pdf"];
+	return [[NSBundle mainBundle] pathForResource:@"Kurt the Cat" ofType:@"pdf"];
+//    return [[NSBundle mainBundle] pathForResource:@"es_spec_3.0.4" ofType:@"pdf"];
 }
 
 #pragma mark Search

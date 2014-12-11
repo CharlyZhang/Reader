@@ -1,4 +1,4 @@
-#import "Font.h"
+#import "CFont.h"
 
 // Simple fonts
 #import "Type1Font.h"

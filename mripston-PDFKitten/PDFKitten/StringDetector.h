@@ -5,7 +5,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "Font.h"
+#import "CFont.h"
 
 @class StringDetector;
 

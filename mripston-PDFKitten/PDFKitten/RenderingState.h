@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "Font.h"
+#import "CFont.h"
 
 @interface RenderingState : NSObject <NSCopying> {
 	CGAffineTransform lineMatrix;

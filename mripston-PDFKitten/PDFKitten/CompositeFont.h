@@ -10,7 +10,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "Font.h"
+#import "CFont.h"
 
 @interface CompositeFont : Font {
     CGFloat defaultWidth;

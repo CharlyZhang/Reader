@@ -53,6 +53,10 @@
 - (void)dealloc
 {
 	[initialState release];
+    if (lineContent) {
+        [lineContent release];
+        lineContent = nil;
+    }
 	[super dealloc];
 }
 

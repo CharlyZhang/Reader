@@ -53,6 +53,17 @@ void cm(CGPDFScannerRef scanner, void *info);
 
 @implementation Scanner
 
+#pragma mark - Properties
+
+- (NSMutableString*)content
+{
+    if (!_content) {
+        _content = [[NSMutableString alloc]init];
+    }
+    
+    return _content;
+}
+
 #pragma mark - Initialization
 
 - (id)initWithDocument:(CGPDFDocumentRef)document
@@ -171,6 +182,8 @@ void cm(CGPDFScannerRef scanner, void *info);
 	if (!keyword) return;
     
     [self.stringDetector reset];
+    [self.content setString:@""];
+    
     self.stringDetector.keyword = self.keyword;
 
     // Initialize font collection (per page)
@@ -250,6 +263,8 @@ void didScanSpace(float value, Scanner *scanner)
     if (abs(value) >= [scanner.currentRenderingState.font widthOfSpace])
     {
         [scanner.stringDetector reset];
+        //NSLog(@"didScanSpace and reset %f",value);
+        [scanner.content appendString:@" "];
     }
 }
 
@@ -302,6 +317,11 @@ void TJ(CGPDFScannerRef scanner, void *info)
                 if (CGPDFObjectGetValue(object, kCGPDFObjectTypeString, &pdfString))
                 {
                     didScanString(pdfString, info);
+#ifdef DEBUG
+//                    Scanner *scanner = (Scanner*)info;
+//                    NSString *string = [[scanner stringDetector] appendPDFString:pdfString withFont:[scanner currentFont]];
+//                    NSLog(@" - %@",string);
+#endif
                 }
                 break;
             }
@@ -339,6 +359,10 @@ void Td(CGPDFScannerRef scanner, void *info)
 	CGPDFScannerPopNumber(scanner, &ty);
 	CGPDFScannerPopNumber(scanner, &tx);
 	[[(Scanner *)info currentRenderingState] newLineWithLeading:-ty indent:tx save:NO];
+#ifdef DEBUG
+    NSLog(@"Td -- %@",[(Scanner *)info content]);
+#endif
+    [[(Scanner *)info content] setString:@""];
 }
 
 /* Move to start of next line, and set leading */
@@ -348,6 +372,11 @@ void TD(CGPDFScannerRef scanner, void *info)
 	if (!CGPDFScannerPopNumber(scanner, &ty)) return;
 	if (!CGPDFScannerPopNumber(scanner, &tx)) return;
 	[[(Scanner *)info currentRenderingState] newLineWithLeading:-ty indent:tx save:YES];
+    
+#ifdef DEBUG
+    NSLog(@"TD -- %@",[(Scanner *)info content]);
+#endif
+    [[(Scanner *)info content] setString:@""];
 }
 
 /* Set line and text matrixes */
@@ -362,6 +391,11 @@ void Tm(CGPDFScannerRef scanner, void *info)
 	if (!CGPDFScannerPopNumber(scanner, &a)) return;
 	CGAffineTransform t = CGAffineTransformMake(a, b, c, d, tx, ty);
 	[[(Scanner *)info currentRenderingState] setTextMatrix:t replaceLineMatrix:YES];
+
+#ifdef DEBUG
+    NSLog(@"Tm -- %@",[(Scanner *)info content]);
+#endif
+    [[(Scanner *)info content] setString:@""];
 }
 
 /* Go to start of new line, using stored text leading */
@@ -502,10 +536,10 @@ void cm(CGPDFScannerRef scanner, void *info)
 	[stringDetector release];
 	[documentURL release]; documentURL = nil;
 	CGPDFDocumentRelease(pdfDocument); pdfDocument = nil;
-	[content release];
+	[_content release];
     [selections release];
 	[super dealloc];
 }
 
-@synthesize documentURL, keyword, stringDetector, fontCollection, renderingStateStack, currentSelection, selections /* rawTextContent */, content;
+@synthesize documentURL, keyword, stringDetector, fontCollection, renderingStateStack, currentSelection, selections /* rawTextContent */, content = _content;
 @end

@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "Font.h"
+#import "CFont.h"
 
 @interface FontCollection : NSObject {
 	NSMutableDictionary *fonts;

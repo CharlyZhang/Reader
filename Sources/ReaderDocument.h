@@ -36,6 +36,7 @@
 @property (nonatomic, strong, readonly) NSMutableIndexSet *bookmarks;
 @property (nonatomic, strong, readonly) NSString *password;
 @property (nonatomic, strong, readonly) NSString *fileName;
+@property (nonatomic, retain, readonly) NSString *filePath;
 @property (nonatomic, strong, readonly) NSURL *fileURL;
 
 @property (nonatomic, readonly) BOOL canEmail;

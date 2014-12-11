@@ -3,7 +3,8 @@
 @class RenderingState;
 
 @interface Selection : NSObject {
-	RenderingState *initialState;
+	RenderingState  *initialState;
+    NSMutableString *lineContent;       ///< 所在行的内容
 	CGAffineTransform transform;
 	CGRect frame;
 }
