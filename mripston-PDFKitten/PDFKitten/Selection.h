@@ -4,7 +4,7 @@
 
 @interface Selection : NSObject {
 	RenderingState  *initialState;
-    NSMutableString *lineContent;       ///< 所在行的内容
+    NSString        *lineContent;          ///< 所在行的内容
 	CGAffineTransform transform;
 	CGRect frame;
 }
@@ -21,4 +21,5 @@
 /* The transformation needed to position the selection */
 @property (nonatomic, readonly) CGAffineTransform transform;
 
+@property (nonatomic, strong) NSString *lineContent;
 @end

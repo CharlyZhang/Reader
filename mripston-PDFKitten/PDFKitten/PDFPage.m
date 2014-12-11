@@ -33,6 +33,7 @@
     self.scanner.selections = nil;
 }
 
+/// do the real scan when retrieving the selections
 - (NSArray *)selections
 {
 	@synchronized (self)
@@ -73,6 +74,9 @@
             CGContextConcatCTM(ctx, s.transform);
             CGContextFillRect(ctx, s.frame);
             CGContextRestoreGState(ctx);
+#ifdef DEBUG
+            NSLog(@"- %@",s.lineContent);
+#endif
         }
     }
 }

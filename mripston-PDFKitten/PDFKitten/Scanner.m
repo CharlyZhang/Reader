@@ -231,6 +231,23 @@ void cm(CGPDFScannerRef scanner, void *info);
 	}
 }
 
+#pragma mark Line Content
+
+- (void)didScanOneLine
+{
+    int selNum = [self.selections count];
+    
+    /// set current line content to the past unset selections
+    for (int i = selNum-1; i >= 0; i--) {
+        Selection *sel = [self.selections objectAtIndex:i];
+        if (sel.lineContent)    break;
+        
+        sel.lineContent = [NSString stringWithString:self.content];
+    }
+    
+    [self.content setString:@""];
+}
+
 #pragma mark - Scanner callbacks
 
 void BT(CGPDFScannerRef scanner, void *info)
@@ -362,7 +379,7 @@ void Td(CGPDFScannerRef scanner, void *info)
 #ifdef DEBUG
     NSLog(@"Td -- %@",[(Scanner *)info content]);
 #endif
-    [[(Scanner *)info content] setString:@""];
+    [(Scanner *)info didScanOneLine];
 }
 
 /* Move to start of next line, and set leading */
@@ -376,7 +393,7 @@ void TD(CGPDFScannerRef scanner, void *info)
 #ifdef DEBUG
     NSLog(@"TD -- %@",[(Scanner *)info content]);
 #endif
-    [[(Scanner *)info content] setString:@""];
+    [(Scanner *)info didScanOneLine];
 }
 
 /* Set line and text matrixes */
@@ -395,7 +412,7 @@ void Tm(CGPDFScannerRef scanner, void *info)
 #ifdef DEBUG
     NSLog(@"Tm -- %@",[(Scanner *)info content]);
 #endif
-    [[(Scanner *)info content] setString:@""];
+    [(Scanner *)info didScanOneLine];
 }
 
 /* Go to start of new line, using stored text leading */

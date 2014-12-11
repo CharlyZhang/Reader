@@ -53,12 +53,9 @@
 - (void)dealloc
 {
 	[initialState release];
-    if (lineContent) {
-        [lineContent release];
-        lineContent = nil;
-    }
+    lineContent = nil;
 	[super dealloc];
 }
 
-@synthesize frame, transform;
+@synthesize frame, transform, lineContent;
 @end
