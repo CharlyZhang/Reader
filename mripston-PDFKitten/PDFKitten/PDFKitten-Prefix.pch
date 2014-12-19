@@ -9,4 +9,4 @@
 	#import <Foundation/Foundation.h>
 #endif
 
-#undef DEBUG
+//#undef DEBUG

@@ -57,6 +57,12 @@
 		2CE7BCEF13897294009784B9 /* Selection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7BCEE13897294009784B9 /* Selection.m */; };
 		53C893E11A37E904002656A0 /* 疯狂iOS讲义.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 53C893DF1A37E904002656A0 /* 疯狂iOS讲义.pdf */; };
 		53C893E21A37E904002656A0 /* es_spec_3.0.4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 53C893E01A37E904002656A0 /* es_spec_3.0.4.pdf */; };
+		9D8C64DB1A39C73900748DEE /* 茶花女.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D8C64DA1A39C73900748DEE /* 茶花女.pdf */; };
+		9D8C64DC1A39C74200748DEE /* 茶花女.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D8C64DA1A39C73900748DEE /* 茶花女.pdf */; };
+		9D8C650D1A3EBB1100748DEE /* 囚徒健身.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D8C650C1A3EBB1100748DEE /* 囚徒健身.pdf */; };
+		9D8C650E1A3EBB1100748DEE /* 囚徒健身.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D8C650C1A3EBB1100748DEE /* 囚徒健身.pdf */; };
+		9DBF3B321A44355C00C1FD34 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF3B311A44355C00C1FD34 /* Util.m */; };
+		9DBF3B331A44355C00C1FD34 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF3B311A44355C00C1FD34 /* Util.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +154,10 @@
 		2CE7BCEE13897294009784B9 /* Selection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Selection.m; path = PDFKitten/Selection.m; sourceTree = SOURCE_ROOT; };
 		53C893DF1A37E904002656A0 /* 疯狂iOS讲义.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "疯狂iOS讲义.pdf"; sourceTree = SOURCE_ROOT; };
 		53C893E01A37E904002656A0 /* es_spec_3.0.4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = es_spec_3.0.4.pdf; sourceTree = SOURCE_ROOT; };
+		9D8C64DA1A39C73900748DEE /* 茶花女.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "茶花女.pdf"; sourceTree = SOURCE_ROOT; };
+		9D8C650C1A3EBB1100748DEE /* 囚徒健身.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "囚徒健身.pdf"; sourceTree = SOURCE_ROOT; };
+		9DBF3B301A44355C00C1FD34 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = PDFKitten/Util.h; sourceTree = SOURCE_ROOT; };
+		9DBF3B311A44355C00C1FD34 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Util.m; path = PDFKitten/Util.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,7 +290,9 @@
 		2CA0FC9A13EEB1430028DCCD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9D8C64DA1A39C73900748DEE /* 茶花女.pdf */,
 				53C893DF1A37E904002656A0 /* 疯狂iOS讲义.pdf */,
+				9D8C650C1A3EBB1100748DEE /* 囚徒健身.pdf */,
 				53C893E01A37E904002656A0 /* es_spec_3.0.4.pdf */,
 				2C77F7B31442381300767E6A /* Kurt the Cat.pdf */,
 				2CDC3F7A138977C0006CC6FB /* InfoPlist.strings */,
@@ -302,6 +314,8 @@
 		2CA0FCA713EEB32D0028DCCD /* PDF Core */ = {
 			isa = PBXGroup;
 			children = (
+				9DBF3B301A44355C00C1FD34 /* Util.h */,
+				9DBF3B311A44355C00C1FD34 /* Util.m */,
 				2CE7BCE413897225009784B9 /* Scanner */,
 				2CE7BCBB13897129009784B9 /* Font */,
 				2CE7BCE81389724B009784B9 /* RenderingState */,
@@ -480,8 +494,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				53C893E11A37E904002656A0 /* 疯狂iOS讲义.pdf in Resources */,
+				9D8C650E1A3EBB1100748DEE /* 囚徒健身.pdf in Resources */,
 				2CE202EF14C4B539006BD9E3 /* Ligatures.pdf in Resources */,
 				2CDC3F80138977C1006CC6FB /* InfoPlist.strings in Resources */,
+				9D8C64DC1A39C74200748DEE /* 茶花女.pdf in Resources */,
 				2CDC3F81138977C1006CC6FB /* MainWindow.xib in Resources */,
 				2CA0FCA613EEB1C00028DCCD /* PageViewController.xib in Resources */,
 				53C893E21A37E904002656A0 /* es_spec_3.0.4.pdf in Resources */,
@@ -495,7 +511,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C754CA614B3A1D700105B5E /* InfoPlist.strings in Resources */,
+				9D8C650D1A3EBB1100748DEE /* 囚徒健身.pdf in Resources */,
 				2CE202EC14C4AFF1006BD9E3 /* Ligatures.pdf in Resources */,
+				9D8C64DB1A39C73900748DEE /* 茶花女.pdf in Resources */,
 				2C60BDC314F122E600F0846E /* Sample.cmap in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -542,6 +560,7 @@
 				2CE7BCE713897245009784B9 /* Scanner.m in Sources */,
 				2CE7BCEB1389725D009784B9 /* RenderingState.m in Sources */,
 				2CE7BCEF13897294009784B9 /* Selection.m in Sources */,
+				9DBF3B331A44355C00C1FD34 /* Util.m in Sources */,
 				2CDC3F65138972E5006CC6FB /* StringDetector.m in Sources */,
 				2CA0FC9413EEB11B0028DCCD /* RootViewController.m in Sources */,
 				2CA0FC9713EEB1210028DCCD /* PDFPage.m in Sources */,
@@ -559,6 +578,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C754CA914B3A1D700105B5E /* KittenTest.m in Sources */,
+				9DBF3B321A44355C00C1FD34 /* Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,6 +670,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = PDFKitten;
 				PROVISIONING_PROFILE = "3e59c09d-2994-4887-938f-cfe4c90c9213";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -671,6 +692,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = PDFKitten;
 				PROVISIONING_PROFILE = "3e59c09d-2994-4887-938f-cfe4c90c9213";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -700,6 +722,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "KittenTest/KittenTest-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -724,6 +747,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "KittenTest/KittenTest-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = octest;

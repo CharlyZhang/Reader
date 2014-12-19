@@ -14,6 +14,9 @@
 {
 	if ((self = [super initWithFontDictionary:dict]))
 	{
+        /// retreive the CMap
+        [self setCMapWithFontDictionary:dict];
+        
 		CGPDFArrayRef dFonts;
 		if (CGPDFDictionaryGetArray(dict, "DescendantFonts", &dFonts))
 		{
@@ -38,6 +41,7 @@
 				{
 					// Add descendant font of type 2
 					CIDType2Font *font = [[CIDType2Font alloc] initWithFontDictionary:fontDict];
+                    font.CMapName = self.CMapName;
 					if (font) [self.descendantFonts addObject:font];
 					[font release];
 				}
@@ -105,6 +109,61 @@
 	return @"";
 }
 
+#pragma mark - CMap Mapping
+/* Set predefined CMap, given a font dictionary */
+- (void)setCMapWithFontDictionary:(CGPDFDictionaryRef)dict
+{
+    CGPDFObjectRef CMapObject;
+    if (!CGPDFDictionaryGetObject(dict, "Encoding", &CMapObject)) return;
+    [self setCMapWithCMapObject:CMapObject];
+}
+
+/* Set CMap with name or dictionary */
+- (void)setCMapWithCMapObject:(CGPDFObjectRef)object
+{
+    CGPDFObjectType type = CGPDFObjectGetType(object);
+    
+    /* Encoding entity is predefined */
+    if (type == kCGPDFObjectTypeName)
+    {
+        const char *name;
+        if (!CGPDFObjectGetValue(object, kCGPDFObjectTypeName, &name)) return;
+        
+        /// GB2312-2000
+        if (strcmp(name, "GBK-EUC-H") == 0 ||
+            strcmp(name, "GBK-EUC-V") == 0 ||
+            strcmp(name, "GBKp-EUC-H") == 0 ||
+            strcmp(name, "GBKp-EUC-V") == 0 ||
+            strcmp(name, "GBK2K-H") == 0 ||
+            strcmp(name, "GBK2K-V") == 0 )
+        {
+            CMapName = @"GB2312-2000";
+        }
+        /// GB2312-80
+        else if (strcmp(name, "GB-EUC-H") == 0 ||
+                 strcmp(name, "GB-EUC-V") == 0 ||
+                 strcmp(name, "GBpc-EUC-H") == 0 ||
+                 strcmp(name, "GBpc-EUC-V") == 0 )
+        {
+            // What is MacExpertEncoding ??
+            CMapName = @"GB2312-80";
+        }
+        else
+        {
+            /// TO DO: Deal with other predefined CMap
+        }
+        
+        return;
+    }
+    
+    /* Only accept stream objects */
+    if (type != kCGPDFObjectTypeStream) return;
+    
+    /// TO DO: Deal with the stream CMap
+    
+    
+    
+}
 
 #pragma mark -
 #pragma mark Memory Management

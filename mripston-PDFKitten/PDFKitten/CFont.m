@@ -90,7 +90,11 @@ const char *kTypeKey = "Type";
 		const char *fontName = nil;
 		if (CGPDFDictionaryGetName(dict, kBaseFontKey, &fontName))
 		{
-			self.baseFont = [NSString stringWithCString:fontName encoding:NSUTF8StringEncoding];
+            
+            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+            
+//			self.baseFont = [NSString stringWithCString:fontName encoding:NSUTF8StringEncoding];
+            self.baseFont = [NSString stringWithCString:fontName encoding:enc];
 		}
 		
 		// NOTE: Any furhter initialization is performed by the appropriate subclass

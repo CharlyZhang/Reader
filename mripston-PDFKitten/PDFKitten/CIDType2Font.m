@@ -6,7 +6,10 @@
 - (void)setCIDToGIDMapWithDictionary:(CGPDFDictionaryRef)dict
 {
 	CGPDFObjectRef object = nil;
-	if (!CGPDFDictionaryGetObject(dict, "CIDToGIDMap", &object)) return;
+    if (!CGPDFDictionaryGetObject(dict, "CIDToGIDMap", &object)) {
+        identity = YES;         /// default value is identity
+        return;
+    }
 	CGPDFObjectType type = CGPDFObjectGetType(object);
 	if (type == kCGPDFObjectTypeName)
 	{
@@ -42,7 +45,7 @@
 	NSString *registryString = (NSString *) CGPDFStringCopyTextString(registry);
 	NSString *orderingString = (NSString *) CGPDFStringCopyTextString(ordering);
 	
-	NSString *cidSystemString = [NSString stringWithFormat:@"%@ (%@) %ld", registryString, orderingString, supplement];
+	cidSystemString = [NSString stringWithFormat:@"%@ (%@) %ld", registryString, orderingString, supplement];
 	NSLog(@"%@", cidSystemString);
 	
 	[registryString release];
@@ -59,19 +62,35 @@
 	return self;
 }
 
+/// return CID, from showed text character
 - (NSString *)stringWithPDFString:(CGPDFStringRef)pdfString
 {
 	unichar *characterIDs = (unichar *) CGPDFStringGetBytePtr(pdfString);
-	int length = CGPDFStringGetLength(pdfString) / sizeof(unichar);
-	int magicalOffset = ([self isIdentity] ? 0 : 30);
-	NSMutableString *unicodeString = [NSMutableString string];
-	for (int i = 0; i < length; i++)
-	{
-		unichar unicodeValue = characterIDs[i] + magicalOffset;
-		[unicodeString appendFormat:@"%C", unicodeValue];
-	}
 
-	return unicodeString;
+    /// check the CIDSystemInfo
+    NSRange range = [cidSystemString rangeOfString:@"GB"];
+    if (range.location != NSNotFound) {
+        NSStringEncoding enc;
+        if ([CMapName isEqualToString:@"GB2312-2000"]) {
+            enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+        }
+        else if([CMapName isEqualToString:@"GB2312-80"]){
+            enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_2312_80);
+        }
+        NSString *str = [NSString stringWithCString:(const char *)characterIDs encoding:enc];
+        return str;
+    }
+    else {
+        int length = CGPDFStringGetLength(pdfString) / sizeof(unichar);
+        NSMutableString *unicodeString = [NSMutableString string];
+        int magicalOffset = ([self isIdentity] ? 0 : 30);
+        for (int i = 0; i < length; i++)
+        {
+            unichar unicodeValue = characterIDs[i] + magicalOffset;
+            [unicodeString appendFormat:@"%C", unicodeValue];
+        }
+        return unicodeString;
+    }
 }
 
 @synthesize identity;

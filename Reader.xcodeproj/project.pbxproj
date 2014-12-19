@@ -231,8 +231,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				53C893E31A37E929002656A0 /* 疯狂iOS讲义.pdf */,
 				53C893E41A37E92A002656A0 /* es_spec_3.0.4.pdf */,
+				53C893E31A37E929002656A0 /* 疯狂iOS讲义.pdf */,
 				4541A9D7122EA716001A5E60 /* Localizable.strings */,
 				45AB72DF141FC04B003524C3 /* README.md */,
 				45D5AD9E1610E66B00706B9A /* HISTORY.md */,

@@ -14,7 +14,10 @@
 
 @interface CompositeFont : Font {
     CGFloat defaultWidth;
+    NSString *cidSystemString;
+    NSString *CMapName;         /// for Type0 Font and CIDType2 Font will refer to its parents's CMapName
 }
 
+@property (nonatomic, strong) NSString *CMapName;
 @property (nonatomic, assign) CGFloat defaultWidth;
 @end
