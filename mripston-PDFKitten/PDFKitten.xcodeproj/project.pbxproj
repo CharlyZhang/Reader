@@ -57,12 +57,16 @@
 		2CE7BCEF13897294009784B9 /* Selection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7BCEE13897294009784B9 /* Selection.m */; };
 		53C893E11A37E904002656A0 /* 疯狂iOS讲义.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 53C893DF1A37E904002656A0 /* 疯狂iOS讲义.pdf */; };
 		53C893E21A37E904002656A0 /* es_spec_3.0.4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 53C893E01A37E904002656A0 /* es_spec_3.0.4.pdf */; };
+		9D6148161A4A7B3000650871 /* XObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6148151A4A7B3000650871 /* XObject.m */; };
+		9D6148171A4A7B3000650871 /* XObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6148151A4A7B3000650871 /* XObject.m */; };
+		9D61481B1A4A825C00650871 /* XObjectCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D61481A1A4A825C00650871 /* XObjectCollection.m */; };
+		9D61481C1A4A825C00650871 /* XObjectCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D61481A1A4A825C00650871 /* XObjectCollection.m */; };
 		9D8C64DB1A39C73900748DEE /* 茶花女.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D8C64DA1A39C73900748DEE /* 茶花女.pdf */; };
 		9D8C64DC1A39C74200748DEE /* 茶花女.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D8C64DA1A39C73900748DEE /* 茶花女.pdf */; };
 		9D8C650D1A3EBB1100748DEE /* 囚徒健身.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D8C650C1A3EBB1100748DEE /* 囚徒健身.pdf */; };
 		9D8C650E1A3EBB1100748DEE /* 囚徒健身.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D8C650C1A3EBB1100748DEE /* 囚徒健身.pdf */; };
-		9DBF3B321A44355C00C1FD34 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF3B311A44355C00C1FD34 /* Util.m */; };
-		9DBF3B331A44355C00C1FD34 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF3B311A44355C00C1FD34 /* Util.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9DBF3B351A494F0D00C1FD34 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF3B311A44355C00C1FD34 /* Util.m */; };
+		9DBF3B361A494F6800C1FD34 /* Scanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7BCE613897245009784B9 /* Scanner.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +158,10 @@
 		2CE7BCEE13897294009784B9 /* Selection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Selection.m; path = PDFKitten/Selection.m; sourceTree = SOURCE_ROOT; };
 		53C893DF1A37E904002656A0 /* 疯狂iOS讲义.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "疯狂iOS讲义.pdf"; sourceTree = SOURCE_ROOT; };
 		53C893E01A37E904002656A0 /* es_spec_3.0.4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = es_spec_3.0.4.pdf; sourceTree = SOURCE_ROOT; };
+		9D6148141A4A7B3000650871 /* XObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XObject.h; path = PDFKitten/XObject.h; sourceTree = SOURCE_ROOT; };
+		9D6148151A4A7B3000650871 /* XObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XObject.m; path = PDFKitten/XObject.m; sourceTree = SOURCE_ROOT; };
+		9D6148191A4A825C00650871 /* XObjectCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XObjectCollection.h; path = PDFKitten/XObjectCollection.h; sourceTree = SOURCE_ROOT; };
+		9D61481A1A4A825C00650871 /* XObjectCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XObjectCollection.m; path = PDFKitten/XObjectCollection.m; sourceTree = SOURCE_ROOT; };
 		9D8C64DA1A39C73900748DEE /* 茶花女.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "茶花女.pdf"; sourceTree = SOURCE_ROOT; };
 		9D8C650C1A3EBB1100748DEE /* 囚徒健身.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "囚徒健身.pdf"; sourceTree = SOURCE_ROOT; };
 		9DBF3B301A44355C00C1FD34 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = PDFKitten/Util.h; sourceTree = SOURCE_ROOT; };
@@ -316,6 +324,7 @@
 			children = (
 				9DBF3B301A44355C00C1FD34 /* Util.h */,
 				9DBF3B311A44355C00C1FD34 /* Util.m */,
+				9D6148181A4A821500650871 /* XObject */,
 				2CE7BCE413897225009784B9 /* Scanner */,
 				2CE7BCBB13897129009784B9 /* Font */,
 				2CE7BCE81389724B009784B9 /* RenderingState */,
@@ -420,6 +429,17 @@
 				2CE7BCEE13897294009784B9 /* Selection.m */,
 			);
 			name = Selection;
+			sourceTree = "<group>";
+		};
+		9D6148181A4A821500650871 /* XObject */ = {
+			isa = PBXGroup;
+			children = (
+				9D6148141A4A7B3000650871 /* XObject.h */,
+				9D6148151A4A7B3000650871 /* XObject.m */,
+				9D6148191A4A825C00650871 /* XObjectCollection.h */,
+				9D61481A1A4A825C00650871 /* XObjectCollection.m */,
+			);
+			name = XObject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -554,15 +574,17 @@
 				2CE7BCD313897142009784B9 /* MMType1Font.m in Sources */,
 				2CE7BCD61389714F009784B9 /* SimpleFont.m in Sources */,
 				2CE7BCDF13897159009784B9 /* TrueTypeFont.m in Sources */,
+				9D6148171A4A7B3000650871 /* XObject.m in Sources */,
 				2CE7BCE013897159009784B9 /* Type0Font.m in Sources */,
 				2CE7BCE113897159009784B9 /* Type1Font.m in Sources */,
 				2CE7BCE213897159009784B9 /* Type3Font.m in Sources */,
 				2CE7BCE713897245009784B9 /* Scanner.m in Sources */,
 				2CE7BCEB1389725D009784B9 /* RenderingState.m in Sources */,
 				2CE7BCEF13897294009784B9 /* Selection.m in Sources */,
-				9DBF3B331A44355C00C1FD34 /* Util.m in Sources */,
+				9DBF3B351A494F0D00C1FD34 /* Util.m in Sources */,
 				2CDC3F65138972E5006CC6FB /* StringDetector.m in Sources */,
 				2CA0FC9413EEB11B0028DCCD /* RootViewController.m in Sources */,
+				9D61481C1A4A825C00650871 /* XObjectCollection.m in Sources */,
 				2CA0FC9713EEB1210028DCCD /* PDFPage.m in Sources */,
 				2CA0FCA113EEB1B80028DCCD /* Page.m in Sources */,
 				2CA0FCA513EEB1C00028DCCD /* PageViewController.m in Sources */,
@@ -577,8 +599,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DBF3B361A494F6800C1FD34 /* Scanner.m in Sources */,
+				9D61481B1A4A825C00650871 /* XObjectCollection.m in Sources */,
+				9D6148161A4A7B3000650871 /* XObject.m in Sources */,
 				2C754CA914B3A1D700105B5E /* KittenTest.m in Sources */,
-				9DBF3B321A44355C00C1FD34 /* Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,7 +728,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PDFKitten.app/PDFKitten";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -734,7 +758,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PDFKitten.app/PDFKitten";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (

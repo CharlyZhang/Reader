@@ -2,6 +2,7 @@
 #import "Scanner.h"
 #import <QuartzCore/QuartzCore.h>
 #import "FontFile.h"
+#import "Util.h"
 
 @implementation KittenTest
 

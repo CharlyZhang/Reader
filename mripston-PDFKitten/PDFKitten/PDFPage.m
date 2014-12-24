@@ -1,5 +1,6 @@
 #import "PDFPage.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Util.h"
 
 @implementation PDFContentView
 
@@ -29,7 +30,7 @@
 {
 	[keyword release];
 	keyword = [str retain];
-	self.selections = nil;
+    self.selections = nil;
     self.scanner.selections = nil;
 }
 
