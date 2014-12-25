@@ -109,6 +109,31 @@
 	return @"";
 }
 
+- (NSString *)cidWithPDFString:(CGPDFStringRef)pdfString
+{
+    if (self.toUnicode)
+    {
+        size_t stringLength = CGPDFStringGetLength(pdfString);
+        const unsigned char *characterCodes = CGPDFStringGetBytePtr(pdfString);
+        NSMutableString *cidString = [NSMutableString string];
+        
+        for (int i = 0; i < stringLength; i+=2)
+        {
+            unichar characterCode = characterCodes[i] << 8 | characterCodes[i+1];
+            [cidString appendFormat:@"%C", characterCode];
+        }
+        return cidString;
+    }
+    /// return the pdfString, if there exists no toUnicode CMap, in which case cid is meaningless
+    else if ([self.descendantFonts count] > 0)
+    {
+        Font *descendantFont = [self.descendantFonts lastObject];
+        return [descendantFont stringWithPDFString:pdfString];
+    }
+    
+    return @"";
+}
+
 #pragma mark - CMap Mapping
 /* Set predefined CMap, given a font dictionary */
 - (void)setCMapWithFontDictionary:(CGPDFDictionaryRef)dict

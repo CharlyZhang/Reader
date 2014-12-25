@@ -27,7 +27,7 @@
 - (NSString *)appendPDFString:(CGPDFStringRef)string withFont:(Font *)font
 {
 	// Use CID string for font-related computations.
-	NSString *cidString = [font stringWithPDFString:string];
+	NSString *cidString = [font cidWithPDFString:string];
  	
 	// Use Unicode string to compare with user input.
 	NSString *unicodeString = [[font stringWithPDFString:string] lowercaseString];

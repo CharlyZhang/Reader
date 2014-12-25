@@ -76,6 +76,11 @@
 	return [string autorelease];
 }
 
+- (NSString *)cidWithPDFString:(CGPDFStringRef)pdfString
+{
+    return [self stringWithPDFString:pdfString];
+}
+
 /* Set encoding with name or dictionary */
 - (void)setEncodingWithEncodingObject:(CGPDFObjectRef)object
 {

@@ -57,7 +57,7 @@
 	[super viewDidAppear:animated];
     
     [keyword release];
-    keyword = [@"87" retain];
+    keyword = [@"Cat" retain];
     [pageView setKeyword:keyword];
     
 	// Ask user to connect Dropbox account
@@ -123,10 +123,10 @@
 - (NSString *)documentPath
 {
     // DEBUG: for now, always load Kurt the Cat
-//	return [[NSBundle mainBundle] pathForResource:@"Kurt the Cat" ofType:@"pdf"];
+	return [[NSBundle mainBundle] pathForResource:@"Kurt the Cat" ofType:@"pdf"];
 //    return [[NSBundle mainBundle] pathForResource:@"es_spec_3.0.4" ofType:@"pdf"];
-    return [[NSBundle mainBundle] pathForResource:@"囚徒健身" ofType:@"pdf"];
- //   return [[NSBundle mainBundle] pathForResource:@"茶花女" ofType:@"pdf"];
+ //   return [[NSBundle mainBundle] pathForResource:@"囚徒健身" ofType:@"pdf"];
+//    return [[NSBundle mainBundle] pathForResource:@"茶花女" ofType:@"pdf"];
 
 
 }

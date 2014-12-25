@@ -28,6 +28,9 @@
 /* Initialize with a PDF document */
 - (id)initWithDocument:(CGPDFDocumentRef)document;
 
+/* Initialize with a rendering state */
+- (id)initWithRenderState:(RenderingState*)state;
+
 /* Start scanning (synchronous) */
 - (void)scanDocumentPage:(NSUInteger)pageNumber;
 

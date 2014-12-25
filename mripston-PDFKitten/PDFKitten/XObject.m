@@ -16,6 +16,7 @@
     
     // ASCII segment length (little endian)
     unsigned char *bytes = (uint8_t *) [data bytes];
+    
     NSString *ret;
     if (bytes[0] == 0x80)
     {

@@ -26,7 +26,7 @@
 	// Width (difference between caps) with text transformation removed
 	CGFloat width = [state textMatrix].tx - [initialState textMatrix].tx;	
 	width /= [state textMatrix].a;
-
+    
 	// Use tallest cap for entire selection
 	CGFloat startHeight = [openingFont maxY] - [openingFont minY];
 	CGFloat finishHeight = [closingFont maxY] - [closingFont minY];

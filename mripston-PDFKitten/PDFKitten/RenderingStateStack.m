@@ -5,14 +5,31 @@
 
 - (id)init
 {
-	if ((self = [super init]))
+    RenderingState *rootRenderingState = [[RenderingState alloc] init];
+	
+    if ((self = [self initWithState:rootRenderingState]))
 	{
 		stack = [[NSMutableArray alloc] init];
-		RenderingState *rootRenderingState = [[RenderingState alloc] init];
+		
 		[self pushRenderingState:rootRenderingState];
-		[rootRenderingState release];
+		
 	}
+    
+    [rootRenderingState release];
+    
 	return self;
+}
+
+/* Init with a rendering state */
+- (id)initWithState:(RenderingState*)state
+{
+    if ((self = [super init]))
+    {
+        stack = [[NSMutableArray alloc] init];
+        [self pushRenderingState:state];
+    }
+    
+    return self;
 }
 
 /* The rendering state currently on top of the stack */

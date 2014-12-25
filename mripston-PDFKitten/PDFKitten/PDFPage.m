@@ -51,6 +51,10 @@
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
 {
+#ifdef DEBUG
+    NSLog(@"draw Layer");
+#endif
+    
 	CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor] CGColor]);
 	CGContextFillRect(ctx, layer.bounds);
 	

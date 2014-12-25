@@ -88,8 +88,20 @@ void Do(CGPDFScannerRef scanner, void *info);
 	if ((self = [super init]))
 	{
 		self.documentURL = [NSURL fileURLWithPath:path];
+        self.content = [NSMutableString string];
 	}
 	return self;
+}
+
+/* Initialize with a rendering state , used when created to scan a content stream */
+- (id)initWithRenderState:(RenderingState*)state
+{
+    if ((self = [super init]))
+    {
+        renderingStateStack = [[RenderingStateStack alloc] initWithState:state];
+        self.content = [NSMutableString string];
+    }
+    return self;
 }
 
 #pragma mark Scanner state accessors
@@ -272,8 +284,7 @@ void Do(CGPDFScannerRef scanner, void *info);
 /* Start scanning a particular self-contained stream */
 - (void)scanStream:(CGPDFStreamRef)stream
 {
-    Scanner *streamScanner = [[Scanner alloc]init];
-    
+    Scanner *streamScanner = [[Scanner alloc]initWithRenderState:[self.renderingStateStack topRenderingState]];
     
     // copy the keyword
     streamScanner.keyword = keyword;
@@ -305,6 +316,14 @@ void Do(CGPDFScannerRef scanner, void *info);
     CGPDFScannerScan(newScanner);
     CGPDFScannerRelease(newScanner); newScanner = nil;
     CGPDFContentStreamRelease(contentStream); contentStream = nil;
+    
+    // save the xobjects selections
+    for (Selection *s in streamScanner.selections)
+    {
+        [self.selections addObject:s];
+    }
+    
+    [streamScanner release];
     
 }
 
@@ -673,6 +692,7 @@ void Do(CGPDFScannerRef scanner, void *info)
 	CGPDFOperatorTableRelease(operatorTable);
 	[currentSelection release];
 	[fontCollection release];
+    [xobjectCollection release];
 	[renderingStateStack release];
 	[keyword release]; keyword = nil;
 	[stringDetector release];
