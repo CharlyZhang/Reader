@@ -1,6 +1,7 @@
 #import "Scanner.h"
 #import "Util.h"
 
+#define DELTA 1e-6
 #pragma mark 
 
 @interface Scanner ()
@@ -187,14 +188,7 @@ void Do(CGPDFScannerRef scanner, void *info);
 #ifdef DEBUG
     //// show all document stream at certain page
     // [Util printDocument:pdfDocument atPageNo:0];
-    //    CGPDFContentStreamRef contentStream = CGPDFContentStreamCreateWithPage(page);
-    //    CFArrayRef streamArr = CGPDFContentStreamGetStreams(contentStream);
-    //
-    //    CFIndex num = CFArrayGetCount(streamArr);
-    //    for (CFIndex i=0; i<num; i++) {
-    //        CGPDFStreamRef s = (CGPDFStreamRef)CFArrayGetValueAtIndex(streamArr, i);
-    //        [Util getStringFromStream:s];
-    //    }
+    
     
     //// show all the items in page dictionary
     //[Util printDictionary:dict];
@@ -257,6 +251,19 @@ void Do(CGPDFScannerRef scanner, void *info);
 
 - (void)scanPage:(CGPDFPageRef)page
 {
+#ifdef DEBUG
+    // show the content stream of this page
+    CGPDFContentStreamRef stream = CGPDFContentStreamCreateWithPage(page);
+    CFArrayRef streamArr = CGPDFContentStreamGetStreams(stream);
+    
+    CFIndex num = CFArrayGetCount(streamArr);
+    for (CFIndex i=0; i<num; i++) {
+        CGPDFStreamRef s = (CGPDFStreamRef)CFArrayGetValueAtIndex(streamArr, i);
+        [Util getStringFromStream:s];
+    }
+    CGPDFContentStreamRelease(stream);
+#endif
+    
 	// Return immediately if no keyword set
 	if (!keyword) return;
     
@@ -428,6 +435,9 @@ void Tj(CGPDFScannerRef scanner, void *info)
 	CGPDFStringRef pdfString = nil;
 	if (!CGPDFScannerPopString(scanner, &pdfString)) return;
 	didScanString(pdfString, info);
+#ifdef DEBUG
+    NSLog(@"Tj");
+#endif
 }
 
 /* Equivalent to operator sequence [T*, Tj] */
@@ -507,9 +517,10 @@ void Td(CGPDFScannerRef scanner, void *info)
 	CGPDFScannerPopNumber(scanner, &tx);
 	[[(Scanner *)info currentRenderingState] newLineWithLeading:-ty indent:tx save:NO];
 #ifdef DEBUG
-    NSLog(@"Td -- %@",[(Scanner *)info content]);
+    NSLog(@"Td");
 #endif
-    [(Scanner *)info didScanOneLine];
+    if(fabs(ty) >= DELTA)
+        [(Scanner *)info didScanOneLine];
 }
 
 /* Move to start of next line, and set leading */
@@ -521,9 +532,10 @@ void TD(CGPDFScannerRef scanner, void *info)
 	[[(Scanner *)info currentRenderingState] newLineWithLeading:-ty indent:tx save:YES];
     
 #ifdef DEBUG
-    NSLog(@"TD -- %@",[(Scanner *)info content]);
+    NSLog(@"TD");
 #endif
-    [(Scanner *)info didScanOneLine];
+    if(fabs(ty) >= DELTA)
+        [(Scanner *)info didScanOneLine];
 }
 
 /* Set line and text matrixes */
@@ -540,7 +552,7 @@ void Tm(CGPDFScannerRef scanner, void *info)
 	[[(Scanner *)info currentRenderingState] setTextMatrix:t replaceLineMatrix:YES];
 
 #ifdef DEBUG
-    NSLog(@"Tm -- %@",[(Scanner *)info content]);
+    NSLog(@"Tm");
 #endif
     [(Scanner *)info didScanOneLine];
 }
@@ -549,6 +561,7 @@ void Tm(CGPDFScannerRef scanner, void *info)
 void TStar(CGPDFScannerRef scanner, void *info)
 {
 	[[(Scanner *)info currentRenderingState] newLine];
+    [(Scanner *)info didScanOneLine];
 }
 
 #pragma mark Text State operators

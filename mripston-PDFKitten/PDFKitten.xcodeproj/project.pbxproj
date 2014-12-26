@@ -57,6 +57,8 @@
 		2CE7BCEF13897294009784B9 /* Selection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE7BCEE13897294009784B9 /* Selection.m */; };
 		53C893E11A37E904002656A0 /* 疯狂iOS讲义.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 53C893DF1A37E904002656A0 /* 疯狂iOS讲义.pdf */; };
 		53C893E21A37E904002656A0 /* es_spec_3.0.4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 53C893E01A37E904002656A0 /* es_spec_3.0.4.pdf */; };
+		9D1F994F1A4D3F2200BAB94C /* 囚徒健身（中文全本）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D1F994E1A4D3F2200BAB94C /* 囚徒健身（中文全本）.pdf */; };
+		9D1F99501A4D3F2200BAB94C /* 囚徒健身（中文全本）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D1F994E1A4D3F2200BAB94C /* 囚徒健身（中文全本）.pdf */; };
 		9D6148161A4A7B3000650871 /* XObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6148151A4A7B3000650871 /* XObject.m */; };
 		9D6148171A4A7B3000650871 /* XObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6148151A4A7B3000650871 /* XObject.m */; };
 		9D61481B1A4A825C00650871 /* XObjectCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D61481A1A4A825C00650871 /* XObjectCollection.m */; };
@@ -158,6 +160,7 @@
 		2CE7BCEE13897294009784B9 /* Selection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Selection.m; path = PDFKitten/Selection.m; sourceTree = SOURCE_ROOT; };
 		53C893DF1A37E904002656A0 /* 疯狂iOS讲义.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "疯狂iOS讲义.pdf"; sourceTree = SOURCE_ROOT; };
 		53C893E01A37E904002656A0 /* es_spec_3.0.4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = es_spec_3.0.4.pdf; sourceTree = SOURCE_ROOT; };
+		9D1F994E1A4D3F2200BAB94C /* 囚徒健身（中文全本）.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "囚徒健身（中文全本）.pdf"; sourceTree = SOURCE_ROOT; };
 		9D6148141A4A7B3000650871 /* XObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XObject.h; path = PDFKitten/XObject.h; sourceTree = SOURCE_ROOT; };
 		9D6148151A4A7B3000650871 /* XObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XObject.m; path = PDFKitten/XObject.m; sourceTree = SOURCE_ROOT; };
 		9D6148191A4A825C00650871 /* XObjectCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XObjectCollection.h; path = PDFKitten/XObjectCollection.h; sourceTree = SOURCE_ROOT; };
@@ -298,6 +301,7 @@
 		2CA0FC9A13EEB1430028DCCD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9D1F994E1A4D3F2200BAB94C /* 囚徒健身（中文全本）.pdf */,
 				9D8C64DA1A39C73900748DEE /* 茶花女.pdf */,
 				53C893DF1A37E904002656A0 /* 疯狂iOS讲义.pdf */,
 				9D8C650C1A3EBB1100748DEE /* 囚徒健身.pdf */,
@@ -382,13 +386,13 @@
 				2CE7BCC113897135009784B9 /* CMap.m */,
 				2CE7BCC81389713D009784B9 /* CFont.h */,
 				2CE7BCC91389713D009784B9 /* CFont.m */,
+				2C06404114C782DE00A9B33F /* FontFile.h */,
+				2C06404214C782DF00A9B33F /* FontFile.m */,
 				2CE7BCCA1389713D009784B9 /* FontCollection.h */,
 				2CE7BCCB1389713D009784B9 /* FontCollection.m */,
 				2CE7BCCC1389713D009784B9 /* FontDescriptor.h */,
 				2CE7BCCD1389713D009784B9 /* FontDescriptor.m */,
 				2CE7BCE31389715F009784B9 /* Subtypes */,
-				2C06404114C782DE00A9B33F /* FontFile.h */,
-				2C06404214C782DF00A9B33F /* FontFile.m */,
 			);
 			name = Font;
 			sourceTree = "<group>";
@@ -523,6 +527,7 @@
 				53C893E21A37E904002656A0 /* es_spec_3.0.4.pdf in Resources */,
 				2C77F7B41442381300767E6A /* Kurt the Cat.pdf in Resources */,
 				2C60BDC214F122E600F0846E /* Sample.cmap in Resources */,
+				9D1F99501A4D3F2200BAB94C /* 囚徒健身（中文全本）.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +536,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C754CA614B3A1D700105B5E /* InfoPlist.strings in Resources */,
+				9D1F994F1A4D3F2200BAB94C /* 囚徒健身（中文全本）.pdf in Resources */,
 				9D8C650D1A3EBB1100748DEE /* 囚徒健身.pdf in Resources */,
 				2CE202EC14C4AFF1006BD9E3 /* Ligatures.pdf in Resources */,
 				9D8C64DB1A39C73900748DEE /* 茶花女.pdf in Resources */,
@@ -648,6 +654,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -656,6 +663,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PROVISIONING_PROFILE = "736b112e-e7ca-44f1-8193-7f99a9cd51d5";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -665,12 +673,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "736b112e-e7ca-44f1-8193-7f99a9cd51d5";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -693,7 +703,7 @@
 				INFOPLIST_FILE = "PDFKitten/PDFKitten-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = PDFKitten;
-				PROVISIONING_PROFILE = "3e59c09d-2994-4887-938f-cfe4c90c9213";
+				PROVISIONING_PROFILE = "736b112e-e7ca-44f1-8193-7f99a9cd51d5";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -715,7 +725,7 @@
 				INFOPLIST_FILE = "PDFKitten/PDFKitten-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = PDFKitten;
-				PROVISIONING_PROFILE = "3e59c09d-2994-4887-938f-cfe4c90c9213";
+				PROVISIONING_PROFILE = "736b112e-e7ca-44f1-8193-7f99a9cd51d5";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -729,7 +739,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PDFKitten.app/PDFKitten";
 				CLANG_ENABLE_OBJC_ARC = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: LI Leichuan (YK29UXBS4P)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -746,6 +756,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "KittenTest/KittenTest-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "736b112e-e7ca-44f1-8193-7f99a9cd51d5";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -759,7 +770,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PDFKitten.app/PDFKitten";
 				CLANG_ENABLE_OBJC_ARC = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: LI Leichuan (YK29UXBS4P)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -771,6 +782,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "KittenTest/KittenTest-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "736b112e-e7ca-44f1-8193-7f99a9cd51d5";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				VALIDATE_PRODUCT = YES;

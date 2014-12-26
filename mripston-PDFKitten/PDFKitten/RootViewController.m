@@ -56,10 +56,6 @@
 {
 	[super viewDidAppear:animated];
     
-    [keyword release];
-    keyword = [@"Cat" retain];
-    [pageView setKeyword:keyword];
-    
 	// Ask user to connect Dropbox account
 //	DBLoginController *loginController = [[DBLoginController new] autorelease];
 //	[loginController presentFromController:self];

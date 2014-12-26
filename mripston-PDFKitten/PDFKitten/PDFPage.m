@@ -1,6 +1,5 @@
 #import "PDFPage.h"
 #import <QuartzCore/QuartzCore.h>
-#import "Util.h"
 
 @implementation PDFContentView
 
