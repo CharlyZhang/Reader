@@ -83,7 +83,7 @@ NSValue *rangeValue(unsigned int from, unsigned int to)
 		if (cid >= range.location && cid <= NSMaxRange(range))
 		{
 			NSNumber *offsetValue = [self.characterRangeMappings objectForKey:rangeValue];
-			return cid + [offsetValue intValue];
+			return cid - range.location + [offsetValue intValue];
 		}
 	}
 	
@@ -145,9 +145,17 @@ NSValue *rangeValue(unsigned int from, unsigned int to)
 	NSString *token = nil;
 	[scanner scanUpToCharactersFromSet:self.tokenDelimiterSet intoString:&token];
 
+    NSUInteger *len = [token length];
+    if (len == 0) {
+        if (![scanner isAtEnd]) {
+            [scanner setScanLocation:[scanner scanLocation]+1];
+        }
+        return [self tokenByTrimmingComments:scanner];
+    }
+    
 	static NSString *commentMarker = @"%%";
 	NSRange commentMarkerRange = [token rangeOfString:commentMarker];
-	if (commentMarkerRange.location != NSNotFound)
+	if (token && commentMarkerRange.location != NSNotFound)
 	{
 		[scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:nil];
 		token = [token substringToIndex:commentMarkerRange.location];
@@ -290,7 +298,11 @@ NSValue *rangeValue(unsigned int from, unsigned int to)
 
 - (NSCharacterSet *)tokenDelimiterSet {
 	if (!sharedTokenDelimimerSet) {
-		sharedTokenDelimimerSet = [[NSCharacterSet whitespaceAndNewlineCharacterSet] retain];
+        NSMutableCharacterSet *mcs = [[NSMutableCharacterSet characterSetWithCharactersInString:@">"] retain];
+        [mcs formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        sharedTokenDelimimerSet = mcs;
+
 	}
 	return sharedTokenDelimimerSet;
 }

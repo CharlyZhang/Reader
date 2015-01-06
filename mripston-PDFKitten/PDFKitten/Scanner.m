@@ -252,16 +252,16 @@ void Do(CGPDFScannerRef scanner, void *info);
 - (void)scanPage:(CGPDFPageRef)page
 {
 #ifdef DEBUG
-    // show the content stream of this page
-    CGPDFContentStreamRef stream = CGPDFContentStreamCreateWithPage(page);
-    CFArrayRef streamArr = CGPDFContentStreamGetStreams(stream);
-    
-    CFIndex num = CFArrayGetCount(streamArr);
-    for (CFIndex i=0; i<num; i++) {
-        CGPDFStreamRef s = (CGPDFStreamRef)CFArrayGetValueAtIndex(streamArr, i);
-        [Util getStringFromStream:s];
-    }
-    CGPDFContentStreamRelease(stream);
+//    // show the content stream of this page
+//    CGPDFContentStreamRef stream = CGPDFContentStreamCreateWithPage(page);
+//    CFArrayRef streamArr = CGPDFContentStreamGetStreams(stream);
+//    
+//    CFIndex num = CFArrayGetCount(streamArr);
+//    for (CFIndex i=0; i<num; i++) {
+//        CGPDFStreamRef s = (CGPDFStreamRef)CFArrayGetValueAtIndex(streamArr, i);
+//        [Util getStringFromStream:s];
+//    }
+//    CGPDFContentStreamRelease(stream);
 #endif
     
 	// Return immediately if no keyword set
@@ -382,6 +382,7 @@ void Do(CGPDFScannerRef scanner, void *info);
         sel.lineContent = [NSString stringWithString:self.content];
     }
     
+    NSLog(@"%@",self.content);
     [self.content setString:@""];
 }
 

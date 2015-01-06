@@ -86,5 +86,11 @@ static const char *kCompositeFontDefaultWidthKey = "DW";
 	return [width floatValue] * fontSize;
 }
 
+- (void)dealloc
+{
+    [CMapName release];
+    [super dealloc];
+}
+
 @synthesize defaultWidth, CMapName;
 @end
