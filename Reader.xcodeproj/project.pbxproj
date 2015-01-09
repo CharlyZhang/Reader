@@ -68,6 +68,7 @@
 		45D5ADA31610EADD00706B9A /* ReaderDocumentOutline.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D5ADA21610EADC00706B9A /* ReaderDocumentOutline.m */; };
 		53C893E51A37E92A002656A0 /* 疯狂iOS讲义.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 53C893E31A37E929002656A0 /* 疯狂iOS讲义.pdf */; };
 		53C893E61A37E92A002656A0 /* es_spec_3.0.4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 53C893E41A37E92A002656A0 /* es_spec_3.0.4.pdf */; };
+		9D0F65A41A5E57410040C69A /* 囚徒健身（中文全本）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D0F65A31A5E57410040C69A /* 囚徒健身（中文全本）.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -163,6 +164,7 @@
 		53C893E31A37E929002656A0 /* 疯狂iOS讲义.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "疯狂iOS讲义.pdf"; sourceTree = "<group>"; };
 		53C893E41A37E92A002656A0 /* es_spec_3.0.4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = es_spec_3.0.4.pdf; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Reader-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Reader-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		9D0F65A31A5E57410040C69A /* 囚徒健身（中文全本）.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "囚徒健身（中文全本）.pdf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 			children = (
 				53C893E41A37E92A002656A0 /* es_spec_3.0.4.pdf */,
 				53C893E31A37E929002656A0 /* 疯狂iOS讲义.pdf */,
+				9D0F65A31A5E57410040C69A /* 囚徒健身（中文全本）.pdf */,
 				4541A9D7122EA716001A5E60 /* Localizable.strings */,
 				45AB72DF141FC04B003524C3 /* README.md */,
 				45D5AD9E1610E66B00706B9A /* HISTORY.md */,
@@ -429,6 +432,7 @@
 				45AB72CB141FBFCA003524C3 /* Reader-Mark-N.png in Resources */,
 				45AB72CC141FBFCA003524C3 /* Reader-Mark-N@2x.png in Resources */,
 				45AB72CD141FBFCA003524C3 /* Reader-Mark-Y.png in Resources */,
+				9D0F65A41A5E57410040C69A /* 囚徒健身（中文全本）.pdf in Resources */,
 				45AB72CE141FBFCA003524C3 /* Reader-Mark-Y@2x.png in Resources */,
 				53C893E61A37E92A002656A0 /* es_spec_3.0.4.pdf in Resources */,
 				45AB72CF141FBFCA003524C3 /* Reader-Print.png in Resources */,
@@ -514,7 +518,7 @@
 				GCC_PREFIX_HEADER = "Reader-Prefix.pch";
 				INFOPLIST_FILE = "Reader-Info.plist";
 				PRODUCT_NAME = Reader;
-				PROVISIONING_PROFILE = "3e59c09d-2994-4887-938f-cfe4c90c9213";
+				PROVISIONING_PROFILE = "736b112e-e7ca-44f1-8193-7f99a9cd51d5";
 			};
 			name = Debug;
 		};
@@ -529,7 +533,7 @@
 				GCC_PREFIX_HEADER = "Reader-Prefix.pch";
 				INFOPLIST_FILE = "Reader-Info.plist";
 				PRODUCT_NAME = Reader;
-				PROVISIONING_PROFILE = "3e59c09d-2994-4887-938f-cfe4c90c9213";
+				PROVISIONING_PROFILE = "736b112e-e7ca-44f1-8193-7f99a9cd51d5";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -574,7 +578,7 @@
 				GCC_PREFIX_HEADER = "Reader-Prefix.pch";
 				INFOPLIST_FILE = "Reader-Info.plist";
 				PRODUCT_NAME = Reader;
-				PROVISIONING_PROFILE = "3e59c09d-2994-4887-938f-cfe4c90c9213";
+				PROVISIONING_PROFILE = "736b112e-e7ca-44f1-8193-7f99a9cd51d5";
 			};
 			name = Testing;
 		};

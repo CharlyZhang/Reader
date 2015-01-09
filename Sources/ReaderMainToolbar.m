@@ -124,12 +124,40 @@
 		//thumbsButton.backgroundColor = [UIColor grayColor];
 		thumbsButton.exclusiveTouch = YES;
 
-		[self addSubview:thumbsButton]; //leftButtonX += (iconButtonWidth + buttonSpacing);
+		[self addSubview:thumbsButton]; leftButtonX += (iconButtonWidth + buttonSpacing);
 
 		titleX += (iconButtonWidth + buttonSpacing); titleWidth -= (iconButtonWidth + buttonSpacing);
 
 #endif // end of READER_ENABLE_THUMBS Option
-
+        
+        
+#if (READER_PAGE_MODE == TRUE) // Option
+        
+        UIFont *pageButtonFont = [UIFont systemFontOfSize:BUTTON_FONT_SIZE];
+        NSString *pageButtonText = NSLocalizedString(@"Curl", @"button");
+        CGSize pageButtonSize = [pageButtonText sizeWithFont:pageButtonFont];
+        CGFloat pageButtonWidth = (pageButtonSize.width + TEXT_BUTTON_PADDING);
+        
+        UIButton *pageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        pageButton.frame = CGRectMake(leftButtonX, BUTTON_Y, pageButtonWidth, BUTTON_HEIGHT);
+        [pageButton setTitleColor:[UIColor colorWithWhite:0.0f alpha:1.0f] forState:UIControlStateNormal];
+        [pageButton setTitleColor:[UIColor colorWithWhite:1.0f alpha:1.0f] forState:UIControlStateHighlighted];
+        [pageButton setTitle:pageButtonText forState:UIControlStateNormal]; pageButton.titleLabel.font = pageButtonFont;
+        [pageButton addTarget:self action:@selector(pageButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [pageButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
+        [pageButton setBackgroundImage:buttonN forState:UIControlStateNormal];
+        pageButton.autoresizingMask = UIViewAutoresizingNone;
+        //doneButton.backgroundColor = [UIColor grayColor];
+        pageButton.exclusiveTouch = YES;
+        
+        pageButton.selected = NO;
+        
+        [self addSubview:pageButton]; //leftButtonX += (doneButtonWidth + buttonSpacing);
+        
+        titleX += (doneButtonWidth + buttonSpacing); titleWidth -= (doneButtonWidth + buttonSpacing);
+        
+#endif // end of READER_PAGE_MODE Option
+        
 		CGFloat rightButtonX = viewWidth; // Right-side buttons start X position
 
 #if (READER_BOOKMARKS == TRUE) // Option
@@ -326,6 +354,11 @@
 - (void)doneButtonTapped:(UIButton *)button
 {
 	[delegate tappedInToolbar:self doneButton:button];
+}
+
+- (void)pageButtonTapped:(UIButton *)button
+{
+    [delegate tappedInToolbar:self pageButton:button];
 }
 
 - (void)thumbsButtonTapped:(UIButton *)button

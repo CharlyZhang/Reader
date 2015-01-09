@@ -691,6 +691,59 @@
 	}
 }
 
+- (IBAction)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer {
+    NSInteger page = [document.pageNumber integerValue];
+    NSInteger maxPage = [document.pageCount integerValue];
+    NSInteger minPage = 1; // Minimum
+    CGPoint location = [recognizer locationInView:self.view];
+    // [self showImageWithText:@"swipe" atPoint:location];
+    
+    if (recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+        location.x -= 220.0;
+        NSLog(@"Swip Left");
+        
+        if ((maxPage > minPage) && (page != maxPage))
+        {
+            [self TurnPageRight];
+        }
+        
+        
+    }
+    else {
+        location.x += 220.0;
+        NSLog(@"Swip Right");
+        
+        if ((maxPage > minPage) && (page != minPage))
+        {
+            [self TurnPageLeft];
+        }
+        
+    }
+}
+-(void)TurnPageLeft{
+    CATransition *transition = [CATransition animation];
+    [transition setDelegate:self];
+    [transition setDuration:0.5f];
+    
+    [transition setSubtype:kCATransitionFromRight];
+    [transition setType:@"pageUnCurl"];
+    [self.view.layer addAnimation:transition forKey:@"UnCurlAnim"];
+    
+    [self showDocumentPage:currentPage-1];
+    
+}
+-(void)TurnPageRight{
+    CATransition *transition = [CATransition animation];
+    [transition setDelegate:self];
+    [transition setDuration:0.5f];
+    
+    [transition setSubtype:@"fromRight"];
+    [transition setType:@"pageCurl"];
+    [self.view.layer addAnimation:transition forKey:@"CurlAnim"];
+    
+    [self showDocumentPage:currentPage+1];
+}
+
 #pragma mark - ReaderContentViewDelegate methods
 
 - (void)contentView:(ReaderContentView *)contentView touchesBegan:(NSSet *)touches
@@ -723,6 +776,41 @@
 	[self closeDocument]; // Close ReaderViewController
 
 #endif // end of READER_STANDALONE Option
+}
+
+
+- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar pageButton:(UIButton *)button;
+{
+#if (READER_PAGE_MODE == TRUE) // Option
+    
+    if ([button isSelected]) {
+        button.selected=NO;
+        theScrollView.scrollEnabled=YES;
+        
+        for (UIGestureRecognizer *recView in [self.view gestureRecognizers]) {
+            if ([recView isKindOfClass:[UISwipeGestureRecognizer class]]) {
+                [self.view removeGestureRecognizer:recView];
+            }
+        }
+        
+        [button setTitleColor:[UIColor colorWithWhite:0.0f alpha:1.0f] forState:UIControlStateNormal];
+    }
+    else{
+        button.selected=YES;
+        theScrollView.scrollEnabled=NO;
+        
+        UISwipeGestureRecognizer *swipeLeftRecognizerLeft=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
+        swipeLeftRecognizerLeft.direction=UISwipeGestureRecognizerDirectionLeft;
+        [self.view addGestureRecognizer:swipeLeftRecognizerLeft];
+        
+        UISwipeGestureRecognizer *swipeLeftRecognizerRight=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
+        swipeLeftRecognizerRight.direction=UISwipeGestureRecognizerDirectionRight;
+        [self.view addGestureRecognizer:swipeLeftRecognizerRight];
+        [button setTitleColor:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:255/255.0 alpha:1.0f] forState:UIControlStateNormal];
+        
+    }
+    
+#endif // end of READER_PAGE_MODE Option
 }
 
 - (void)tappedInToolbar:(ReaderMainToolbar *)toolbar thumbsButton:(UIButton *)button

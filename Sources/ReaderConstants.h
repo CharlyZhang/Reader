@@ -35,5 +35,7 @@
 #define READER_DISABLE_RETINA FALSE
 #define READER_ENABLE_PREVIEW TRUE
 #define READER_DISABLE_IDLE FALSE
-#define READER_STANDALONE FALSE
-#define READER_BOOKMARKS TRUE
+#define READER_STANDALONE FALSE                     ///< 是否standalone
+#define READER_BOOKMARKS TRUE                       ///< 是否支持书签
+#define READER_PAGE_MODE TRUE                       ///< 是否支持翻页模式选择
+#define READER_ENABLE_SEARCH TRUE                   ///< 是否支持搜索
