@@ -223,7 +223,9 @@ const char *kTypeKey = "Type";
 		return [self unicodeStringWithStandardEncoding:characterCodes length:length];
 	}
 	
-	return @"";
+    NSData *rawBytes = [NSData dataWithBytes:characterCodes length:length];
+    NSString *string = [[NSString alloc] initWithData:rawBytes encoding:NSMacOSRomanStringEncoding];
+    return [string autorelease];
 }
 
 - (NSString *)cidWithPDFString:(CGPDFStringRef)pdfString {

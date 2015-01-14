@@ -44,38 +44,6 @@
 	[self setEncodingWithEncodingObject:encodingObject];
 }
 
-/* Custom implementation for all simple fonts */
-- (NSString *)stringWithPDFString:(CGPDFStringRef)pdfString
-{
-	const unsigned char *bytes = CGPDFStringGetBytePtr(pdfString);
-	NSInteger length = CGPDFStringGetLength(pdfString);
-	NSData *rawBytes = [NSData dataWithBytes:bytes length:length];
-	if (!self.encoding && self.toUnicode)
-	{
-		// Use ToUnicode map
-		NSString *str = (NSString *) CGPDFStringCopyTextString(pdfString);
-		NSMutableString *unicodeString = [NSMutableString string];
-
-		// Translate to Unicode
-		for (int i = 0; i < [str length]; i++)
-		{
-			unichar cid = [str characterAtIndex:i];
-		 	[unicodeString appendFormat:@"%C", [self.toUnicode unicodeCharacter:cid]];
-		}
-		
-		[str release];
-		return unicodeString;
-	}
-	else if (!self.encoding)
-	{
-		return [super stringWithPDFString:pdfString];
-//		NSString *string = [[NSString alloc] initWithData:rawBytes encoding:NSMacOSRomanStringEncoding];
-//		return [string autorelease];
-	}
-	NSString *string = [[NSString alloc] initWithData:rawBytes encoding:self.encoding];
-	return [string autorelease];
-}
-
 - (NSString *)cidWithPDFString:(CGPDFStringRef)pdfString
 {
     return [self stringWithPDFString:pdfString];

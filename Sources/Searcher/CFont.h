@@ -27,6 +27,7 @@ static inline NSStringEncoding nativeEncoding(CharacterEncoding encoding)
 {
 	switch (encoding) {
 		case MacRomanEncoding :
+        case MacExpertEncoding:
 			return NSMacOSRomanStringEncoding;
 		case WinAnsiEncoding :
 			return NSWindowsCP1252StringEncoding;
@@ -37,7 +38,7 @@ static inline NSStringEncoding nativeEncoding(CharacterEncoding encoding)
 
 static inline BOOL knownEncoding(CharacterEncoding encoding)
 {
-	return encoding > 0;
+	return encoding && encoding > 0;
 }
 
 @interface Font : NSObject {
