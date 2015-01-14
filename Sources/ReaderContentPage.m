@@ -27,6 +27,7 @@
 #import "ReaderContentPage.h"
 #import "ReaderContentTile.h"
 #import "CGPDFDocument.h"
+#import "Selection.h"
 
 @implementation ReaderContentPage
 {
@@ -544,11 +545,25 @@
 
 	//CGContextSetRenderingIntent(context, kCGRenderingIntentDefault); CGContextSetInterpolationQuality(context, kCGInterpolationDefault);
 
+    CGContextSetFillColorWithColor(context, [[UIColor yellowColor] CGColor]);
+    CGContextSetBlendMode(context, kCGBlendModeMultiply);
+    for (Selection *s in self.searchResults)
+    {
+        CGContextSaveGState(context);
+        CGContextConcatCTM(context, s.transform);
+        CGContextFillRect(context, s.frame);
+        CGContextRestoreGState(context);
+    }
+    
 	CGContextDrawPDFPage(context, _PDFPageRef); // Render the PDF page into the context
 
 	if (readerContentPage != nil) readerContentPage = nil; // Release self
 }
 
+- (NSString*)description
+{
+    return [NSString stringWithFormat:@"%@",self.searchResults];
+}
 @end
 
 #pragma mark -

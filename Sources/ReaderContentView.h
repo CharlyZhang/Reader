@@ -43,6 +43,8 @@
 
 @property (nonatomic, weak, readwrite) id <ReaderContentViewDelegate> message;
 
+@property (nonatomic, weak) NSArray* searchResults;         ///< text search results, of Selection
+
 - (instancetype)initWithFrame:(CGRect)frame fileURL:(NSURL *)fileURL page:(NSUInteger)page password:(NSString *)phrase;
 
 - (void)showPageThumb:(NSURL *)fileURL page:(NSInteger)page password:(NSString *)phrase guid:(NSString *)guid;

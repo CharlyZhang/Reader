@@ -69,6 +69,31 @@
 		53C893E51A37E92A002656A0 /* 疯狂iOS讲义.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 53C893E31A37E929002656A0 /* 疯狂iOS讲义.pdf */; };
 		53C893E61A37E92A002656A0 /* es_spec_3.0.4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 53C893E41A37E92A002656A0 /* es_spec_3.0.4.pdf */; };
 		9D0F65A41A5E57410040C69A /* 囚徒健身（中文全本）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D0F65A31A5E57410040C69A /* 囚徒健身（中文全本）.pdf */; };
+		9D0F65AB1A5F9D090040C69A /* Reader_Search.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D0F65A91A5F9D090040C69A /* Reader_Search.png */; };
+		9D0F65AC1A5F9D090040C69A /* Reader_Searchx.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D0F65AA1A5F9D090040C69A /* Reader_Searchx.png */; };
+		9D0F65ED1A63A5A40040C69A /* Mah_Jong_British_Rules_Sample_PDF.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D0F65EC1A63A5A40040C69A /* Mah_Jong_British_Rules_Sample_PDF.pdf */; };
+		9D10E63B1A66421A0070BD44 /* CFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6121A66421A0070BD44 /* CFont.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E63C1A66421A0070BD44 /* CIDType0Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6141A66421A0070BD44 /* CIDType0Font.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E63D1A66421A0070BD44 /* CIDType2Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6161A66421A0070BD44 /* CIDType2Font.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E63E1A66421A0070BD44 /* CMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6181A66421A0070BD44 /* CMap.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E63F1A66421A0070BD44 /* CompositeFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E61A1A66421A0070BD44 /* CompositeFont.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E6411A66421A0070BD44 /* FontCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E61E1A66421A0070BD44 /* FontCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E6421A66421A0070BD44 /* FontDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6201A66421A0070BD44 /* FontDescriptor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E6431A66421A0070BD44 /* FontFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6221A66421A0070BD44 /* FontFile.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E6441A66421A0070BD44 /* MMType1Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6241A66421A0070BD44 /* MMType1Font.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E6451A66421A0070BD44 /* RenderingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6261A66421A0070BD44 /* RenderingState.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E6461A66421A0070BD44 /* Scanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6281A66421A0070BD44 /* Scanner.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E6471A66421A0070BD44 /* Selection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E62A1A66421A0070BD44 /* Selection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E6481A66421A0070BD44 /* SimpleFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E62C1A66421A0070BD44 /* SimpleFont.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E6491A66421A0070BD44 /* StringDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E62E1A66421A0070BD44 /* StringDetector.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E64A1A66421A0070BD44 /* TrueTypeFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6301A66421A0070BD44 /* TrueTypeFont.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E64B1A66421A0070BD44 /* Type0Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6321A66421A0070BD44 /* Type0Font.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E64C1A66421A0070BD44 /* Type1Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6341A66421A0070BD44 /* Type1Font.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E64D1A66421A0070BD44 /* Type3Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6361A66421A0070BD44 /* Type3Font.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E64E1A66421A0070BD44 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6381A66421A0070BD44 /* Util.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E64F1A66421A0070BD44 /* XObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E63A1A66421A0070BD44 /* XObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E65C1A66446B0070BD44 /* RenderingStateStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E65B1A66446B0070BD44 /* RenderingStateStack.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9D10E65F1A6645950070BD44 /* XObjectCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E65E1A6645950070BD44 /* XObjectCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -165,6 +190,53 @@
 		53C893E41A37E92A002656A0 /* es_spec_3.0.4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = es_spec_3.0.4.pdf; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Reader-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Reader-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		9D0F65A31A5E57410040C69A /* 囚徒健身（中文全本）.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "囚徒健身（中文全本）.pdf"; sourceTree = "<group>"; };
+		9D0F65A91A5F9D090040C69A /* Reader_Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Reader_Search.png; path = Graphics/Reader_Search.png; sourceTree = "<group>"; };
+		9D0F65AA1A5F9D090040C69A /* Reader_Searchx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Reader_Searchx.png; path = Graphics/Reader_Searchx.png; sourceTree = "<group>"; };
+		9D0F65EC1A63A5A40040C69A /* Mah_Jong_British_Rules_Sample_PDF.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Mah_Jong_British_Rules_Sample_PDF.pdf; sourceTree = "<group>"; };
+		9D10E6111A66421A0070BD44 /* CFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFont.h; path = Sources/Searcher/CFont.h; sourceTree = "<group>"; };
+		9D10E6121A66421A0070BD44 /* CFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFont.m; path = Sources/Searcher/CFont.m; sourceTree = "<group>"; };
+		9D10E6131A66421A0070BD44 /* CIDType0Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CIDType0Font.h; path = Sources/Searcher/CIDType0Font.h; sourceTree = "<group>"; };
+		9D10E6141A66421A0070BD44 /* CIDType0Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CIDType0Font.m; path = Sources/Searcher/CIDType0Font.m; sourceTree = "<group>"; };
+		9D10E6151A66421A0070BD44 /* CIDType2Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CIDType2Font.h; path = Sources/Searcher/CIDType2Font.h; sourceTree = "<group>"; };
+		9D10E6161A66421A0070BD44 /* CIDType2Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CIDType2Font.m; path = Sources/Searcher/CIDType2Font.m; sourceTree = "<group>"; };
+		9D10E6171A66421A0070BD44 /* CMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMap.h; path = Sources/Searcher/CMap.h; sourceTree = "<group>"; };
+		9D10E6181A66421A0070BD44 /* CMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMap.m; path = Sources/Searcher/CMap.m; sourceTree = "<group>"; };
+		9D10E6191A66421A0070BD44 /* CompositeFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompositeFont.h; path = Sources/Searcher/CompositeFont.h; sourceTree = "<group>"; };
+		9D10E61A1A66421A0070BD44 /* CompositeFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompositeFont.m; path = Sources/Searcher/CompositeFont.m; sourceTree = "<group>"; };
+		9D10E61D1A66421A0070BD44 /* FontCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FontCollection.h; path = Sources/Searcher/FontCollection.h; sourceTree = "<group>"; };
+		9D10E61E1A66421A0070BD44 /* FontCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FontCollection.m; path = Sources/Searcher/FontCollection.m; sourceTree = "<group>"; };
+		9D10E61F1A66421A0070BD44 /* FontDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FontDescriptor.h; path = Sources/Searcher/FontDescriptor.h; sourceTree = "<group>"; };
+		9D10E6201A66421A0070BD44 /* FontDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FontDescriptor.m; path = Sources/Searcher/FontDescriptor.m; sourceTree = "<group>"; };
+		9D10E6211A66421A0070BD44 /* FontFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FontFile.h; path = Sources/Searcher/FontFile.h; sourceTree = "<group>"; };
+		9D10E6221A66421A0070BD44 /* FontFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FontFile.m; path = Sources/Searcher/FontFile.m; sourceTree = "<group>"; };
+		9D10E6231A66421A0070BD44 /* MMType1Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMType1Font.h; path = Sources/Searcher/MMType1Font.h; sourceTree = "<group>"; };
+		9D10E6241A66421A0070BD44 /* MMType1Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMType1Font.m; path = Sources/Searcher/MMType1Font.m; sourceTree = "<group>"; };
+		9D10E6251A66421A0070BD44 /* RenderingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenderingState.h; path = Sources/Searcher/RenderingState.h; sourceTree = "<group>"; };
+		9D10E6261A66421A0070BD44 /* RenderingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenderingState.m; path = Sources/Searcher/RenderingState.m; sourceTree = "<group>"; };
+		9D10E6271A66421A0070BD44 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scanner.h; path = Sources/Searcher/Scanner.h; sourceTree = "<group>"; };
+		9D10E6281A66421A0070BD44 /* Scanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Scanner.m; path = Sources/Searcher/Scanner.m; sourceTree = "<group>"; };
+		9D10E6291A66421A0070BD44 /* Selection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Selection.h; path = Sources/Searcher/Selection.h; sourceTree = "<group>"; };
+		9D10E62A1A66421A0070BD44 /* Selection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Selection.m; path = Sources/Searcher/Selection.m; sourceTree = "<group>"; };
+		9D10E62B1A66421A0070BD44 /* SimpleFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleFont.h; path = Sources/Searcher/SimpleFont.h; sourceTree = "<group>"; };
+		9D10E62C1A66421A0070BD44 /* SimpleFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimpleFont.m; path = Sources/Searcher/SimpleFont.m; sourceTree = "<group>"; };
+		9D10E62D1A66421A0070BD44 /* StringDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringDetector.h; path = Sources/Searcher/StringDetector.h; sourceTree = "<group>"; };
+		9D10E62E1A66421A0070BD44 /* StringDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringDetector.m; path = Sources/Searcher/StringDetector.m; sourceTree = "<group>"; };
+		9D10E62F1A66421A0070BD44 /* TrueTypeFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrueTypeFont.h; path = Sources/Searcher/TrueTypeFont.h; sourceTree = "<group>"; };
+		9D10E6301A66421A0070BD44 /* TrueTypeFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrueTypeFont.m; path = Sources/Searcher/TrueTypeFont.m; sourceTree = "<group>"; };
+		9D10E6311A66421A0070BD44 /* Type0Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Type0Font.h; path = Sources/Searcher/Type0Font.h; sourceTree = "<group>"; };
+		9D10E6321A66421A0070BD44 /* Type0Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Type0Font.m; path = Sources/Searcher/Type0Font.m; sourceTree = "<group>"; };
+		9D10E6331A66421A0070BD44 /* Type1Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Type1Font.h; path = Sources/Searcher/Type1Font.h; sourceTree = "<group>"; };
+		9D10E6341A66421A0070BD44 /* Type1Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Type1Font.m; path = Sources/Searcher/Type1Font.m; sourceTree = "<group>"; };
+		9D10E6351A66421A0070BD44 /* Type3Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Type3Font.h; path = Sources/Searcher/Type3Font.h; sourceTree = "<group>"; };
+		9D10E6361A66421A0070BD44 /* Type3Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Type3Font.m; path = Sources/Searcher/Type3Font.m; sourceTree = "<group>"; };
+		9D10E6371A66421A0070BD44 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = Sources/Searcher/Util.h; sourceTree = "<group>"; };
+		9D10E6381A66421A0070BD44 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Util.m; path = Sources/Searcher/Util.m; sourceTree = "<group>"; };
+		9D10E6391A66421A0070BD44 /* XObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XObject.h; path = Sources/Searcher/XObject.h; sourceTree = "<group>"; };
+		9D10E63A1A66421A0070BD44 /* XObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XObject.m; path = Sources/Searcher/XObject.m; sourceTree = "<group>"; };
+		9D10E65A1A66446B0070BD44 /* RenderingStateStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenderingStateStack.h; path = Sources/Searcher/RenderingStateStack.h; sourceTree = "<group>"; };
+		9D10E65B1A66446B0070BD44 /* RenderingStateStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenderingStateStack.m; path = Sources/Searcher/RenderingStateStack.m; sourceTree = "<group>"; };
+		9D10E65D1A6645950070BD44 /* XObjectCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XObjectCollection.h; path = Sources/Searcher/XObjectCollection.h; sourceTree = "<group>"; };
+		9D10E65E1A6645950070BD44 /* XObjectCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XObjectCollection.m; path = Sources/Searcher/XObjectCollection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +280,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				9D10E6101A6642000070BD44 /* Searcher */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				45943FC217FDC9ED003CC77A /* Reader */,
 				29B97315FDCFA39411CA2CEA /* Support Files */,
@@ -233,14 +306,15 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9D0F65EC1A63A5A40040C69A /* Mah_Jong_British_Rules_Sample_PDF.pdf */,
 				53C893E41A37E92A002656A0 /* es_spec_3.0.4.pdf */,
 				53C893E31A37E929002656A0 /* 疯狂iOS讲义.pdf */,
 				9D0F65A31A5E57410040C69A /* 囚徒健身（中文全本）.pdf */,
+				45AB72DB141FC039003524C3 /* Reader.pdf */,
 				4541A9D7122EA716001A5E60 /* Localizable.strings */,
 				45AB72DF141FC04B003524C3 /* README.md */,
 				45D5AD9E1610E66B00706B9A /* HISTORY.md */,
 				45AB72DD141FC043003524C3 /* LICENSE.md */,
-				45AB72DB141FC039003524C3 /* Reader.pdf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -297,6 +371,8 @@
 		45943FC417FDCA3E003CC77A /* Reader */ = {
 			isa = PBXGroup;
 			children = (
+				9D0F65A91A5F9D090040C69A /* Reader_Search.png */,
+				9D0F65AA1A5F9D090040C69A /* Reader_Searchx.png */,
 				455C789914268F6A0053D73B /* Reader-Button-H.png */,
 				455C789A14268F6A0053D73B /* Reader-Button-H@2x.png */,
 				455C789B14268F6A0053D73B /* Reader-Button-N.png */,
@@ -371,6 +447,137 @@
 			name = Support;
 			sourceTree = "<group>";
 		};
+		9D10E6101A6642000070BD44 /* Searcher */ = {
+			isa = PBXGroup;
+			children = (
+				9D10E6571A6643430070BD44 /* RenderingState */,
+				9D10E6551A6642F20070BD44 /* Selection */,
+				9D10E6541A6642CA0070BD44 /* StringDetector */,
+				9D10E6531A66427F0070BD44 /* Font */,
+				9D10E6521A66426C0070BD44 /* Scanner */,
+				9D10E6511A66424C0070BD44 /* XObject */,
+				9D10E6501A6642340070BD44 /* Util */,
+			);
+			name = Searcher;
+			sourceTree = "<group>";
+		};
+		9D10E6501A6642340070BD44 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				9D10E6371A66421A0070BD44 /* Util.h */,
+				9D10E6381A66421A0070BD44 /* Util.m */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		9D10E6511A66424C0070BD44 /* XObject */ = {
+			isa = PBXGroup;
+			children = (
+				9D10E65D1A6645950070BD44 /* XObjectCollection.h */,
+				9D10E65E1A6645950070BD44 /* XObjectCollection.m */,
+				9D10E6391A66421A0070BD44 /* XObject.h */,
+				9D10E63A1A66421A0070BD44 /* XObject.m */,
+			);
+			name = XObject;
+			sourceTree = "<group>";
+		};
+		9D10E6521A66426C0070BD44 /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				9D10E6271A66421A0070BD44 /* Scanner.h */,
+				9D10E6281A66421A0070BD44 /* Scanner.m */,
+			);
+			name = Scanner;
+			sourceTree = "<group>";
+		};
+		9D10E6531A66427F0070BD44 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				9D10E6111A66421A0070BD44 /* CFont.h */,
+				9D10E6121A66421A0070BD44 /* CFont.m */,
+				9D10E6171A66421A0070BD44 /* CMap.h */,
+				9D10E6181A66421A0070BD44 /* CMap.m */,
+				9D10E6211A66421A0070BD44 /* FontFile.h */,
+				9D10E6221A66421A0070BD44 /* FontFile.m */,
+				9D10E61F1A66421A0070BD44 /* FontDescriptor.h */,
+				9D10E6201A66421A0070BD44 /* FontDescriptor.m */,
+				9D10E61D1A66421A0070BD44 /* FontCollection.h */,
+				9D10E61E1A66421A0070BD44 /* FontCollection.m */,
+				9D10E6561A6643190070BD44 /* Subtypes */,
+			);
+			name = Font;
+			sourceTree = "<group>";
+		};
+		9D10E6541A6642CA0070BD44 /* StringDetector */ = {
+			isa = PBXGroup;
+			children = (
+				9D10E62D1A66421A0070BD44 /* StringDetector.h */,
+				9D10E62E1A66421A0070BD44 /* StringDetector.m */,
+			);
+			name = StringDetector;
+			sourceTree = "<group>";
+		};
+		9D10E6551A6642F20070BD44 /* Selection */ = {
+			isa = PBXGroup;
+			children = (
+				9D10E6291A66421A0070BD44 /* Selection.h */,
+				9D10E62A1A66421A0070BD44 /* Selection.m */,
+			);
+			name = Selection;
+			sourceTree = "<group>";
+		};
+		9D10E6561A6643190070BD44 /* Subtypes */ = {
+			isa = PBXGroup;
+			children = (
+				9D10E6591A6643E50070BD44 /* Simple Fonts */,
+				9D10E6581A6643E00070BD44 /* Composite Fonts */,
+			);
+			name = Subtypes;
+			sourceTree = "<group>";
+		};
+		9D10E6571A6643430070BD44 /* RenderingState */ = {
+			isa = PBXGroup;
+			children = (
+				9D10E65A1A66446B0070BD44 /* RenderingStateStack.h */,
+				9D10E65B1A66446B0070BD44 /* RenderingStateStack.m */,
+				9D10E6251A66421A0070BD44 /* RenderingState.h */,
+				9D10E6261A66421A0070BD44 /* RenderingState.m */,
+			);
+			name = RenderingState;
+			sourceTree = "<group>";
+		};
+		9D10E6581A6643E00070BD44 /* Composite Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9D10E6311A66421A0070BD44 /* Type0Font.h */,
+				9D10E6321A66421A0070BD44 /* Type0Font.m */,
+				9D10E6191A66421A0070BD44 /* CompositeFont.h */,
+				9D10E61A1A66421A0070BD44 /* CompositeFont.m */,
+				9D10E6131A66421A0070BD44 /* CIDType0Font.h */,
+				9D10E6141A66421A0070BD44 /* CIDType0Font.m */,
+				9D10E6151A66421A0070BD44 /* CIDType2Font.h */,
+				9D10E6161A66421A0070BD44 /* CIDType2Font.m */,
+			);
+			name = "Composite Fonts";
+			sourceTree = "<group>";
+		};
+		9D10E6591A6643E50070BD44 /* Simple Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9D10E62B1A66421A0070BD44 /* SimpleFont.h */,
+				9D10E62C1A66421A0070BD44 /* SimpleFont.m */,
+				9D10E62F1A66421A0070BD44 /* TrueTypeFont.h */,
+				9D10E6301A66421A0070BD44 /* TrueTypeFont.m */,
+				9D10E6331A66421A0070BD44 /* Type1Font.h */,
+				9D10E6341A66421A0070BD44 /* Type1Font.m */,
+				9D10E6351A66421A0070BD44 /* Type3Font.h */,
+				9D10E6361A66421A0070BD44 /* Type3Font.m */,
+				9D10E6231A66421A0070BD44 /* MMType1Font.h */,
+				9D10E6241A66421A0070BD44 /* MMType1Font.m */,
+			);
+			name = "Simple Fonts";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -426,6 +633,8 @@
 				45AB72C6141FBFCA003524C3 /* AppIcon-057.png in Resources */,
 				45AB72C7141FBFCA003524C3 /* AppIcon-072.png in Resources */,
 				53C893E51A37E92A002656A0 /* 疯狂iOS讲义.pdf in Resources */,
+				9D0F65AC1A5F9D090040C69A /* Reader_Searchx.png in Resources */,
+				9D0F65AB1A5F9D090040C69A /* Reader_Search.png in Resources */,
 				45AB72C8141FBFCA003524C3 /* AppIcon-114.png in Resources */,
 				45AB72C9141FBFCA003524C3 /* Reader-Email.png in Resources */,
 				45AB72CA141FBFCA003524C3 /* Reader-Email@2x.png in Resources */,
@@ -442,6 +651,7 @@
 				45AB72D2141FBFCA003524C3 /* Reader-Thumbs@2x.png in Resources */,
 				4521AB4019C5EE6000B16688 /* Reader-Export@2x.png in Resources */,
 				4513ACFB19C4A1FB004916D1 /* AppIcon-180.png in Resources */,
+				9D0F65ED1A63A5A40040C69A /* Mah_Jong_British_Rules_Sample_PDF.pdf in Resources */,
 				45AB72DC141FC039003524C3 /* Reader.pdf in Resources */,
 				455C789D14268F6A0053D73B /* Reader-Button-H.png in Resources */,
 				455C789E14268F6A0053D73B /* Reader-Button-H@2x.png in Resources */,
@@ -463,30 +673,52 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D10E63B1A66421A0070BD44 /* CFont.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				45AB72EB141FC0A2003524C3 /* ReaderAppDelegate.m in Sources */,
 				45AB72EC141FC0A2003524C3 /* ReaderDemoController.m in Sources */,
+				9D10E63D1A66421A0070BD44 /* CIDType2Font.m in Sources */,
+				9D10E63C1A66421A0070BD44 /* CIDType0Font.m in Sources */,
 				45AB7313141FC0B1003524C3 /* CGPDFDocument.m in Sources */,
 				45AB7314141FC0B1003524C3 /* ReaderConstants.m in Sources */,
+				9D10E64A1A66421A0070BD44 /* TrueTypeFont.m in Sources */,
+				9D10E6471A66421A0070BD44 /* Selection.m in Sources */,
 				45AB7315141FC0B1003524C3 /* ReaderContentPage.m in Sources */,
 				45AB7316141FC0B1003524C3 /* ReaderContentTile.m in Sources */,
+				9D10E6461A66421A0070BD44 /* Scanner.m in Sources */,
 				45AB7317141FC0B1003524C3 /* ReaderContentView.m in Sources */,
 				45AB7318141FC0B1003524C3 /* ReaderDocument.m in Sources */,
 				45AB7319141FC0B1003524C3 /* ReaderMainPagebar.m in Sources */,
+				9D10E63F1A66421A0070BD44 /* CompositeFont.m in Sources */,
 				45AB731A141FC0B1003524C3 /* ReaderMainToolbar.m in Sources */,
+				9D10E6431A66421A0070BD44 /* FontFile.m in Sources */,
+				9D10E6421A66421A0070BD44 /* FontDescriptor.m in Sources */,
 				45AB731C141FC0B1003524C3 /* ReaderThumbCache.m in Sources */,
 				45AB731D141FC0B1003524C3 /* ReaderThumbFetch.m in Sources */,
 				45AB731E141FC0B1003524C3 /* ReaderThumbQueue.m in Sources */,
 				45AB731F141FC0B1003524C3 /* ReaderThumbRender.m in Sources */,
+				9D10E63E1A66421A0070BD44 /* CMap.m in Sources */,
+				9D10E64E1A66421A0070BD44 /* Util.m in Sources */,
 				45AB7320141FC0B1003524C3 /* ReaderThumbRequest.m in Sources */,
 				45AB7321141FC0B1003524C3 /* ReaderThumbsView.m in Sources */,
 				45AB7322141FC0B1003524C3 /* ReaderThumbView.m in Sources */,
+				9D10E6441A66421A0070BD44 /* MMType1Font.m in Sources */,
+				9D10E64C1A66421A0070BD44 /* Type1Font.m in Sources */,
 				45AB7323141FC0B1003524C3 /* ReaderViewController.m in Sources */,
+				9D10E6481A66421A0070BD44 /* SimpleFont.m in Sources */,
 				45AB7324141FC0B1003524C3 /* ThumbsMainToolbar.m in Sources */,
 				45AB7325141FC0B1003524C3 /* ThumbsViewController.m in Sources */,
 				4555C74C14211A00005F448D /* ReaderBookDelegate.m in Sources */,
+				9D10E6491A66421A0070BD44 /* StringDetector.m in Sources */,
+				9D10E64F1A66421A0070BD44 /* XObject.m in Sources */,
+				9D10E64B1A66421A0070BD44 /* Type0Font.m in Sources */,
+				9D10E65F1A6645950070BD44 /* XObjectCollection.m in Sources */,
+				9D10E6451A66421A0070BD44 /* RenderingState.m in Sources */,
 				455C7891142687CA0053D73B /* UIXToolbarView.m in Sources */,
 				45D5ADA31610EADD00706B9A /* ReaderDocumentOutline.m in Sources */,
+				9D10E65C1A66446B0070BD44 /* RenderingStateStack.m in Sources */,
+				9D10E6411A66421A0070BD44 /* FontCollection.m in Sources */,
+				9D10E64D1A66421A0070BD44 /* Type3Font.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

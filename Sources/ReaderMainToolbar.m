@@ -247,6 +247,25 @@
 			[self addSubview:exportButton]; titleWidth -= (iconButtonWidth + buttonSpacing);
 		}
 
+#if (READER_ENABLE_SEARCH == TRUE) // Option
+        
+        rightButtonX -= (iconButtonWidth + buttonSpacing); // Position
+        
+        UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        searchButton.frame = CGRectMake(rightButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
+        UIImage *image = [UIImage imageNamed:@"Reader-Searchx"];
+        [searchButton setImage:[UIImage imageNamed:@"Reader-Print"] forState:UIControlStateNormal];
+        [searchButton addTarget:self action:@selector(searchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [searchButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
+        [searchButton setBackgroundImage:buttonN forState:UIControlStateNormal];
+        searchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        //flagButton.backgroundColor = [UIColor grayColor];
+        searchButton.exclusiveTouch = YES;
+        
+        [self addSubview:searchButton]; titleWidth -= (iconButtonWidth + buttonSpacing);
+    
+#endif // end of READER_ENABLE_SEARCH Option
+        
 		if (largeDevice == YES) // Show document filename in toolbar
 		{
 			CGRect titleRect = CGRectMake(titleX, BUTTON_Y, titleWidth, TITLE_HEIGHT);
@@ -271,6 +290,7 @@
 		}
 	}
 
+    
 	return self;
 }
 
@@ -356,14 +376,19 @@
 	[delegate tappedInToolbar:self doneButton:button];
 }
 
+- (void)thumbsButtonTapped:(UIButton *)button
+{
+	[delegate tappedInToolbar:self thumbsButton:button];
+}
+
 - (void)pageButtonTapped:(UIButton *)button
 {
     [delegate tappedInToolbar:self pageButton:button];
 }
 
-- (void)thumbsButtonTapped:(UIButton *)button
+- (void)searchButtonTapped:(UIButton *)button
 {
-	[delegate tappedInToolbar:self thumbsButton:button];
+    [delegate tappedInToolbar:self searchButton:button];
 }
 
 - (void)exportButtonTapped:(UIButton *)button

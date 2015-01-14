@@ -66,6 +66,11 @@ static CGFloat g_BugFixWidthInset = 0.0f;
 
 @synthesize message;
 
+- (void)setSearchResults:(NSArray *)searchResults
+{
+    theContentPage.searchResults = searchResults;
+}
+
 #pragma mark - ReaderContentView functions
 
 static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
@@ -373,6 +378,13 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	[super touchesMoved:touches withEvent:event]; // Message superclass
+}
+
+#pragma mark
+
+- (NSString*)description
+{
+    return [NSString stringWithFormat:@"theContentPage %@",theContentPage];
 }
 
 @end

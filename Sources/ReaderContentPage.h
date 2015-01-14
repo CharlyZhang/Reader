@@ -31,6 +31,8 @@
 
 - (id)processSingleTap:(UITapGestureRecognizer *)recognizer;
 
+@property (nonatomic, strong) NSArray* searchResults;         ///< text search results, of Selection
+
 @end
 
 #pragma mark -

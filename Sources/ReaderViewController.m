@@ -31,11 +31,15 @@
 #import "ReaderContentView.h"
 #import "ReaderThumbCache.h"
 #import "ReaderThumbQueue.h"
+#import "Scanner.h"
 
 #import <MessageUI/MessageUI.h>
 
 @interface ReaderViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate, UIDocumentInteractionControllerDelegate,
-									ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate, ThumbsViewControllerDelegate>
+									ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate, ThumbsViewControllerDelegate,UISearchBarDelegate,UITableViewDelegate ,UITableViewDataSource>
+
+@property (nonatomic,strong) NSMutableDictionary* searchResultsDict;    ///< 每页的搜索结果
+
 @end
 
 @implementation ReaderViewController
@@ -48,7 +52,7 @@
 
 	ReaderMainPagebar *mainPagebar;
 
-	NSMutableDictionary *contentViews;
+	NSMutableDictionary *contentViews;                      ///< 包含所有的contentView (of ReaderContentView)
 
 	UIUserInterfaceIdiom userInterfaceIdiom;
 
@@ -65,6 +69,25 @@
 	NSDate *lastHideTime;
 
 	BOOL ignoreDidScroll;
+    
+    /// Searching
+    NSString *keyWord;
+    CGPDFDocumentRef PDFdocument;
+    UISearchBar *searchBar;
+    UISearchDisplayController *searchBarVC;
+    Boolean Searching;
+    UIPopoverController *searchPopVC;
+    UITableView *tblSearchResult;
+    UIViewController *ObjVC;
+    
+    NSArray *selections;
+    Scanner *scanner;
+    NSString *keyword;
+    
+    CGPDFPageRef PDFPageRef;
+    CGPDFDocumentRef PDFDocRef;
+    NSMutableArray *arrSearchPagesIndex;
+    
 }
 
 #pragma mark - Constants
@@ -82,6 +105,14 @@
 #pragma mark - Properties
 
 @synthesize delegate;
+
+- (NSMutableDictionary*)searchResultsDict
+{
+    if (!_searchResultsDict) {
+        _searchResultsDict = [[NSMutableDictionary alloc]init];
+    }
+    return _searchResultsDict;
+}
 
 #pragma mark - ReaderViewController methods
 
@@ -135,6 +166,9 @@
 
 	ReaderContentView *contentView = [[ReaderContentView alloc] initWithFrame:viewRect fileURL:fileURL page:page password:phrase]; // ReaderContentView
 
+    /// set text search result
+    contentView.searchResults = [self.searchResultsDict objectForKey:[NSNumber numberWithInteger:page]];
+    
 	contentView.message = self; [contentViews setObject:contentView forKey:[NSNumber numberWithInteger:page]]; [scrollView addSubview:contentView];
 
 	[contentView showPageThumb:fileURL page:page password:phrase guid:guid]; // Request page preview thumb
@@ -160,7 +194,7 @@
 	{
 		NSInteger page = [key integerValue]; // Page number value
 
-		if ([pageSet containsIndex:page] == NO) // Remove content view
+		if ([pageSet containsIndex:page] == NO || (Searching && page == currentPage)) // Remove content view
 		{
 			ReaderContentView *contentView = [contentViews objectForKey:key];
 
@@ -172,6 +206,8 @@
 		}
 	}
 
+    Searching = NO;
+    
 	NSInteger pages = pageSet.count;
 
 	if (pages > 0) // We have pages to add
@@ -239,7 +275,7 @@
 
 		if (CGPointEqualToPoint(theScrollView.contentOffset, contentOffset) == true)
 			[self layoutContentViews:theScrollView];
-		else
+		else        /// 通过改变contentOffset来触发scrollViewDidScroll，从而调用layoutContentViews，更新contentViews
 			[theScrollView setContentOffset:contentOffset];
 
 		[contentViews enumerateKeysAndObjectsUsingBlock: // Enumerate content views
@@ -389,6 +425,7 @@
 	contentViews = [NSMutableDictionary new]; lastHideTime = [NSDate date];
 
 	minimumPage = 1; maximumPage = [document.pageCount integerValue];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -779,7 +816,7 @@
 }
 
 
-- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar pageButton:(UIButton *)button;
+- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar pageButton:(UIButton *)button
 {
 #if (READER_PAGE_MODE == TRUE) // Option
     
@@ -811,6 +848,52 @@
     }
     
 #endif // end of READER_PAGE_MODE Option
+}
+
+- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar searchButton:(UIButton *)button
+{
+#if (READER_ENABLE_SEARCH == TRUE) // Option
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+    {
+        ObjVC=[[UIViewController alloc] init];//WithNibName:@"SearchPopVC" bundle:nil];
+        ObjVC.view.frame=CGRectMake(0, 0, 300, 44);
+        ObjVC.view.backgroundColor=[UIColor whiteColor];
+        //        UIButton *btn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+        //        btn.frame=CGRectMake(0, 0, 300, 44);
+        //        [btn setTitle:@"tast" forState:UIControlStateNormal];
+        //        [ObjVC.view addSubview:btn];
+        
+        if (!searchBar) {
+            searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0, 0,300,44)];
+            [searchBar setPlaceholder:@"Type to search"];
+            //[searchBar setBarStyle:UIBarStyleBlackOpaque];
+            //[searchBar setTintColor:[UIColor colorWithWhite:0.6f alpha:0.0f]];
+            searchBar.delegate=self;
+        }
+        
+        NSString *str=[searchBar text];
+        if ([str length]>0 && [arrSearchPagesIndex count]>0) {
+            [ObjVC setContentSizeForViewInPopover:CGSizeMake(300, 344)];
+        }else{
+            [ObjVC setContentSizeForViewInPopover:CGSizeMake(300, 44)];
+        }
+        
+        [ObjVC.view addSubview:searchBar];
+        [searchBar setText:str];
+            
+        searchPopVC=[[UIPopoverController alloc]initWithContentViewController:ObjVC];
+        [searchPopVC presentPopoverFromRect:[button frame] inView:[button superview] permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        tblSearchResult =[[UITableView alloc] initWithFrame:CGRectMake(0, 44, 300, 300)];
+        tblSearchResult.delegate=self;
+        tblSearchResult.dataSource=self;
+        [ObjVC.view addSubview:tblSearchResult];
+    }
+    
+    [button setSelected:YES];
+    [searchBar becomeFirstResponder];
+    
+#endif // end of READER_ENABLE_SEARCH Option
 }
 
 - (void)tappedInToolbar:(ReaderMainToolbar *)toolbar thumbsButton:(UIButton *)button
@@ -993,4 +1076,157 @@
 	if (userInterfaceIdiom == UIUserInterfaceIdiomPad) if (printInteraction != nil) [printInteraction dismissAnimated:NO];
 }
 
+#pragma mark - ReaderSearch methods
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)aSearchBar
+{
+    NSLog(@"searchBarTextDidEditing");
+    
+    return;
+    if([keyWord isEqualToString:[aSearchBar text]] )
+    {
+        [aSearchBar resignFirstResponder];
+        return;
+    }
+    
+    if([keyWord isEqualToString:@""] && [[aSearchBar text] isEqualToString:@""])
+    {
+        [aSearchBar resignFirstResponder];
+        return;
+    }else{
+        //[alertmessage ShowAlertWithTitle:@"Searching  Please Wait ....\n\n"];
+        [ObjVC setContentSizeForViewInPopover:CGSizeMake(300, 344)];
+        arrSearchPagesIndex=[[NSMutableArray alloc]init];
+        [tblSearchResult reloadData];
+        
+        [self performSelectorInBackground:@selector(SerchDataFromPDF) withObject:nil];
+        //[self performSelector:@selector(SerchDataFromPDF) withObject:nil afterDelay:0.01];
+        //        [searchPopVC dismissPopoverAnimated:YES];
+        //        [self performSelector:@selector(SerchDataFromPDF) withObject:nil afterDelay:0.0];
+    }
+    
+}
+-(void)SerchDataFromPDF{
+   // NSAutoreleasePool *pool = [NSAutoreleasePool new];
+    keyWord = [searchBar text];
+    int lastPage=currentPage;
+    currentPage=currentPage-1;
+    Searching=YES;
+    //[searchPopVC dismissPopoverAnimated:YES];
+    [self.searchResultsDict removeAllObjects];
+    PDFDocRef = CGPDFDocumentCreateUsingUrl((__bridge CFURLRef)document.fileURL,document.password);
+    PDFPageRef = CGPDFDocumentGetPage(PDFDocRef,lastPage); // Get page
+    NSArray *searchResult = [self selections];
+    if ([searchResult count]>0) {
+        [self.searchResultsDict setObject:[searchResult copy] forKey:[NSNumber numberWithInteger:lastPage]];
+    }
+    
+    [self showDocumentPage:lastPage];
+    [self GetListOfSearchPage];
+   // [pool release];
+}
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    return YES;
+}
+- (void)searchBarSearchButtonClicked:(UISearchBar *)aSearchBar
+{
+    NSLog(@"searchBarSearchButtonClicked");
+    
+    keyWord = [aSearchBar text];
+    PDFDocRef = CGPDFDocumentCreateUsingUrl((__bridge CFURLRef)document.fileURL,document.password);
+    float pages = CGPDFDocumentGetNumberOfPages(PDFDocRef);
+    
+    for (int i=0; i<pages; i++) {
+        PDFPageRef = CGPDFDocumentGetPage(PDFDocRef,i+1); // Get page
+        NSArray *searchResult = [self selections];
+              
+        if ([searchResult count]>0) {
+            NSLog(@"%@",searchResult);
+        }
+    }
+    
+    //    [keyword release];
+    //    // Show the page
+    //    [pageView setKeyword:keyword];
+    //
+    [aSearchBar resignFirstResponder];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [arrSearchPagesIndex count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"cellForRowAtIndexPath");
+    UITableViewCell *cell=[[UITableViewCell alloc]init];
+    cell.textLabel.text=[[arrSearchPagesIndex objectAtIndex:indexPath.row] valueForKey:@"PageTitle"];
+    if ([[[arrSearchPagesIndex objectAtIndex:indexPath.row] valueForKey:@"PageTitle"] isEqualToString:@"No Result"]) {
+        cell.userInteractionEnabled=NO;
+    }else{
+        cell.userInteractionEnabled=YES;
+    }
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self showDocumentPage:[[[arrSearchPagesIndex objectAtIndex:indexPath.row] valueForKey:@"PageNo"] integerValue]];
+    [searchPopVC dismissPopoverAnimated:YES];
+}
+
+-(void)GetListOfSearchPage{
+   // OrientationLock=TRUE;
+    
+    //    NSLog(@"%@ %@",document.fileURL,document.password);
+    
+    float pages = CGPDFDocumentGetNumberOfPages(PDFDocRef);
+    for (int i=0; i<pages; i++) {
+        PDFPageRef = CGPDFDocumentGetPage(PDFDocRef,i+1); // Get page
+        NSArray *searchResult = [self selections];
+        NSNumber *pageNumber = [NSNumber numberWithInteger:i+1];
+        
+        if ([searchResult count]>0) {
+            [arrSearchPagesIndex addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"Page %d (%d Times)",i+1,[searchResult count]],@"PageTitle",[NSString stringWithFormat:@"%d",i+1],@"PageNo",nil]];
+            [self.searchResultsDict setObject:[searchResult copy] forKey:pageNumber];
+            [[contentViews objectForKey:pageNumber] setSearchResults:[self.searchResultsDict objectForKey:pageNumber]];
+            [self performSelectorOnMainThread:@selector(RefereshTableOnMainThred) withObject:nil waitUntilDone:NO];
+        }
+        
+        [self performSelectorOnMainThread:@selector(PerFormONMainThresd:) withObject:[NSString stringWithFormat:@"%f",(i+1/pages)/pages] waitUntilDone:NO];
+        CGPDFPageRelease(PDFPageRef);
+        selections=nil;
+    }
+    //[alertmessage hideAlert];
+  //  OrientationLock=FALSE;
+    if ([arrSearchPagesIndex count]==0) {
+        [arrSearchPagesIndex addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"No Result",@"PageTitle",@"-1",@"PageNo",nil]];
+        
+    }
+    
+}
+-(void)RefereshTableOnMainThred{
+    NSIndexPath *path1 = [NSIndexPath indexPathForRow:[arrSearchPagesIndex count]-1 inSection:0];
+    NSArray *indexArray = [NSArray arrayWithObjects:path1,nil];
+    [tblSearchResult insertRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationTop];
+}
+-(void)PerFormONMainThresd:(NSString*)UpdateProgress{
+    //[alertmessage updateProcess:[UpdateProgress floatValue]];
+}
+
+
+- (NSArray *)selections
+{
+    @synchronized (self)
+    {
+        if(!scanner) scanner = [[Scanner alloc] init];
+        [scanner setKeyword:keyWord];
+        [scanner.selections removeAllObjects];
+        [scanner scanPage:PDFPageRef];
+        selections = [scanner selections];
+        return selections;
+    }
+}
 @end
