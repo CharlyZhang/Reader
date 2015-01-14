@@ -4,7 +4,4 @@
    <FileRef
       location = "group:Reader.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:mripston-PDFKitten/PDFKitten.xcodeproj">
-   </FileRef>
 </Workspace>
