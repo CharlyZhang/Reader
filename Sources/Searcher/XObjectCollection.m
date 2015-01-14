@@ -7,7 +7,7 @@
 //
 
 #import "XObjectCollection.h"
-
+#undef DEBUG
 @implementation XObjectCollection
 
 /* Applier function for xobject dictionaries */
@@ -23,8 +23,9 @@ void didScanXObject(const char *key, CGPDFObjectRef object, void *collection)
     [(NSMutableDictionary *)collection setObject:xobject forKey:name];
     
     [xobject release];
-    
+#ifdef DEBUG
     NSLog(@" %s: %@", key, xobject);
+#endif
 }
 
 /* Initialize with a XObject collection dictionary */

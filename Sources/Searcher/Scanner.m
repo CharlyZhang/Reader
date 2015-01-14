@@ -2,7 +2,7 @@
 #import "Util.h"
 
 #define DELTA 1e-6
-#define SHOW_OPERATE_DATA
+//#define SHOW_OPERATE_DATA
 
 #pragma mark
 

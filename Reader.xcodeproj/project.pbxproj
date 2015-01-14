@@ -94,6 +94,7 @@
 		9D10E64F1A66421A0070BD44 /* XObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E63A1A66421A0070BD44 /* XObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9D10E65C1A66446B0070BD44 /* RenderingStateStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E65B1A66446B0070BD44 /* RenderingStateStack.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9D10E65F1A6645950070BD44 /* XObjectCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E65E1A6645950070BD44 /* XObjectCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9DF80C741A6658F700CC1A84 /* 建筑构造.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF80C731A6658F700CC1A84 /* 建筑构造.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -237,6 +238,7 @@
 		9D10E65B1A66446B0070BD44 /* RenderingStateStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenderingStateStack.m; path = Sources/Searcher/RenderingStateStack.m; sourceTree = "<group>"; };
 		9D10E65D1A6645950070BD44 /* XObjectCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XObjectCollection.h; path = Sources/Searcher/XObjectCollection.h; sourceTree = "<group>"; };
 		9D10E65E1A6645950070BD44 /* XObjectCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XObjectCollection.m; path = Sources/Searcher/XObjectCollection.m; sourceTree = "<group>"; };
+		9DF80C731A6658F700CC1A84 /* 建筑构造.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "建筑构造.pdf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +308,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9DF80C731A6658F700CC1A84 /* 建筑构造.pdf */,
 				9D0F65EC1A63A5A40040C69A /* Mah_Jong_British_Rules_Sample_PDF.pdf */,
 				53C893E41A37E92A002656A0 /* es_spec_3.0.4.pdf */,
 				53C893E31A37E929002656A0 /* 疯狂iOS讲义.pdf */,
@@ -663,6 +666,7 @@
 				4521AB3F19C5EE6000B16688 /* Reader-Export.png in Resources */,
 				4544394817FDD5E700781873 /* AppIcon-076.png in Resources */,
 				4544394A17FDD5E700781873 /* AppIcon-152.png in Resources */,
+				9DF80C741A6658F700CC1A84 /* 建筑构造.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

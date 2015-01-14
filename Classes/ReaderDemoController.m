@@ -90,7 +90,11 @@
 
 	UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
 	//singleTap.numberOfTouchesRequired = 1; singleTap.numberOfTapsRequired = 1; //singleTap.delegate = self;
-	[self.view addGestureRecognizer:singleTap]; 
+	[self.view addGestureRecognizer:singleTap];
+    
+#if 1
+    [self handleSingleTap:nil];
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated

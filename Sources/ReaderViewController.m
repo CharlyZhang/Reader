@@ -1082,7 +1082,7 @@
 {
     NSLog(@"searchBarTextDidEditing");
     
-    return;
+   // return;
     if([keyWord isEqualToString:[aSearchBar text]] )
     {
         [aSearchBar resignFirstResponder];
@@ -1133,19 +1133,19 @@
 {
     NSLog(@"searchBarSearchButtonClicked");
     
-    keyWord = [aSearchBar text];
-    PDFDocRef = CGPDFDocumentCreateUsingUrl((__bridge CFURLRef)document.fileURL,document.password);
-    float pages = CGPDFDocumentGetNumberOfPages(PDFDocRef);
-    
-    for (int i=0; i<pages; i++) {
-        PDFPageRef = CGPDFDocumentGetPage(PDFDocRef,i+1); // Get page
-        NSArray *searchResult = [self selections];
-              
-        if ([searchResult count]>0) {
-            NSLog(@"%@",searchResult);
-        }
-    }
-    
+//    keyWord = [aSearchBar text];
+//    PDFDocRef = CGPDFDocumentCreateUsingUrl((__bridge CFURLRef)document.fileURL,document.password);
+//    float pages = CGPDFDocumentGetNumberOfPages(PDFDocRef);
+//    
+//    for (int i=0; i<pages; i++) {
+//        PDFPageRef = CGPDFDocumentGetPage(PDFDocRef,i+1); // Get page
+//        NSArray *searchResult = [self selections];
+//              
+//        if ([searchResult count]>0) {
+//            NSLog(@"%@",searchResult);
+//        }
+//    }
+//    
     //    [keyword release];
     //    // Show the page
     //    [pageView setKeyword:keyword];
