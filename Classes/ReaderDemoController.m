@@ -26,6 +26,7 @@
 #import "ReaderDemoController.h"
 #import "ReaderViewController.h"
 
+
 @interface ReaderDemoController () <ReaderViewControllerDelegate>
 
 @end
@@ -35,6 +36,8 @@
 #pragma mark - Constants
 
 #define DEMO_VIEW_CONTROLLER_PUSH FALSE
+
+#define SHOW_PDF_STRAIGHT
 
 #pragma mark - UIViewController methods
 
@@ -61,7 +64,43 @@
 {
 	[super viewDidLoad];
 
-	self.view.backgroundColor = [UIColor clearColor]; // Transparent
+#ifdef SHOW_PDF_STRAIGHT
+    NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
+    
+    NSArray *pdfs = [[NSBundle mainBundle] pathsForResourcesOfType:@"pdf" inDirectory:nil];
+    
+    //	NSString *filePath = [pdfs firstObject];
+    NSString *filePath = [pdfs objectAtIndex:0];
+    assert(filePath != nil); // Path to first PDF file
+    
+    ReaderDocument *document = [ReaderDocument withDocumentFilePath:filePath password:phrase];
+    
+    if (document != nil) // Must have a valid ReaderDocument object in order to proceed with things
+    {
+        ReaderViewController *readerViewController = [[ReaderViewController alloc] initWithReaderDocument:document];
+        
+        readerViewController.delegate = self; // Set the ReaderViewController delegate to self
+        
+#if (DEMO_VIEW_CONTROLLER_PUSH == TRUE)
+        
+        [self.navigationController pushViewController:readerViewController animated:YES];
+        
+#else // present in a modal view controller
+        
+        readerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        readerViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+        
+        [self presentViewController:readerViewController animated:YES completion:NULL];
+        
+#endif // DEMO_VIEW_CONTROLLER_PUSH
+    }
+    else // Log an error so that we know that something went wrong
+    {
+        NSLog(@"%s [ReaderDocument withDocumentFilePath:'%@' password:'%@'] failed.", __FUNCTION__, filePath, phrase);
+    }
+    
+#else
+    self.view.backgroundColor = [UIColor clearColor]; // Transparent
 
 	NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
 
@@ -89,11 +128,9 @@
 	[self.view addSubview:tapLabel]; 
 
 	UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+ 
 	//singleTap.numberOfTouchesRequired = 1; singleTap.numberOfTapsRequired = 1; //singleTap.delegate = self;
 	[self.view addGestureRecognizer:singleTap];
-    
-#if 1
-    [self handleSingleTap:nil];
 #endif
 }
 

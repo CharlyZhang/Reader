@@ -282,7 +282,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				9D10E6101A6642000070BD44 /* Searcher */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				45943FC217FDC9ED003CC77A /* Reader */,
 				29B97315FDCFA39411CA2CEA /* Support Files */,
@@ -347,6 +346,7 @@
 		45943FC217FDC9ED003CC77A /* Reader */ = {
 			isa = PBXGroup;
 			children = (
+				9D10E6101A6642000070BD44 /* Searcher */,
 				45BD5A7C13AE6C3B00D6FE97 /* Sources */,
 				45CED630140BD22A0092F460 /* Support */,
 			);

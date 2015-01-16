@@ -253,8 +253,8 @@
         
         UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
         searchButton.frame = CGRectMake(rightButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
-        UIImage *image = [UIImage imageNamed:@"Reader-Searchx"];
-        [searchButton setImage:[UIImage imageNamed:@"Reader-Print"] forState:UIControlStateNormal];
+        UIImage *image = [UIImage imageNamed:@"Reader_Searchx"];
+        [searchButton setImage:[UIImage imageNamed:@"Reader_Searchx"] forState:UIControlStateNormal];
         [searchButton addTarget:self action:@selector(searchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [searchButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
         [searchButton setBackgroundImage:buttonN forState:UIControlStateNormal];
