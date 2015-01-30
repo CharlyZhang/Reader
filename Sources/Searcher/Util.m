@@ -38,9 +38,6 @@
     
     [data release];
     
-#ifdef DEBUG
-    NSLog(@"%@",ret);
-#endif
     return [ret autorelease];
 }
 

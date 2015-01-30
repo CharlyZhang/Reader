@@ -33,7 +33,9 @@ void didScanXObject(const char *key, CGPDFObjectRef object, void *collection)
 {
     if ((self = [super init]))
     {
+#ifdef SHOW_FONT_INFO
         NSLog(@"Xobject Collection (%lu)", CGPDFDictionaryGetCount(dict));
+#endif
         xobjects = [[NSMutableDictionary alloc] init];
         // Enumerate the XObject resource dictionary
         CGPDFDictionaryApplyFunction(dict, didScanXObject, xobjects);

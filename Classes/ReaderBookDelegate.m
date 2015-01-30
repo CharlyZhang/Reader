@@ -55,7 +55,7 @@
 	NSArray *pdfs = [[NSBundle mainBundle] pathsForResourcesOfType:@"pdf" inDirectory:nil];
 
 	//NSString *filePath = [pdfs firstObject];
-    NSString *filePath = [pdfs objectAtIndex:1];
+    NSString *filePath = [pdfs objectAtIndex:4];
     
     assert(filePath != nil); // Path to last PDF file
 

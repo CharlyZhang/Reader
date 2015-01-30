@@ -1,5 +1,6 @@
 #import "FontCollection.h"
 
+//#define SHOW_FONT_INFO
 
 @implementation FontCollection
 
@@ -13,7 +14,9 @@ void didScanFont(const char *key, CGPDFObjectRef object, void *collection)
 	if (!font) return;
 	NSString *name = [NSString stringWithUTF8String:key];
 	[(NSMutableDictionary *)collection setObject:font forKey:name];
+#ifdef SHOW_FONT_INFO
 	NSLog(@" %s: %@", key, font);
+#endif
 }
 
 /* Initialize with a font collection dictionary */
@@ -21,7 +24,9 @@ void didScanFont(const char *key, CGPDFObjectRef object, void *collection)
 {
 	if ((self = [super init]))
 	{
+#ifdef SHOW_FONT_INFO
 		NSLog(@"Font Collection (%lu)", CGPDFDictionaryGetCount(dict));
+#endif
 		fonts = [[NSMutableDictionary alloc] init];
 		// Enumerate the Font resource dictionary
 		CGPDFDictionaryApplyFunction(dict, didScanFont, fonts);

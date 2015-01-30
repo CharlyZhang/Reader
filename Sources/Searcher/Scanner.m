@@ -2,7 +2,9 @@
 #import "Util.h"
 
 #define DELTA 1e-6
+#define SPACE_WIDTH_ADJUST_FACTOR   0.8     ///< 空格宽度调整系数（有些文档的显示空格比设定空格窄）
 //#define SHOW_OPERATE_DATA
+//#define SHOW_CONTENT_STREAM_OF_PAGE
 
 #pragma mark
 
@@ -28,6 +30,7 @@ void TStar(CGPDFScannerRef scanner, void *info);
 
 // Text state operators
 void BT(CGPDFScannerRef scanner, void *info);
+void ET(CGPDFScannerRef scanner, void *info);
 void Tc(CGPDFScannerRef scanner, void *info);
 void Tw(CGPDFScannerRef scanner, void *info);
 void Tz(CGPDFScannerRef scanner, void *info);
@@ -67,11 +70,11 @@ void Do(CGPDFScannerRef scanner, void *info);
 
 - (NSMutableString*)content
 {
-    if (!_content) {
-        _content = [[NSMutableString alloc]init];
+    if (!content) {
+        content = [[NSMutableString alloc] init];
     }
     
-    return _content;
+    return content;
 }
 
 #pragma mark - Initialization
@@ -81,7 +84,6 @@ void Do(CGPDFScannerRef scanner, void *info);
     if ((self = [super init]))
     {
         pdfDocument = CGPDFDocumentRetain(document);
-        self.content = [NSMutableString string];
     }
     return self;
 }
@@ -91,7 +93,6 @@ void Do(CGPDFScannerRef scanner, void *info);
     if ((self = [super init]))
     {
         self.documentURL = [NSURL fileURLWithPath:path];
-        self.content = [NSMutableString string];
     }
     return self;
 }
@@ -102,7 +103,6 @@ void Do(CGPDFScannerRef scanner, void *info);
     if ((self = [super init]))
     {
         renderingStateStack = [[RenderingStateStack alloc] initWithState:state];
-        self.content = [NSMutableString string];
     }
     return self;
 }
@@ -164,6 +164,7 @@ void Do(CGPDFScannerRef scanner, void *info);
     CGPDFOperatorTableSetCallback(operatorTable, "Q", Q);
     
     CGPDFOperatorTableSetCallback(operatorTable, "BT", BT);
+    CGPDFOperatorTableSetCallback(operatorTable, "ET", ET);
     
     // XObject drawing operators
     CGPDFOperatorTableSetCallback(operatorTable, "Do", Do);
@@ -177,7 +178,9 @@ void Do(CGPDFScannerRef scanner, void *info);
     CGPDFDictionaryRef dict = CGPDFPageGetDictionary(page);
     if (!dict)
     {
+#ifdef SHOW_FONT_INFO
         NSLog(@"Scanner: fontCollectionWithPage: page dictionary missing");
+#endif
         return nil;
     }
     
@@ -198,7 +201,9 @@ void Do(CGPDFScannerRef scanner, void *info);
     CGPDFDictionaryRef resources;
     if (!CGPDFDictionaryGetDictionary(dict, "Resources", &resources))
     {
+#ifdef SHOW_FONT_INFO
         NSLog(@"Scanner: fontCollectionWithPage: page dictionary missing Resources dictionary");
+#endif
         return nil;
     }
     CGPDFDictionaryRef fonts;
@@ -218,7 +223,9 @@ void Do(CGPDFScannerRef scanner, void *info);
     CGPDFDictionaryRef dict = CGPDFPageGetDictionary(page);
     if (!dict)
     {
+#ifdef SHOW_FONT_INFO
         NSLog(@"Scanner: xobjectCollectionWithPage: page dictionary missing");
+#endif
         return nil;
     }
     
@@ -231,7 +238,9 @@ void Do(CGPDFScannerRef scanner, void *info);
     CGPDFDictionaryRef resources;
     if (!CGPDFDictionaryGetDictionary(dict, "Resources", &resources))
     {
+#ifdef SHOW_FONT_INFO
         NSLog(@"Scanner: xobjectCollectionWithPage: page dictionary missing Resources dictionary");
+#endif
         return nil;
     }
     
@@ -253,17 +262,18 @@ void Do(CGPDFScannerRef scanner, void *info);
 
 - (void)scanPage:(CGPDFPageRef)page
 {
-#ifdef DEBUG
-    //    // show the content stream of this page
-    //    CGPDFContentStreamRef stream = CGPDFContentStreamCreateWithPage(page);
-    //    CFArrayRef streamArr = CGPDFContentStreamGetStreams(stream);
-    //
-    //    CFIndex num = CFArrayGetCount(streamArr);
-    //    for (CFIndex i=0; i<num; i++) {
-    //        CGPDFStreamRef s = (CGPDFStreamRef)CFArrayGetValueAtIndex(streamArr, i);
-    //        [Util getStringFromStream:s];
-    //    }
-    //    CGPDFContentStreamRelease(stream);
+#ifdef SHOW_CONTENT_STREAM_OF_PAGE
+    // show the content stream of this page
+    CGPDFContentStreamRef stream = CGPDFContentStreamCreateWithPage(page);
+    CFArrayRef streamArr = CGPDFContentStreamGetStreams(stream);
+    
+    CFIndex num = CFArrayGetCount(streamArr);
+    for (CFIndex i=0; i<num; i++) {
+        CGPDFStreamRef s = (CGPDFStreamRef)CFArrayGetValueAtIndex(streamArr, i);
+        NSString *str = [Util getStringFromStream:s];
+        NSLog(@"content stream %ld:%@",i,str);
+    }
+    CGPDFContentStreamRelease(stream);
 #endif
     
     // Return immediately if no keyword set
@@ -273,7 +283,7 @@ void Do(CGPDFScannerRef scanner, void *info);
     pageContentStream = CGPDFContentStreamCreateWithPage(page);
     
     [self.stringDetector reset];
-    [self.content setString:@""];
+    [content setString:@""];
     
     self.stringDetector.keyword = self.keyword;
     
@@ -299,7 +309,6 @@ void Do(CGPDFScannerRef scanner, void *info);
     streamScanner.keyword = keyword;
     
     [streamScanner.stringDetector reset];
-    [streamScanner.content setString:@""];
     streamScanner.stringDetector.keyword = streamScanner.keyword;
     
     // create the dictionary
@@ -381,12 +390,32 @@ void Do(CGPDFScannerRef scanner, void *info);
         Selection *sel = [self.selections objectAtIndex:i];
         if (sel.lineContent)    break;
         
-        sel.lineContent = [NSString stringWithString:self.content];
+        sel.lineContent = [NSString stringWithString:content];
     }
 #ifdef DEBUG
-    NSLog(@"line content:%@",self.content);
+    NSLog(@"line content:%@",content);
 #endif
-    [self.content setString:@""];
+    [self.stringDetector reset];        ///< to fix the bug "dectected the keyword occupying lines, but can't render correctly"
+    [content setString:@""];
+}
+
+/// to determine have scaned new line
+- (void)haveScanNewLine
+{
+    /// calculate the height difference in User Space
+    RenderingState *state = [self currentRenderingState];
+    
+    /// new line when CTM is changed
+    if(fabsf(state.ctm.ty-self.lastTyOfCTM)/state.ctm.d >= DELTA)
+        [self didScanOneLine];
+    self.lastTyOfCTM = state.ctm.ty;
+    
+    /// new line when Tm is changed over Font Height
+    CGFloat dy = fabsf(state.textMatrix.ty-self.lastTyOfTextMatrix)/state.textMatrix.d;
+    CGFloat h = [state convertToUserSpace:[state.font maxY] - [state.font minY] ];
+    if( dy >= h)
+        [self didScanOneLine];
+    self.lastTyOfTextMatrix = state.textMatrix.ty;
 }
 
 #pragma mark - Scanner callbacks
@@ -394,6 +423,11 @@ void Do(CGPDFScannerRef scanner, void *info);
 void BT(CGPDFScannerRef scanner, void *info)
 {
     [[(Scanner *)info currentRenderingState] setTextMatrix:CGAffineTransformIdentity replaceLineMatrix:YES];
+}
+
+void ET(CGPDFScannerRef scanner, void *info)
+{
+    [(Scanner *)info didScanOneLine];
 }
 
 /* Pops the requested number of values, and returns the number of values popped */
@@ -418,7 +452,7 @@ void didScanSpace(float value, Scanner *scanner)
 {
     float width = [scanner.currentRenderingState convertToUserSpace:value];
     [scanner.currentRenderingState translateTextPosition:CGSizeMake(-width, 0)];
-    if (abs(value) >= [scanner.currentRenderingState.font widthOfSpace])
+    if (abs(value) >= [scanner.currentRenderingState.font widthOfSpace] * SPACE_WIDTH_ADJUST_FACTOR)
     {
         [scanner.stringDetector reset];
         //NSLog(@"didScanSpace and reset %f",value);
@@ -434,21 +468,6 @@ void didScanString(CGPDFStringRef pdfString, Scanner *scanner)
 #ifdef SHOW_OPERATE_DATA
     NSLog(@"%@",string);
 #endif
-    
-    /// calculate the height difference in User Space
-    RenderingState *state = [scanner currentRenderingState];
-    
-    /// new line when CTM is changed
-    if(fabsf(state.ctm.ty-scanner.lastTyOfCTM)/state.ctm.d >= DELTA)
-        [scanner didScanOneLine];
-    scanner.lastTyOfCTM = state.ctm.ty;
-    
-    /// new line when Tm is changed over Font Height
-    CGFloat dy = fabsf(state.textMatrix.ty-scanner.lastTyOfTextMatrix)/state.textMatrix.d;
-    CGFloat h = [state convertToUserSpace:[state.font maxY] - [state.font minY] ];
-    if( dy >= h)
-        [scanner didScanOneLine];
-    scanner.lastTyOfTextMatrix = state.textMatrix.ty;
     
     [[scanner content] appendString:string];
 }
@@ -528,7 +547,9 @@ void TJ(CGPDFScannerRef scanner, void *info)
                 break;
             }
             default:
+#ifdef SHOW_FONT_INFO
                 NSLog(@"Scanner: TJ: Unsupported type: %d", type);
+#endif
                 break;
         }
     }
@@ -548,6 +569,8 @@ void Td(CGPDFScannerRef scanner, void *info)
 #endif
     
     [[(Scanner *)info currentRenderingState] newLineWithLeading:-ty indent:tx save:NO];
+    
+    [(Scanner *)info haveScanNewLine];
 }
 
 /* Move to start of next line, and set leading */
@@ -562,6 +585,8 @@ void TD(CGPDFScannerRef scanner, void *info)
 #endif
     
     [[(Scanner *)info currentRenderingState] newLineWithLeading:-ty indent:tx save:YES];
+    
+    [(Scanner *)info haveScanNewLine];
 }
 
 /* Set line and text matrixes */
@@ -580,13 +605,15 @@ void Tm(CGPDFScannerRef scanner, void *info)
 #endif
     [[(Scanner *)info currentRenderingState] setTextMatrix:t replaceLineMatrix:YES];
     
+    [(Scanner *)info haveScanNewLine];
 }
 
 /* Go to start of new line, using stored text leading */
 void TStar(CGPDFScannerRef scanner, void *info)
 {
     [[(Scanner *)info currentRenderingState] newLine];
-    [(Scanner *)info didScanOneLine];
+    
+    [(Scanner *)info haveScanNewLine];
 }
 
 #pragma mark Text State operators
@@ -708,6 +735,8 @@ void cm(CGPDFScannerRef scanner, void *info)
     RenderingState *state = [(Scanner *)info currentRenderingState];
     CGAffineTransform t = CGAffineTransformMake(a, b, c, d, tx, ty);
     state.ctm = CGAffineTransformConcat(state.ctm, t);
+    
+    [(Scanner *)info haveScanNewLine];
 }
 
 #pragma mark XObject drawing operators
@@ -771,10 +800,10 @@ void Do(CGPDFScannerRef scanner, void *info)
     [stringDetector release];
     [documentURL release]; documentURL = nil;
     CGPDFDocumentRelease(pdfDocument); pdfDocument = nil;
-    [_content release];
     [selections release];
+    [content release];
     [super dealloc];
 }
 
-@synthesize documentURL, keyword, stringDetector, fontCollection, xobjectCollection, renderingStateStack, currentSelection, selections /* rawTextContent */, pageContentStream, content = _content;
+@synthesize documentURL, keyword, stringDetector, fontCollection, xobjectCollection, renderingStateStack, currentSelection, selections /* rawTextContent */, pageContentStream, content;
 @end

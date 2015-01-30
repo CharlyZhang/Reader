@@ -27,9 +27,9 @@
 				if (!CGPDFArrayGetDictionary(dFonts, i, &fontDict)) continue;
 				const char *subtype;
 				if (!CGPDFDictionaryGetName(fontDict, "Subtype", &subtype)) continue;
-
+#ifdef SHOW_FONT_INFO
 				NSLog(@"Descendant font type %s", subtype);
-
+#endif
 				if (strcmp(subtype, "CIDFontType0") == 0)
 				{
 					// Add descendant font of type 0

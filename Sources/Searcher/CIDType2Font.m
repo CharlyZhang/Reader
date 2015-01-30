@@ -22,7 +22,9 @@
 		CGPDFStreamRef stream = nil;
 		if (!CGPDFObjectGetValue(object, kCGPDFObjectTypeStream, &stream)) return;
 		NSData *data = (NSData *) CGPDFStreamCopyData(stream, nil);
+#ifdef SHOW_FONT_INFO
 		NSLog(@"CIDType2Font: no implementation for CID mapping with stream (%d bytes)", [data length]);
+#endif
 		[data release];
 	}
 }
@@ -46,8 +48,10 @@
 	NSString *orderingString = (NSString *) CGPDFStringCopyTextString(ordering);
 	
 	cidSystemString = [NSString stringWithFormat:@"%@ (%@) %ld", registryString, orderingString, supplement];
+#ifdef SHOW_FONT_INFO
 	NSLog(@"%@", cidSystemString);
-	
+#endif
+    
 	[registryString release];
 	[orderingString release];
 }
