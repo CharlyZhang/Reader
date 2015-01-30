@@ -95,6 +95,8 @@
 		9D10E65C1A66446B0070BD44 /* RenderingStateStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E65B1A66446B0070BD44 /* RenderingStateStack.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9D10E65F1A6645950070BD44 /* XObjectCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E65E1A6645950070BD44 /* XObjectCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9DF80C741A6658F700CC1A84 /* 建筑构造.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF80C731A6658F700CC1A84 /* 建筑构造.pdf */; };
+		9DF814A11A7B2C34002202B9 /* ReaderSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF814A01A7B2C34002202B9 /* ReaderSearchController.m */; };
+		9DF814A41A7B2D8B002202B9 /* Searcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF814A31A7B2D8B002202B9 /* Searcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -239,6 +241,10 @@
 		9D10E65D1A6645950070BD44 /* XObjectCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XObjectCollection.h; path = Sources/Searcher/XObjectCollection.h; sourceTree = "<group>"; };
 		9D10E65E1A6645950070BD44 /* XObjectCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XObjectCollection.m; path = Sources/Searcher/XObjectCollection.m; sourceTree = "<group>"; };
 		9DF80C731A6658F700CC1A84 /* 建筑构造.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "建筑构造.pdf"; sourceTree = "<group>"; };
+		9DF8149F1A7B2C34002202B9 /* ReaderSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReaderSearchController.h; path = Sources/ReaderSearchController.h; sourceTree = "<group>"; };
+		9DF814A01A7B2C34002202B9 /* ReaderSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReaderSearchController.m; path = Sources/ReaderSearchController.m; sourceTree = "<group>"; };
+		9DF814A21A7B2D8B002202B9 /* Searcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Searcher.h; path = Sources/Searcher/Searcher.h; sourceTree = "<group>"; };
+		9DF814A31A7B2D8B002202B9 /* Searcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Searcher.m; path = Sources/Searcher/Searcher.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,6 +405,8 @@
 		45BD5A7C13AE6C3B00D6FE97 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				9DF8149F1A7B2C34002202B9 /* ReaderSearchController.h */,
+				9DF814A01A7B2C34002202B9 /* ReaderSearchController.m */,
 				45AB72EF141FC0B1003524C3 /* ReaderConstants.h */,
 				45AB72F0141FC0B1003524C3 /* ReaderConstants.m */,
 				45AB72F7141FC0B1003524C3 /* ReaderDocument.h */,
@@ -453,6 +461,8 @@
 		9D10E6101A6642000070BD44 /* Searcher */ = {
 			isa = PBXGroup;
 			children = (
+				9DF814A21A7B2D8B002202B9 /* Searcher.h */,
+				9DF814A31A7B2D8B002202B9 /* Searcher.m */,
 				9D10E6571A6643430070BD44 /* RenderingState */,
 				9D10E6551A6642F20070BD44 /* Selection */,
 				9D10E6541A6642CA0070BD44 /* StringDetector */,
@@ -679,10 +689,12 @@
 			files = (
 				9D10E63B1A66421A0070BD44 /* CFont.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				9DF814A41A7B2D8B002202B9 /* Searcher.m in Sources */,
 				45AB72EB141FC0A2003524C3 /* ReaderAppDelegate.m in Sources */,
 				45AB72EC141FC0A2003524C3 /* ReaderDemoController.m in Sources */,
 				9D10E63D1A66421A0070BD44 /* CIDType2Font.m in Sources */,
 				9D10E63C1A66421A0070BD44 /* CIDType0Font.m in Sources */,
+				9DF814A11A7B2C34002202B9 /* ReaderSearchController.m in Sources */,
 				45AB7313141FC0B1003524C3 /* CGPDFDocument.m in Sources */,
 				45AB7314141FC0B1003524C3 /* ReaderConstants.m in Sources */,
 				9D10E64A1A66421A0070BD44 /* TrueTypeFont.m in Sources */,

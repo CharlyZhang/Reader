@@ -547,23 +547,18 @@
 
     CGContextSetFillColorWithColor(context, [[UIColor yellowColor] CGColor]);
     CGContextSetBlendMode(context, kCGBlendModeMultiply);
-    for (Selection *s in self.searchResults)
-    {
-        CGContextSaveGState(context);
-        CGContextConcatCTM(context, s.transform);
-        CGContextFillRect(context, s.frame);
-        CGContextRestoreGState(context);
-    }
+    
+    CGContextSaveGState(context);
+    CGContextConcatCTM(context, self.selection.transform);
+    CGContextFillRect(context, self.selection.frame);
+    CGContextRestoreGState(context);
     
 	CGContextDrawPDFPage(context, _PDFPageRef); // Render the PDF page into the context
 
 	if (readerContentPage != nil) readerContentPage = nil; // Release self
 }
 
-- (NSString*)description
-{
-    return [NSString stringWithFormat:@"%@",self.searchResults];
-}
+
 @end
 
 #pragma mark -

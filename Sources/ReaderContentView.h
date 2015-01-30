@@ -30,7 +30,7 @@
 @class ReaderContentView;
 @class ReaderContentPage;
 @class ReaderContentThumb;
-
+@class Selection;
 @protocol ReaderContentViewDelegate <NSObject>
 
 @required // Delegate protocols
@@ -43,7 +43,7 @@
 
 @property (nonatomic, weak, readwrite) id <ReaderContentViewDelegate> message;
 
-@property (nonatomic, weak) NSArray* searchResults;         ///< text search results, of Selection
+@property (nonatomic, weak) Selection* selection;         ///< Selection
 
 - (instancetype)initWithFrame:(CGRect)frame fileURL:(NSURL *)fileURL page:(NSUInteger)page password:(NSString *)phrase;
 

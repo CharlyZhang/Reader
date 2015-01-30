@@ -66,9 +66,9 @@ static CGFloat g_BugFixWidthInset = 0.0f;
 
 @synthesize message;
 
-- (void)setSearchResults:(NSArray *)searchResults
+- (void)setSelection:(Selection *)selection
 {
-    theContentPage.searchResults = searchResults;
+    theContentPage.selection = selection;
 }
 
 #pragma mark - ReaderContentView functions

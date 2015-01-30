@@ -33,4 +33,22 @@
 
 #if __has_feature(objc_arc)
 
+#define PDF_AUTORELEASE(expression) expression
+
+#define PDF_RELEASE(expression)
+
+#define PDF_RETAIN(expression)  expression
+
+#define PDF_SUPER_DEALLOC
+
+#else
+
+#define PDF_AUTORELEASE(expression) [expression autorelease]
+
+#define PDF_RELEASE(expression) [expression release]
+
+#define PDF_RETAIN(expression) [expression retain]
+
+#define PDF_SUPER_DEALLOC      [super dealloc]
+
 #endif

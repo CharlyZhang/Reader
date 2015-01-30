@@ -58,7 +58,7 @@
 - (NSArray*)documentOutlines
 {
     if (_documentOutlines) {
-        _documentOutlines = [ReaderDocumentOutline outlineFromDocument:pdfDocRef];
+        _documentOutlines = [ReaderDocumentOutline outlineFromFileURL:document.fileURL password:document.password];
     }
     return _documentOutlines;
 }
