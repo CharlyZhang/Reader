@@ -29,21 +29,23 @@
 	// Use CID string for font-related computations.
 	NSString *cidString = [font cidWithPDFString:string];
  	
-	// Use Unicode string to compare with user input.
-	NSString *unicodeString = [[font stringWithPDFString:string] lowercaseString];
-	
-	// The string being compared
-	NSMutableString *effectiveText = [NSMutableString string];
-	
-	[unicodeContent appendString:unicodeString];
-	
-	for (int i = 0; i < [unicodeString length]; i++)
-	{
-		NSString *needleString = [NSString stringWithFormat:@"%C", [unicodeString characterAtIndex:i]];
-		
-		// Expand ligatures to separate characters
-		needleString = [font stringByExpandingLigatures:needleString];
-		[effectiveText appendString:needleString];
+    // Use Unicode string to compare with user input.
+    NSString *originalUnicodeString = [font stringWithPDFString:string];
+    NSString *unicodeString = [originalUnicodeString lowercaseString];
+    
+    // The string being compared
+    NSMutableString *effectiveText = [NSMutableString string];
+    
+    [unicodeContent appendString:unicodeString];
+    
+    for (int i = 0; i < [unicodeString length]; i++)
+    {
+        NSString *needleString = [NSString stringWithFormat:@"%C", [unicodeString characterAtIndex:i]];
+        NSString *originalNeedleString = [NSString stringWithFormat:@"%C", [originalUnicodeString characterAtIndex:i]];
+        
+        // Expand ligatures to separate characters
+        needleString = [font stringByExpandingLigatures:needleString];
+        [effectiveText appendString:originalNeedleString];
 		
 		BOOL isFirst = (self.keywordPosition == 0);
 		BOOL isLast;
