@@ -754,6 +754,7 @@ void Do(CGPDFScannerRef scanner, void *info)
     
     Scanner *scn = (Scanner*)info;
     XObject *xobject = [[scn xobjectCollection] xobjectNamed: [NSString stringWithUTF8String:xobjectName]];
+    if (xobject == nil) return;
     
     [scn scanStream:xobject.stream];
 }

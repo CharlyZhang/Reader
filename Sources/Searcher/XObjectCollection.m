@@ -2,12 +2,16 @@
 //  XObjectCollection.m
 //  PDFKitten
 //
-//  Created by tangsl on 14/12/24.
+//  Created by CharlyZhang on 14/12/24.
 //  Copyright (c) 2014年 Chalmers Göteborg. All rights reserved.
 //
 
 #import "XObjectCollection.h"
 #undef DEBUG
+
+const char* kXObjectSubtypeKey = "Subtype";
+const char* kTypeFormKey = "Form";
+
 @implementation XObjectCollection
 
 /* Applier function for xobject dictionaries */
@@ -16,6 +20,15 @@ void didScanXObject(const char *key, CGPDFObjectRef object, void *collection)
     if (!CGPDFObjectGetType(object) == kCGPDFObjectTypeDictionary) return;
     CGPDFStreamRef stream;
     if (!CGPDFObjectGetValue(object, kCGPDFObjectTypeStream, &stream)) return;
+    
+    /// only add Form XObject
+    CGPDFDictionaryRef dict;
+    if (!CGPDFObjectGetValue(object, kCGPDFObjectTypeDictionary, &dict)) return;
+    const char *subtype = nil;
+    CGPDFDictionaryGetName(dict, kXObjectSubtypeKey, &subtype);
+    if (!strcmp(subtype, kTypeFormKey)) return;
+    
+    
     XObject *xobject = [[XObject alloc] init];
     xobject.stream = stream;
     
