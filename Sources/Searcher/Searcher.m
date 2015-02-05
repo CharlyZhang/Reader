@@ -148,7 +148,7 @@
 //    NSLog(@"searching num :%2d",self.searchResults.count);
     
     if (self.updateIndexPath.count >0) {
-        NSLog(@"update unlock with condition");
+        //NSLog(@"update unlock with condition");
         [self.lock unlockWithCondition:NO_SEARCH];
         dispatch_async(dispatch_get_main_queue(), ^(){
             [self.lock lock];
