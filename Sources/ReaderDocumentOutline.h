@@ -36,6 +36,7 @@
 @interface DocumentOutlineEntry : NSObject <NSObject>
 
 + (instancetype)newWithTitle:(NSString *)title target:(id)target level:(NSInteger)level;
+- (instancetype)initWithTitle:(NSString *)title target:(id)target level:(NSInteger)level;
 
 @property (nonatomic, assign, readonly) NSInteger level;
 @property (nonatomic, strong, readwrite) NSMutableArray *children;

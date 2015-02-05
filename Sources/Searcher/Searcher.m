@@ -26,7 +26,7 @@
     NSUInteger scanningPage;                        ///< 搜索到的页面
 }
 
-@property (nonatomic, retain) NSArray* documentOutlines;                        ///< pdf文档的目录
+@property (nonatomic, retain) NSMutableArray* documentOutlines;                 ///< pdf文档的目录
 
 @property (nonatomic, retain, readwrite) NSMutableArray *searchResults;
 @property (nonatomic, retain, readwrite) NSMutableArray *updateIndexPath;       ///< 更新对搜索结果位置
@@ -55,11 +55,22 @@
     return _updateIndexPath;
 }
 
-- (NSArray*)documentOutlines
+- (NSMutableArray*)documentOutlines
 {
-    if (_documentOutlines) {
-        _documentOutlines = [ReaderDocumentOutline outlineFromFileURL:document.fileURL password:document.password];
+    if (!_documentOutlines) {
+        NSArray *originalOutlines =[ReaderDocumentOutline outlineFromFileURL:document.fileURL password:document.password];
+        _documentOutlines = [[NSMutableArray alloc] initWithCapacity:[originalOutlines count]];
+        
+        for (DocumentOutlineEntry* value in originalOutlines) {
+            
+            DocumentOutlineEntry *entry = [[DocumentOutlineEntry alloc]
+                                           initWithTitle:value.title target:value.target level:value.level];
+            [_documentOutlines addObject:entry];
+            PDF_RELEASE(entry);
+        }
+        // PDF_RELEASE(originalOutlines);  ///< ARC文件copy出来的对象由该文件
     }
+    
     return _documentOutlines;
 }
 
