@@ -114,7 +114,9 @@ UISearchBarDelegate,UISearchDisplayDelegate,SearcherDelegate>
 #pragma mark - SearchDelegate methods
 - (void)updateSearchResults
 {
+    [self.tableview beginUpdates];
     [self.tableview insertRowsAtIndexPaths:self.searcher.updateIndexPath withRowAnimation:UITableViewRowAnimationTop];
+    [self.tableview endUpdates];
 }
 
 #pragma mark - Table view data source

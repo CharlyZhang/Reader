@@ -31,6 +31,7 @@
 @property (nonatomic, retain, readwrite) NSMutableArray *searchResults;
 @property (nonatomic, retain, readwrite) NSMutableArray *updateIndexPath;       ///< 更新对搜索结果位置
 @property (nonatomic, assign, readwrite) BOOL running;
+@property (atomic, retain)  NSLock *lock;
 @end
 
 
@@ -74,6 +75,13 @@
     return _documentOutlines;
 }
 
+- (NSLock*)lock
+{
+    if (!_lock) {
+        _lock = [[NSLock alloc]init];
+    }
+    return _lock;
+}
 #pragma mark - Initialization
 
 - (id)initWithDocument:(ReaderDocument*)object
@@ -115,6 +123,7 @@
     int selNum = [scanner.selections count];
     NSString *currSectionTitle = [self catalogTitleAtPageNumber:pageNo];
 
+    [self.lock lock];
     [self.updateIndexPath removeAllObjects];
     /// set current pageNo and sectionTitle to the past unset selections
     for (int i = 0; i < selNum; i++) {
@@ -131,10 +140,13 @@
         [self.updateIndexPath addObject:path];
         [self.searchResults addObject:sel];
     }
+    [self.lock unlock];
 
     if (self.updateIndexPath.count >0) {
         dispatch_async(dispatch_get_main_queue(), ^(){
+            [self.lock lock];
             [self.delegate updateSearchResults];
+            [self.lock unlock];
         });
     }
 }
@@ -287,6 +299,7 @@
     CGPDFDocumentRelease(pdfDocRef);
     PDF_RELEASE(_documentOutlines);
     PDF_RELEASE(_searchResults);
+    PDF_RELEASE(_lock);
     PDF_SUPER_DEALLOC;
 }
 
