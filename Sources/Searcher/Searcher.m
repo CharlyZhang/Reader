@@ -136,7 +136,11 @@
 #ifndef USE_MUTIL_THREAD
     Scanner *scanner = [[Scanner alloc]init];
     for (; scanningPage <= pageCount; scanningPage++){
-        if(running && !pausing) [self scanDocumentPage:scanningPage use:scanner];
+        if(running && !pausing) {
+            @autoreleasepool {
+                [self scanDocumentPage:scanningPage use:scanner];
+            }
+        }
         else break;
     }
     NSDate *endTime = [NSDate date];

@@ -280,6 +280,7 @@ void Do(CGPDFScannerRef scanner, void *info);
     if (!keyword) return;
     
     // save the content stream
+    CGPDFContentStreamRelease(pageContentStream);
     pageContentStream = CGPDFContentStreamCreateWithPage(page);
     
     [self.stringDetector reset];
@@ -800,6 +801,7 @@ void Do(CGPDFScannerRef scanner, void *info)
     [keyword release]; keyword = nil;
     [stringDetector release];
     [documentURL release]; documentURL = nil;
+    CGPDFContentStreamRelease(pageContentStream); pageContentStream = nil;
     CGPDFDocumentRelease(pdfDocument); pdfDocument = nil;
     [selections release];
     [content release];

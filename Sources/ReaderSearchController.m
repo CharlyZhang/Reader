@@ -151,6 +151,8 @@ UISearchBarDelegate,UISearchDisplayDelegate,SearcherDelegate>
                                                options:NSStringDrawingUsesLineFragmentOrigin
                                                context:nil];
 
+    PDF_RELEASE(attributedText);
+    PDF_RELEASE(attributedText1);
    return rect.size.height + rect1.size.height + 12.0f;
     
 }
@@ -173,7 +175,8 @@ UISearchBarDelegate,UISearchDisplayDelegate,SearcherDelegate>
     }
     if (selection.lineContent) {
             NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:selection.lineContent];
-        NSRange range  = [selection.lineContent rangeOfString:self.searcher.keyWord];
+        NSRange range  = [selection.lineContent rangeOfString:self.searcher.keyWord
+                                                      options:NSCaseInsensitiveSearch];
         [attrString addAttribute:NSForegroundColorAttributeName
                            value:[UIColor orangeColor]
                            range:range];
