@@ -35,8 +35,10 @@
 	Font *closingFont = [state font];
 	
 	// Width (difference between caps) with text transformation removed
-	CGFloat width = [state textMatrix].tx - [initialState textMatrix].tx;	
-	width /= [state textMatrix].a;
+//	CGFloat width = [state textMatrix].tx - [initialState textMatrix].tx;	
+//	width /= [state textMatrix].a;
+    CGAffineTransform endTransform = CGAffineTransformConcat([state textMatrix], [state ctm]);
+    CGFloat width = endTransform.tx/endTransform.a - transform.tx/transform.a;
     
 	// Use tallest cap for entire selection
 	CGFloat startHeight = [openingFont maxY] - [openingFont minY];

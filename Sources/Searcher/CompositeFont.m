@@ -8,14 +8,14 @@ static const char *kCompositeFontDefaultWidthKey = "DW";
 /* Override with implementation for composite fonts */
 - (void)setWidthsWithFontDictionary:(CGPDFDictionaryRef)dict
 {
+    CGPDFInteger dw;
+    if (CGPDFDictionaryGetInteger(dict, kCompositeFontDefaultWidthKey, &dw))
+    {
+        self.defaultWidth = dw;
+    }
+
 	CGPDFArrayRef ws;
 	if (!CGPDFDictionaryGetArray(dict, kCompositeFontWidthsKey, &ws)) return;
-
-	CGPDFInteger dw;
-	if (CGPDFDictionaryGetInteger(dict, kCompositeFontDefaultWidthKey, &dw))
-	{
-		self.defaultWidth = dw;
-	}
 
 	NSUInteger count = CGPDFArrayGetCount(ws);
 		

@@ -5,6 +5,9 @@
 #define SPACE_WIDTH_ADJUST_FACTOR   0.8     ///< 空格宽度调整系数（有些文档的显示空格比设定空格窄）
 //#define SHOW_OPERATE_DATA
 //#define SHOW_CONTENT_STREAM_OF_PAGE
+//#define SHOW_LINE_CONTENT
+#define ENFORCE_POSITIVE_TY                 ///< to enforce the selection.transform.ty positive, desigend for some special book
+//#define SHOW_FONT_INFO
 
 #pragma mark
 
@@ -209,9 +212,9 @@ void Do(CGPDFScannerRef scanner, void *info);
     CGPDFDictionaryRef fonts;
     if (!CGPDFDictionaryGetDictionary(resources, "Font", &fonts)) return nil;
     
-#ifdef DEBUG
-    //// show all the items in fonts dictionary
-    //[Util printDictionary:fonts];
+#ifdef SHOW_FONT_INFO
+    // show all the items in fonts dictionary
+    [Util printDictionary:fonts];
 #endif
     FontCollection *collection = [[FontCollection alloc] initWithFontDictionary:fonts];
     return [collection autorelease];
@@ -299,6 +302,8 @@ void Do(CGPDFScannerRef scanner, void *info);
     CGPDFScannerScan(scanner);
     CGPDFScannerRelease(scanner); scanner = nil;
     CGPDFContentStreamRelease(contentStream); contentStream = nil;
+    
+    [self didScanOneLine];
 }
 
 /* Start scanning a particular self-contained stream */
@@ -393,7 +398,7 @@ void Do(CGPDFScannerRef scanner, void *info);
         
         sel.lineContent = [NSString stringWithString:content];
     }
-#ifdef DEBUG
+#ifdef SHOW_LINE_CONTENT
     NSLog(@"line content:%@",content);
 #endif
     [self.stringDetector reset];        ///< to fix the bug "dectected the keyword occupying lines, but can't render correctly"
@@ -423,12 +428,18 @@ void Do(CGPDFScannerRef scanner, void *info);
 
 void BT(CGPDFScannerRef scanner, void *info)
 {
+#ifdef SHOW_OPERATE_DATA
+    NSLog(@"BT");
+#endif
     [[(Scanner *)info currentRenderingState] setTextMatrix:CGAffineTransformIdentity replaceLineMatrix:YES];
 }
 
 void ET(CGPDFScannerRef scanner, void *info)
 {
-    [(Scanner *)info didScanOneLine];
+#ifdef SHOW_OPERATE_DATA
+    NSLog(@"ET");
+#endif
+    // [(Scanner *)info didScanOneLine];
 }
 
 /* Pops the requested number of values, and returns the number of values popped */
@@ -479,6 +490,8 @@ void Tj(CGPDFScannerRef scanner, void *info)
 #ifdef SHOW_OPERATE_DATA
     NSLog(@"Tj");
 #endif
+    [(Scanner *)info haveScanNewLine];
+    
     CGPDFStringRef pdfString = nil;
     if (!CGPDFScannerPopString(scanner, &pdfString)) return;
     didScanString(pdfString, info);
@@ -505,6 +518,8 @@ void TJ(CGPDFScannerRef scanner, void *info)
 #ifdef SHOW_OPERATE_DATA
     NSLog(@"TJ");
 #endif
+    [(Scanner *)info haveScanNewLine];
+    
     CGPDFArrayRef array = nil;
     CGPDFScannerPopArray(scanner, &array);
     size_t count = CGPDFArrayGetCount(array);
@@ -571,7 +586,7 @@ void Td(CGPDFScannerRef scanner, void *info)
     
     [[(Scanner *)info currentRenderingState] newLineWithLeading:-ty indent:tx save:NO];
     
-    [(Scanner *)info haveScanNewLine];
+    //[(Scanner *)info haveScanNewLine];
 }
 
 /* Move to start of next line, and set leading */
@@ -587,7 +602,7 @@ void TD(CGPDFScannerRef scanner, void *info)
     
     [[(Scanner *)info currentRenderingState] newLineWithLeading:-ty indent:tx save:YES];
     
-    [(Scanner *)info haveScanNewLine];
+    //[(Scanner *)info haveScanNewLine];
 }
 
 /* Set line and text matrixes */
@@ -606,7 +621,7 @@ void Tm(CGPDFScannerRef scanner, void *info)
 #endif
     [[(Scanner *)info currentRenderingState] setTextMatrix:t replaceLineMatrix:YES];
     
-    [(Scanner *)info haveScanNewLine];
+    // [(Scanner *)info haveScanNewLine];
 }
 
 /* Go to start of new line, using stored text leading */
@@ -614,7 +629,7 @@ void TStar(CGPDFScannerRef scanner, void *info)
 {
     [[(Scanner *)info currentRenderingState] newLine];
     
-    [(Scanner *)info haveScanNewLine];
+    // [(Scanner *)info haveScanNewLine];
 }
 
 #pragma mark Text State operators
@@ -737,7 +752,13 @@ void cm(CGPDFScannerRef scanner, void *info)
     CGAffineTransform t = CGAffineTransformMake(a, b, c, d, tx, ty);
     state.ctm = CGAffineTransformConcat(state.ctm, t);
     
-    [(Scanner *)info haveScanNewLine];
+#ifdef ENFORCE_POSITIVE_TY
+    if(d < 0 && ty <= 0) {
+        state.ctm = CGAffineTransformMake(state.ctm.a, state.ctm.b, state.ctm.c, state.ctm.d, state.ctm.tx, -state.ctm.ty);
+    }
+#endif
+    
+    // [(Scanner *)info haveScanNewLine];
 }
 
 #pragma mark XObject drawing operators
@@ -800,8 +821,8 @@ void Do(CGPDFScannerRef scanner, void *info)
     [renderingStateStack release];
     [keyword release]; keyword = nil;
     [stringDetector release];
-    [documentURL release]; documentURL = nil;
     CGPDFContentStreamRelease(pageContentStream); pageContentStream = nil;
+    [documentURL release]; documentURL = nil;
     CGPDFDocumentRelease(pdfDocument); pdfDocument = nil;
     [selections release];
     [content release];
