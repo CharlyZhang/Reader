@@ -15,6 +15,9 @@
 #define PAGE_PER_THREAD     40
 //#define USE_MUTIL_THREAD
 
+#define CAN_SEARCH   0x1111         ///< 可以搜索
+#define NO_SEARCH    0x0000         ///< 不可搜索
+
 @interface Searcher()
 {
     ReaderDocument* document;
@@ -31,7 +34,7 @@
 @property (nonatomic, retain, readwrite) NSMutableArray *searchResults;
 @property (nonatomic, retain, readwrite) NSMutableArray *updateIndexPath;       ///< 更新对搜索结果位置
 @property (nonatomic, assign, readwrite) BOOL running;
-@property (atomic, retain)  NSLock *lock;
+@property (nonatomic, retain)  NSConditionLock *lock;
 @end
 
 
@@ -75,10 +78,10 @@
     return _documentOutlines;
 }
 
-- (NSLock*)lock
+- (NSConditionLock*)lock
 {
     if (!_lock) {
-        _lock = [[NSLock alloc]init];
+        _lock = [[NSConditionLock alloc]initWithCondition:CAN_SEARCH];
     }
     return _lock;
 }
@@ -123,7 +126,8 @@
     int selNum = [scanner.selections count];
     NSString *currSectionTitle = [self catalogTitleAtPageNumber:pageNo];
 
-    [self.lock lock];
+    [self.lock lockWhenCondition:CAN_SEARCH];
+//    NSLog(@"begin searching");
     [self.updateIndexPath removeAllObjects];
     /// set current pageNo and sectionTitle to the past unset selections
     for (int i = 0; i < selNum; i++) {
@@ -140,14 +144,23 @@
         [self.updateIndexPath addObject:path];
         [self.searchResults addObject:sel];
     }
-    [self.lock unlock];
-
+//    NSLog(@"end searching");
+//    NSLog(@"searching num :%2d",self.searchResults.count);
+    
     if (self.updateIndexPath.count >0) {
+        NSLog(@"update unlock with condition");
+        [self.lock unlockWithCondition:NO_SEARCH];
         dispatch_async(dispatch_get_main_queue(), ^(){
             [self.lock lock];
+            //NSLog(@"begin update");
             [self.delegate updateSearchResults];
-            [self.lock unlock];
+            //NSLog(@"end update");
+            [self.lock unlockWithCondition:CAN_SEARCH];
         });
+        
+    } else {
+        //NSLog(@"update unlock");
+        [self.lock unlockWithCondition:CAN_SEARCH];
     }
 }
 
@@ -161,6 +174,7 @@
     for (; scanningPage <= pageCount; scanningPage++){
         if(running && !pausing) {
             @autoreleasepool {
+              //  NSLog(@"page %2d",scanningPage);
                 [self scanDocumentPage:scanningPage use:scanner];
             }
         }

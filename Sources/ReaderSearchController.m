@@ -80,7 +80,7 @@ UISearchBarDelegate,UISearchDisplayDelegate,SearcherDelegate>
     searchBar.delegate = self;
     searchBar.showsScopeBar= NO;
     searchBar.scopeButtonTitles = [NSArray arrayWithObjects:@"本页",@"全文", nil];
-    searchBar.selectedScopeButtonIndex = 1;
+    searchBar.selectedScopeButtonIndex = 0;
     [searchBar sizeToFit];
     [self.view addSubview:searchBar];
     
@@ -102,7 +102,12 @@ UISearchBarDelegate,UISearchDisplayDelegate,SearcherDelegate>
 - (void)viewWillAppear:(BOOL)animated
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) , ^(){
-        [self.searcher resume];
+        @try {
+            [self.searcher resume];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"PDF resume searching Error : %@",exception);
+        }
     });
 }
 
@@ -115,6 +120,7 @@ UISearchBarDelegate,UISearchDisplayDelegate,SearcherDelegate>
 - (void)updateSearchResults
 {
     [self.tableview beginUpdates];
+    //NSLog(@"update num :%2d",self.searcher.searchResults.count);
     [self.tableview insertRowsAtIndexPaths:self.searcher.updateIndexPath withRowAnimation:UITableViewRowAnimationTop];
     [self.tableview endUpdates];
 }
@@ -276,7 +282,7 @@ UISearchBarDelegate,UISearchDisplayDelegate,SearcherDelegate>
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar1
 {
     NSString *searchingText = [searchBar text];
-    NSString *searchingScope = [[searchBar scopeButtonTitles] objectAtIndex:[searchBar selectedScopeButtonIndex]];
+    NSString *searchingScope = @"全文";//[[searchBar scopeButtonTitles] objectAtIndex:[searchBar selectedScopeButtonIndex]];
     
     if ([searchingText length]>0) {
         [self setPreferredContentSize:CGSizeMake(VIEW_WIDTH, SEARCHBAR_HEIGHT + CELL_HEIGHT*4)];
@@ -295,7 +301,13 @@ UISearchBarDelegate,UISearchDisplayDelegate,SearcherDelegate>
     }
     else if ([searchingScope isEqualToString:@"全文"]){
         dispatch_async(queue, ^(){
-            [self.searcher start];
+            @try {
+                [self.searcher start];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"PDF start searching Error : %@",exception);
+            }
+            
         });
     }
     
