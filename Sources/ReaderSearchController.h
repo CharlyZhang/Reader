@@ -19,6 +19,7 @@
 
 @interface ReaderSearchController : UIViewController
 
+@property (nonatomic,assign) NSInteger currentPage; ///< 进入时的当前页码
 @property (nonatomic, assign) id <ReaderSearchControllerDelegate> delegate;
 
 - (id)initWithReaderDocument:(ReaderDocument*)object atPage:(NSInteger)pageNo;

@@ -36,7 +36,7 @@ UISearchBarDelegate,UISearchDisplayDelegate,SearcherDelegate>
 
 #pragma mark - Properties
 
-@synthesize tableview;
+@synthesize tableview,currentPage;
 
 - (Searcher *)searcher
 {

@@ -850,6 +850,8 @@
     if (!searchController) {
         searchController = [[ReaderSearchController alloc]initWithReaderDocument:document atPage:currentPage];
         searchController.delegate = self;
+    } else {
+        searchController.currentPage =  currentPage;
     }
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
