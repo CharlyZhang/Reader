@@ -11,6 +11,13 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		2DFC82621A836A0A00D88928 /* 茶花女.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DFC825B1A836A0A00D88928 /* 茶花女.pdf */; };
+		2DFC82631A836A0A00D88928 /* 疯狂iOS讲义.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DFC825C1A836A0A00D88928 /* 疯狂iOS讲义.pdf */; };
+		2DFC82641A836A0A00D88928 /* 建筑构造.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DFC825D1A836A0A00D88928 /* 建筑构造.pdf */; };
+		2DFC82651A836A0A00D88928 /* 囚徒健身.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DFC825E1A836A0A00D88928 /* 囚徒健身.pdf */; };
+		2DFC82661A836A0A00D88928 /* 囚徒健身（中文全本）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DFC825F1A836A0A00D88928 /* 囚徒健身（中文全本）.pdf */; };
+		2DFC82671A836A0A00D88928 /* es_spec_3.0.4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DFC82601A836A0A00D88928 /* es_spec_3.0.4.pdf */; };
+		2DFC82681A836A0A00D88928 /* Mah_Jong_British_Rules_Sample_PDF.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DFC82611A836A0A00D88928 /* Mah_Jong_British_Rules_Sample_PDF.pdf */; };
 		450A670411D27B9D00014BF5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 450A670311D27B9D00014BF5 /* QuartzCore.framework */; };
 		4513ACFB19C4A1FB004916D1 /* AppIcon-180.png in Resources */ = {isa = PBXBuildFile; fileRef = 4513ACFA19C4A1FB004916D1 /* AppIcon-180.png */; };
 		4521AB3F19C5EE6000B16688 /* Reader-Export.png in Resources */ = {isa = PBXBuildFile; fileRef = 4521AB3D19C5EE6000B16688 /* Reader-Export.png */; };
@@ -66,12 +73,8 @@
 		45AB7325141FC0B1003524C3 /* ThumbsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AB7312141FC0B1003524C3 /* ThumbsViewController.m */; };
 		45BD5AFE13AE721A00D6FE97 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BD5AFD13AE721A00D6FE97 /* MessageUI.framework */; };
 		45D5ADA31610EADD00706B9A /* ReaderDocumentOutline.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D5ADA21610EADC00706B9A /* ReaderDocumentOutline.m */; };
-		53C893E51A37E92A002656A0 /* 疯狂iOS讲义.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 53C893E31A37E929002656A0 /* 疯狂iOS讲义.pdf */; };
-		53C893E61A37E92A002656A0 /* es_spec_3.0.4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 53C893E41A37E92A002656A0 /* es_spec_3.0.4.pdf */; };
-		9D0F65A41A5E57410040C69A /* 囚徒健身（中文全本）.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D0F65A31A5E57410040C69A /* 囚徒健身（中文全本）.pdf */; };
 		9D0F65AB1A5F9D090040C69A /* Reader_Search.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D0F65A91A5F9D090040C69A /* Reader_Search.png */; };
 		9D0F65AC1A5F9D090040C69A /* Reader_Searchx.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D0F65AA1A5F9D090040C69A /* Reader_Searchx.png */; };
-		9D0F65ED1A63A5A40040C69A /* Mah_Jong_British_Rules_Sample_PDF.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9D0F65EC1A63A5A40040C69A /* Mah_Jong_British_Rules_Sample_PDF.pdf */; };
 		9D10E63B1A66421A0070BD44 /* CFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6121A66421A0070BD44 /* CFont.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9D10E63C1A66421A0070BD44 /* CIDType0Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6141A66421A0070BD44 /* CIDType0Font.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9D10E63D1A66421A0070BD44 /* CIDType2Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E6161A66421A0070BD44 /* CIDType2Font.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -94,7 +97,6 @@
 		9D10E64F1A66421A0070BD44 /* XObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E63A1A66421A0070BD44 /* XObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9D10E65C1A66446B0070BD44 /* RenderingStateStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E65B1A66446B0070BD44 /* RenderingStateStack.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9D10E65F1A6645950070BD44 /* XObjectCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D10E65E1A6645950070BD44 /* XObjectCollection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9DF80C741A6658F700CC1A84 /* 建筑构造.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF80C731A6658F700CC1A84 /* 建筑构造.pdf */; };
 		9DF814A11A7B2C34002202B9 /* ReaderSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF814A01A7B2C34002202B9 /* ReaderSearchController.m */; };
 		9DF814A41A7B2D8B002202B9 /* Searcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF814A31A7B2D8B002202B9 /* Searcher.m */; };
 /* End PBXBuildFile section */
@@ -105,6 +107,13 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2DFC825B1A836A0A00D88928 /* 茶花女.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "茶花女.pdf"; path = "Resources/茶花女.pdf"; sourceTree = "<group>"; };
+		2DFC825C1A836A0A00D88928 /* 疯狂iOS讲义.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "疯狂iOS讲义.pdf"; path = "Resources/疯狂iOS讲义.pdf"; sourceTree = "<group>"; };
+		2DFC825D1A836A0A00D88928 /* 建筑构造.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "建筑构造.pdf"; path = "Resources/建筑构造.pdf"; sourceTree = "<group>"; };
+		2DFC825E1A836A0A00D88928 /* 囚徒健身.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "囚徒健身.pdf"; path = "Resources/囚徒健身.pdf"; sourceTree = "<group>"; };
+		2DFC825F1A836A0A00D88928 /* 囚徒健身（中文全本）.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "囚徒健身（中文全本）.pdf"; path = "Resources/囚徒健身（中文全本）.pdf"; sourceTree = "<group>"; };
+		2DFC82601A836A0A00D88928 /* es_spec_3.0.4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = es_spec_3.0.4.pdf; path = Resources/es_spec_3.0.4.pdf; sourceTree = "<group>"; };
+		2DFC82611A836A0A00D88928 /* Mah_Jong_British_Rules_Sample_PDF.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Mah_Jong_British_Rules_Sample_PDF.pdf; path = Resources/Mah_Jong_British_Rules_Sample_PDF.pdf; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Reader-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Reader-Prefix.pch"; sourceTree = "<group>"; };
 		450A670311D27B9D00014BF5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4513ACFA19C4A1FB004916D1 /* AppIcon-180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppIcon-180.png"; path = "Graphics/AppIcon-180.png"; sourceTree = "<group>"; };
@@ -189,13 +198,9 @@
 		45D5AD9E1610E66B00706B9A /* HISTORY.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HISTORY.md; sourceTree = "<group>"; };
 		45D5ADA11610EADC00706B9A /* ReaderDocumentOutline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReaderDocumentOutline.h; path = Sources/ReaderDocumentOutline.h; sourceTree = "<group>"; };
 		45D5ADA21610EADC00706B9A /* ReaderDocumentOutline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReaderDocumentOutline.m; path = Sources/ReaderDocumentOutline.m; sourceTree = "<group>"; };
-		53C893E31A37E929002656A0 /* 疯狂iOS讲义.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "疯狂iOS讲义.pdf"; sourceTree = "<group>"; };
-		53C893E41A37E92A002656A0 /* es_spec_3.0.4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = es_spec_3.0.4.pdf; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Reader-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Reader-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		9D0F65A31A5E57410040C69A /* 囚徒健身（中文全本）.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "囚徒健身（中文全本）.pdf"; sourceTree = "<group>"; };
 		9D0F65A91A5F9D090040C69A /* Reader_Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Reader_Search.png; path = Graphics/Reader_Search.png; sourceTree = "<group>"; };
 		9D0F65AA1A5F9D090040C69A /* Reader_Searchx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Reader_Searchx.png; path = Graphics/Reader_Searchx.png; sourceTree = "<group>"; };
-		9D0F65EC1A63A5A40040C69A /* Mah_Jong_British_Rules_Sample_PDF.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Mah_Jong_British_Rules_Sample_PDF.pdf; sourceTree = "<group>"; };
 		9D10E6111A66421A0070BD44 /* CFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFont.h; path = Sources/Searcher/CFont.h; sourceTree = "<group>"; };
 		9D10E6121A66421A0070BD44 /* CFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFont.m; path = Sources/Searcher/CFont.m; sourceTree = "<group>"; };
 		9D10E6131A66421A0070BD44 /* CIDType0Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CIDType0Font.h; path = Sources/Searcher/CIDType0Font.h; sourceTree = "<group>"; };
@@ -240,7 +245,6 @@
 		9D10E65B1A66446B0070BD44 /* RenderingStateStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenderingStateStack.m; path = Sources/Searcher/RenderingStateStack.m; sourceTree = "<group>"; };
 		9D10E65D1A6645950070BD44 /* XObjectCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XObjectCollection.h; path = Sources/Searcher/XObjectCollection.h; sourceTree = "<group>"; };
 		9D10E65E1A6645950070BD44 /* XObjectCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XObjectCollection.m; path = Sources/Searcher/XObjectCollection.m; sourceTree = "<group>"; };
-		9DF80C731A6658F700CC1A84 /* 建筑构造.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "建筑构造.pdf"; sourceTree = "<group>"; };
 		9DF8149F1A7B2C34002202B9 /* ReaderSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReaderSearchController.h; path = Sources/ReaderSearchController.h; sourceTree = "<group>"; };
 		9DF814A01A7B2C34002202B9 /* ReaderSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReaderSearchController.m; path = Sources/ReaderSearchController.m; sourceTree = "<group>"; };
 		9DF814A21A7B2D8B002202B9 /* Searcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Searcher.h; path = Sources/Searcher/Searcher.h; sourceTree = "<group>"; };
@@ -313,11 +317,13 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				9DF80C731A6658F700CC1A84 /* 建筑构造.pdf */,
-				9D0F65EC1A63A5A40040C69A /* Mah_Jong_British_Rules_Sample_PDF.pdf */,
-				53C893E41A37E92A002656A0 /* es_spec_3.0.4.pdf */,
-				53C893E31A37E929002656A0 /* 疯狂iOS讲义.pdf */,
-				9D0F65A31A5E57410040C69A /* 囚徒健身（中文全本）.pdf */,
+				2DFC825B1A836A0A00D88928 /* 茶花女.pdf */,
+				2DFC825C1A836A0A00D88928 /* 疯狂iOS讲义.pdf */,
+				2DFC825D1A836A0A00D88928 /* 建筑构造.pdf */,
+				2DFC825E1A836A0A00D88928 /* 囚徒健身.pdf */,
+				2DFC825F1A836A0A00D88928 /* 囚徒健身（中文全本）.pdf */,
+				2DFC82601A836A0A00D88928 /* es_spec_3.0.4.pdf */,
+				2DFC82611A836A0A00D88928 /* Mah_Jong_British_Rules_Sample_PDF.pdf */,
 				45AB72DB141FC039003524C3 /* Reader.pdf */,
 				4541A9D7122EA716001A5E60 /* Localizable.strings */,
 				45AB72DF141FC04B003524C3 /* README.md */,
@@ -645,38 +651,40 @@
 				45699AB31A321F6100808606 /* Default-667h@2x.png in Resources */,
 				45AB72C6141FBFCA003524C3 /* AppIcon-057.png in Resources */,
 				45AB72C7141FBFCA003524C3 /* AppIcon-072.png in Resources */,
-				53C893E51A37E92A002656A0 /* 疯狂iOS讲义.pdf in Resources */,
 				9D0F65AC1A5F9D090040C69A /* Reader_Searchx.png in Resources */,
 				9D0F65AB1A5F9D090040C69A /* Reader_Search.png in Resources */,
 				45AB72C8141FBFCA003524C3 /* AppIcon-114.png in Resources */,
 				45AB72C9141FBFCA003524C3 /* Reader-Email.png in Resources */,
 				45AB72CA141FBFCA003524C3 /* Reader-Email@2x.png in Resources */,
+				2DFC82621A836A0A00D88928 /* 茶花女.pdf in Resources */,
+				2DFC82681A836A0A00D88928 /* Mah_Jong_British_Rules_Sample_PDF.pdf in Resources */,
 				45AB72CB141FBFCA003524C3 /* Reader-Mark-N.png in Resources */,
 				45AB72CC141FBFCA003524C3 /* Reader-Mark-N@2x.png in Resources */,
 				45AB72CD141FBFCA003524C3 /* Reader-Mark-Y.png in Resources */,
-				9D0F65A41A5E57410040C69A /* 囚徒健身（中文全本）.pdf in Resources */,
 				45AB72CE141FBFCA003524C3 /* Reader-Mark-Y@2x.png in Resources */,
-				53C893E61A37E92A002656A0 /* es_spec_3.0.4.pdf in Resources */,
 				45AB72CF141FBFCA003524C3 /* Reader-Print.png in Resources */,
 				45AB72D0141FBFCA003524C3 /* Reader-Print@2x.png in Resources */,
+				2DFC82631A836A0A00D88928 /* 疯狂iOS讲义.pdf in Resources */,
 				45699AB41A321F6100808606 /* Default-736h@3x.png in Resources */,
 				45AB72D1141FBFCA003524C3 /* Reader-Thumbs.png in Resources */,
 				45AB72D2141FBFCA003524C3 /* Reader-Thumbs@2x.png in Resources */,
 				4521AB4019C5EE6000B16688 /* Reader-Export@2x.png in Resources */,
+				2DFC82651A836A0A00D88928 /* 囚徒健身.pdf in Resources */,
+				2DFC82641A836A0A00D88928 /* 建筑构造.pdf in Resources */,
 				4513ACFB19C4A1FB004916D1 /* AppIcon-180.png in Resources */,
-				9D0F65ED1A63A5A40040C69A /* Mah_Jong_British_Rules_Sample_PDF.pdf in Resources */,
 				45AB72DC141FC039003524C3 /* Reader.pdf in Resources */,
 				455C789D14268F6A0053D73B /* Reader-Button-H.png in Resources */,
 				455C789E14268F6A0053D73B /* Reader-Button-H@2x.png in Resources */,
 				455C789F14268F6A0053D73B /* Reader-Button-N.png in Resources */,
 				455C78A014268F6A0053D73B /* Reader-Button-N@2x.png in Resources */,
 				4583767F1533B0AC003CD230 /* AppIcon-144.png in Resources */,
+				2DFC82671A836A0A00D88928 /* es_spec_3.0.4.pdf in Resources */,
 				4544394917FDD5E700781873 /* AppIcon-120.png in Resources */,
+				2DFC82661A836A0A00D88928 /* 囚徒健身（中文全本）.pdf in Resources */,
 				4544D87C1610A3C2003DB132 /* Default-568h@2x.png in Resources */,
 				4521AB3F19C5EE6000B16688 /* Reader-Export.png in Resources */,
 				4544394817FDD5E700781873 /* AppIcon-076.png in Resources */,
 				4544394A17FDD5E700781873 /* AppIcon-152.png in Resources */,
-				9DF80C741A6658F700CC1A84 /* 建筑构造.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
