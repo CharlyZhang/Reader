@@ -9,6 +9,31 @@ extern NSValue *rangeValue(unsigned int from, unsigned int to);
 @property SEL handler;
 @end
 
+/// define CharacterRangeMapping
+typedef enum CharacterRangeMappingType{
+    MAPPING_TYPE_N_1,           ///< range to one value
+    MAPPING_TYPE_N_N            ///< range to range value
+} CharacterRangeMappingType;
+
+@interface CharacterRangeMapping : NSObject
+{
+    CharacterRangeMappingType type;
+    NSRange                   range;
+    NSMutableArray*           values;
+    BOOL                      completed;         ///< false when values length is shorter than the range in case MAPPING_TYPE_N_N
+}
+
+@property (nonatomic, readonly)CharacterRangeMappingType type;
+
+- (id)initWithType:(CharacterRangeMappingType)t forRange:(NSRange)r;
+
+- (void)addValue:(NSNumber*)value;
+- (void)finishAdd;                          ///for MAPPING_TYPE_N_N
+
+- (unichar)valueForCID:(unichar)cid;
+
+@end
+
 @interface CMap : NSObject {
 	NSMutableArray *offsets;
     NSMutableDictionary *chars;
