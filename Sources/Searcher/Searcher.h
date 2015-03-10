@@ -23,7 +23,8 @@
 @property (nonatomic, retain, readonly) NSMutableArray *updateIndexPath;     ///< 更新对搜索结果位置
 @property (nonatomic, assign) id<SearcherDelegate> delegate;                 ///< required when scanning document asynchronizely
 @property (nonatomic, retain) NSString       *keyWord;                       ///< 关键词
-@property (nonatomic, assign, readonly) BOOL running;
+@property (atomic, assign, readonly) BOOL running;
+@property (atomic, assign, readonly) BOOL pausing;
 
 - (id)initWithDocument:(ReaderDocument*)object;
 
@@ -33,11 +34,13 @@
 /* Start scanning a particular document pages */
 - (void)scanDocumentPage:(NSInteger)pageNo;
 
+/* request more results, return NO when no more */
+- (BOOL)moreResults;
 
 /// for scan the whole book
-- (void)start;
-- (void)pause;
-- (void)resume;
+- (void)start;          ///< start searching
+- (void)pause;          ///< pause searching
+- (void)resume;         ///< resume from pause
 - (void)reset;
 
 @end

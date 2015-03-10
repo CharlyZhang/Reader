@@ -71,5 +71,5 @@
 	[super dealloc];
 }
 
-@synthesize frame, transform, lineContent,pageNo,sectionTitle;
+@synthesize frame, transform, lineContent,pageNo,sectionTitle,indexOfLineContent;
 @end

@@ -389,15 +389,23 @@ void Do(CGPDFScannerRef scanner, void *info);
 
 - (void)didScanOneLine
 {
-    int selNum = [self.selections count];
+    NSInteger selNum = [self.selections count];
+    NSInteger i;
     
     /// set current line content to the past unset selections
-    for (int i = selNum-1; i >= 0; i--) {
+    for (i = selNum-1; i >= 0; i--) {
         Selection *sel = [self.selections objectAtIndex:i];
         if (sel.lineContent)    break;
         
         sel.lineContent = [NSString stringWithString:content];
     }
+    /// set selection index in current line content
+    Byte index = 0;
+    for (++i; i < selNum; i++) {
+        Selection *sel = [self.selections objectAtIndex:i];
+        sel.indexOfLineContent = index++;
+    }
+    
 #ifdef SHOW_LINE_CONTENT
     NSLog(@"line content:%@",content);
 #endif
@@ -439,7 +447,7 @@ void ET(CGPDFScannerRef scanner, void *info)
 #ifdef SHOW_OPERATE_DATA
     NSLog(@"ET");
 #endif
-    // [(Scanner *)info didScanOneLine];
+   // [(Scanner *)info didScanOneLine];
 }
 
 /* Pops the requested number of values, and returns the number of values popped */
@@ -621,7 +629,7 @@ void Tm(CGPDFScannerRef scanner, void *info)
 #endif
     [[(Scanner *)info currentRenderingState] setTextMatrix:t replaceLineMatrix:YES];
     
-    // [(Scanner *)info haveScanNewLine];
+   // [(Scanner *)info haveScanNewLine];
 }
 
 /* Go to start of new line, using stored text leading */
@@ -629,7 +637,7 @@ void TStar(CGPDFScannerRef scanner, void *info)
 {
     [[(Scanner *)info currentRenderingState] newLine];
     
-    // [(Scanner *)info haveScanNewLine];
+   // [(Scanner *)info haveScanNewLine];
 }
 
 #pragma mark Text State operators
@@ -751,14 +759,14 @@ void cm(CGPDFScannerRef scanner, void *info)
     RenderingState *state = [(Scanner *)info currentRenderingState];
     CGAffineTransform t = CGAffineTransformMake(a, b, c, d, tx, ty);
     state.ctm = CGAffineTransformConcat(state.ctm, t);
-    
+
 #ifdef ENFORCE_POSITIVE_TY
     if(d < 0 && ty <= 0) {
         state.ctm = CGAffineTransformMake(state.ctm.a, state.ctm.b, state.ctm.c, state.ctm.d, state.ctm.tx, -state.ctm.ty);
     }
 #endif
     
-    // [(Scanner *)info haveScanNewLine];
+   // [(Scanner *)info haveScanNewLine];
 }
 
 #pragma mark XObject drawing operators

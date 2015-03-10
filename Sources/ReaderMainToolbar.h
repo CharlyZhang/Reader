@@ -48,6 +48,7 @@
 @interface ReaderMainToolbar : UIXToolbarView
 
 @property (nonatomic, weak, readwrite) id <ReaderMainToolbarDelegate> delegate;
+@property (nonatomic, retain, readonly) UIButton *searchButton;
 
 - (instancetype)initWithFrame:(CGRect)frame document:(ReaderDocument *)document;
 

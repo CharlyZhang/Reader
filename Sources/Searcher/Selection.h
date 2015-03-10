@@ -6,6 +6,7 @@
 	RenderingState *initialState;
     NSString        *lineContent;          ///< 所在行的内容
     int             pageNo;                ///< 所在页的页码
+    Byte            indexOfLineContent;    ///< 该结果在当前行序号
     NSString        *sectionTitle;         ///< 所在章节名称
 	CGAffineTransform transform;
 	CGRect frame;
@@ -28,5 +29,7 @@
 @property (nonatomic, retain) NSString *sectionTitle;
 
 @property (nonatomic, assign) int pageNo;
+
+@property (nonatomic, assign) Byte indexOfLineContent;
 
 @end

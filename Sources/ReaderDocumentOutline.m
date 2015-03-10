@@ -404,6 +404,31 @@ void logDictionaryEntry(const char *key, CGPDFObjectRef object, void *info)
 	return [outlineArray copy]; // NSArray
 }
 
++ (NSArray *)outlineFromDocument:(CGPDFDocumentRef)document
+{
+    NSMutableArray *outlineArray = nil; // Mutable outline array
+    
+    CGPDFDictionaryRef outlines = NULL; // Document's outlines
+    
+    CGPDFDictionaryRef catalog = CGPDFDocumentGetCatalog(document);
+    
+    if (CGPDFDictionaryGetDictionary(catalog, "Outlines", &outlines) == true)
+    {
+        CGPDFDictionaryRef firstItem = NULL; // First outline item entry
+        
+        if (CGPDFDictionaryGetDictionary(outlines, "First", &firstItem) == true)
+        {
+            outlineArray = [NSMutableArray array]; // Top level outline entries array
+            
+            [self outlineItems:firstItem document:document array:outlineArray level:0];
+        }
+    }
+    
+    //[self logDocumentOutlineArray:outlineArray]; // Log it
+    
+    return [outlineArray copy]; // NSArray
+}
+
 @end
 
 #pragma mark -

@@ -32,6 +32,7 @@
 @implementation ReaderMainToolbar
 {
 	UIButton *markButton;
+    UIButton *searchButton;
 
 	UIImage *markImageN;
 	UIImage *markImageY;
@@ -55,7 +56,7 @@
 
 #pragma mark - Properties
 
-@synthesize delegate;
+@synthesize delegate, searchButton;
 
 #pragma mark - ReaderMainToolbar instance methods
 
@@ -251,7 +252,7 @@
         
         rightButtonX -= (iconButtonWidth + buttonSpacing); // Position
         
-        UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
         searchButton.frame = CGRectMake(rightButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
         UIImage *image = [UIImage imageNamed:@"Reader_Searchx"];
         [searchButton setImage:[UIImage imageNamed:@"Reader_Searchx"] forState:UIControlStateNormal];

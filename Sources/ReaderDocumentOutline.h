@@ -29,6 +29,8 @@
 
 + (NSArray *)outlineFromFileURL:(NSURL *)fileURL password:(NSString *)phrase;
 
++ (NSArray *)outlineFromDocument:(CGPDFDocumentRef)document;
+
 + (void)logDocumentOutlineArray:(NSArray *)array;
 
 @end

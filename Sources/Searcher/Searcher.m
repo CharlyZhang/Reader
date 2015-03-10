@@ -12,6 +12,7 @@
 #import "ReaderDocumentOutline.h"
 #import "Scanner.h"
 
+#define RESULTS_PER_ROUND   100
 #define PAGE_PER_THREAD     40
 //#define USE_MUTIL_THREAD
 
@@ -25,8 +26,9 @@
     NSInteger pageCount;                            ///< pdf的页码总数
     NSString *keywordLastAllSearched;               ///< 上次全文搜索的关键词
     BOOL running;                                   ///< 是否正在搜索
-    bool pausing;                                   ///< 是否暂停
+    BOOL pausing;                                   ///< 是否处在暂停
     NSUInteger scanningPage;                        ///< 搜索到的页面
+    NSUInteger selectionNumInRound;                 ///< 当前轮所搜到的结果数目
 }
 
 @property (nonatomic, retain) NSMutableArray* documentOutlines;                 ///< pdf文档的目录
@@ -34,14 +36,14 @@
 @property (nonatomic, retain, readwrite) NSMutableArray *searchResults;
 @property (nonatomic, retain, readwrite) NSMutableArray *updateIndexPath;       ///< 更新对搜索结果位置
 @property (nonatomic, assign, readwrite) BOOL running;
-@property (nonatomic, retain)  NSConditionLock *lock;
+@property (nonatomic, retain) NSConditionLock *lock;
 @end
 
 
 @implementation Searcher
 
 #pragma mark - Properties
-@synthesize running;
+@synthesize running,pausing;
 
 - (NSMutableArray*)searchResults
 {
@@ -62,7 +64,7 @@
 - (NSMutableArray*)documentOutlines
 {
     if (!_documentOutlines) {
-        NSArray *originalOutlines =[ReaderDocumentOutline outlineFromFileURL:document.fileURL password:document.password];
+        NSArray *originalOutlines = [ReaderDocumentOutline outlineFromDocument:pdfDocRef];
         _documentOutlines = [[NSMutableArray alloc] initWithCapacity:[originalOutlines count]];
         
         for (DocumentOutlineEntry* value in originalOutlines) {
@@ -72,7 +74,7 @@
             [_documentOutlines addObject:entry];
             PDF_RELEASE(entry);
         }
-        // PDF_RELEASE(originalOutlines);  ///< ARC文件copy出来的对象由该文件
+       // PDF_RELEASE(originalOutlines);  ///< ARC文件copy出来的对象由该文件
     }
     
     return _documentOutlines;
@@ -85,6 +87,7 @@
     }
     return _lock;
 }
+
 #pragma mark - Initialization
 
 - (id)initWithDocument:(ReaderDocument*)object
@@ -106,7 +109,7 @@
 - (void)scanDocumentPage:(NSInteger)pageNo
 {
     Scanner *scanner = [[Scanner alloc] init];
-    [self reset];
+    [self reset:NO];
     running = YES;
     [self scanDocumentPage:pageNo use:scanner];
     running = NO;
@@ -127,7 +130,6 @@
     NSString *currSectionTitle = [self catalogTitleAtPageNumber:pageNo];
 
     [self.lock lockWhenCondition:CAN_SEARCH];
-//    NSLog(@"begin searching");
     [self.updateIndexPath removeAllObjects];
     /// set current pageNo and sectionTitle to the past unset selections
     for (int i = 0; i < selNum; i++) {
@@ -143,23 +145,22 @@
         NSIndexPath *path = [NSIndexPath indexPathForRow:self.searchResults.count inSection:0];
         [self.updateIndexPath addObject:path];
         [self.searchResults addObject:sel];
+        selectionNumInRound ++ ;
     }
-//    NSLog(@"end searching");
-//    NSLog(@"searching num :%2d",self.searchResults.count);
+
+    if (selectionNumInRound >= RESULTS_PER_ROUND)   [self pause];
     
+   // NSLog(@"updating rows number %d",self.searchResults.count);
     if (self.updateIndexPath.count >0) {
-        //NSLog(@"update unlock with condition");
         [self.lock unlockWithCondition:NO_SEARCH];
         dispatch_async(dispatch_get_main_queue(), ^(){
             [self.lock lock];
-            //NSLog(@"begin update");
+         //   NSLog(@"update search results");
             [self.delegate updateSearchResults];
-            //NSLog(@"end update");
+         //   NSLog(@"update search done");
             [self.lock unlockWithCondition:CAN_SEARCH];
         });
-        
     } else {
-        //NSLog(@"update unlock");
         [self.lock unlockWithCondition:CAN_SEARCH];
     }
 }
@@ -170,11 +171,13 @@
     NSDate *startTime = [NSDate date];
     
 #ifndef USE_MUTIL_THREAD
+    if (selectionNumInRound >= RESULTS_PER_ROUND)   [self pause];
+    
     Scanner *scanner = [[Scanner alloc]init];
     for (; scanningPage <= pageCount; scanningPage++){
         if(running && !pausing) {
             @autoreleasepool {
-              //  NSLog(@"page %2d",scanningPage);
+           //     NSLog(@"page:%d",scanningPage);
                 [self scanDocumentPage:scanningPage use:scanner];
             }
         }
@@ -268,14 +271,24 @@
     return current.title;
 }
 
+- (BOOL)moreResults
+{
+    if (!running) return NO;
+    
+    if (selectionNumInRound >= RESULTS_PER_ROUND)   selectionNumInRound = 0;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^(){
+        [self resume];
+    });
+    
+    return YES;
+}
+
 - (void)start
 {
     if([self.keyWord isEqualToString:keywordLastAllSearched]) return;
-    
-    PDF_RELEASE(keywordLastAllSearched);
-    keywordLastAllSearched = PDF_RETAIN(self.keyWord);
    
-    [self reset];
+    [self reset:YES];
     running = YES;
     
     [self scanDocument];
@@ -293,6 +306,7 @@
     if (!running) return;
     
     self.keyWord = keywordLastAllSearched;
+        
     pausing = NO;
     [self scanDocument];
     if(!pausing) running = NO;
@@ -300,9 +314,20 @@
 
 - (void)reset
 {
+    [self reset:YES];
+}
+
+- (void)reset:(BOOL)isAllSearching
+{
+    if (isAllSearching) {
+        PDF_RELEASE(keywordLastAllSearched);
+        keywordLastAllSearched = PDF_RETAIN(self.keyWord);
+    }
+    
     running = NO;
     pausing = NO;
     scanningPage = 1;
+    selectionNumInRound = 0;
     [self.searchResults removeAllObjects];
 }
 

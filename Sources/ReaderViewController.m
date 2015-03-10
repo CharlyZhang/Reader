@@ -72,7 +72,7 @@
     
     /// Searching
     UIPopoverController     *searchPopoverController;
-    ReaderSearchController  *searchController;
+    UINavigationController  *searchNaviController;
     Selection               *selectedSelection;     ///< 选中的搜索结果
     NSInteger               selectedPageNo;         ///< 选中结果所在的页面(无跳转搜索结果时为－1，用作状态判断)
     
@@ -847,23 +847,25 @@
 {
 #if (READER_ENABLE_SEARCH == TRUE) // Option
     
-    if (!searchController) {
-        searchController = [[ReaderSearchController alloc]initWithReaderDocument:document atPage:currentPage];
+    if (!searchNaviController) {
+        ReaderSearchController *searchController = [[ReaderSearchController alloc]initWithReaderDocument:document atPage:currentPage];
         searchController.delegate = self;
+        searchNaviController =  [[UINavigationController alloc] initWithRootViewController:searchController];
     } else {
+        ReaderSearchController *searchController = (ReaderSearchController*)[searchNaviController topViewController];
         searchController.currentPage =  currentPage;
     }
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
         if (!searchPopoverController) {
-            searchPopoverController = [[UIPopoverController alloc]initWithContentViewController:searchController];
+            searchPopoverController = [[UIPopoverController alloc]initWithContentViewController:searchNaviController];
             searchPopoverController.delegate = self;
         }
         
         [searchPopoverController presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     }
     else {
-        [self presentViewController:searchController animated:YES completion:nil];
+        [self presentViewController:searchNaviController animated:YES completion:nil];
     }
 
 #endif // end of READER_ENABLE_SEARCH Option
@@ -1054,19 +1056,30 @@
 #pragma mark - UIPopoverControllerDelegate methods
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-    if ([popoverController.contentViewController isKindOfClass:[ReaderSearchController class]]) {
-        [searchController pauseSearching];
+    if ([popoverController.contentViewController isKindOfClass:[UINavigationController class]]) {
+        UIViewController *viewCtrl = [(UINavigationController*) popoverController.contentViewController topViewController];
+        
+        if ([viewCtrl isKindOfClass:[ReaderSearchController class]]) {
+            ReaderSearchController *searchController = (ReaderSearchController*)viewCtrl;
+            [searchController pauseSearching];
+        }
     }
+    
+    [mainToolbar hideToolbar]; [mainPagebar hidePagebar];
 }
 
-///// for IOS 7
-//#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-//- (void)popoverController:(UIPopoverController *)popoverController willRepositionPopoverToRect:(inout CGRect *)rect inView:(inout UIView **)view {
-//    if ([popoverController.contentViewController isKindOfClass:[ReaderSearchController class]]){
-//         *rect = mainToolbar.searchButton.frame;
-//    }
-//}
-//#endif
+/// for IOS 7
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+- (void)popoverController:(UIPopoverController *)popoverController willRepositionPopoverToRect:(inout CGRect *)rect inView:(inout UIView **)view {
+    if ([popoverController.contentViewController isKindOfClass:[UINavigationController class]]){
+        UIViewController *viewCtrl = [(UINavigationController*) popoverController.contentViewController topViewController];
+        
+        if ([viewCtrl isKindOfClass:[ReaderSearchController class]]) {
+            *rect = mainToolbar.searchButton.frame;
+        }
+    }
+}
+#endif
 
 #pragma mark - PDFSearchViewControllerDelegate methods
 
