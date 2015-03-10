@@ -275,6 +275,7 @@ UISearchBarDelegate,UISearchDisplayDelegate,SearcherDelegate>
     Selection *selection = self.searcher.searchResults[indexPath.row];
     
     [self.delegate selectSearchResult:selection];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 
