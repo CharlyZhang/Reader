@@ -24,6 +24,58 @@ NSValue *rangeValue(unsigned int from, unsigned int to)
 @synthesize start, end, handler;
 @end
 
+@implementation CharacterRangeMapping
+
+@synthesize type;
+
+- (id)initWithType:(CharacterRangeMappingType)t forRange:(NSRange)r
+{
+    if (self = [super init]) {
+        type = t;
+        range = r;
+        values = [[NSMutableArray alloc]init];
+        completed = NO;
+    }
+    return self;
+}
+
+- (void)addValue:(NSNumber*)value
+{
+    [values addObject:value];
+}
+
+- (void)finishAdd                          ///for MAPPING_TYPE_N_N
+{
+    completed = YES;
+}
+
+- (unichar)valueForCID:(unichar)cid
+{
+    NSNumber *value;
+    if (type == MAPPING_TYPE_N_1) {
+        value = [values objectAtIndex:0];
+        return cid - range.location + [value intValue];
+        
+    } else if (type == MAPPING_TYPE_N_N) {
+        if (cid - range.location + 1 > [values count]) {
+            NSLog(@"Error, <from> <to> <offsetrange>, offsetrange is shorter");
+        } else {
+            value = [values objectAtIndex: (cid - range.location)];
+            return [value intValue];
+        }
+    }
+    
+    return 0;
+}
+
+- (void)dealloc
+{
+    [values release];
+    [super dealloc];
+}
+@end
+
+
 @interface CMap ()
 - (void)handleCodeSpaceRange:(NSString *)string;
 - (void)handleCharacter:(NSString *)string;
@@ -82,8 +134,8 @@ NSValue *rangeValue(unsigned int from, unsigned int to)
 		NSRange range = [rangeValue rangeValue];
 		if (cid >= range.location && cid <= NSMaxRange(range))
 		{
-			NSNumber *offsetValue = [self.characterRangeMappings objectForKey:rangeValue];
-			return cid - range.location + [offsetValue intValue];
+            CharacterRangeMapping *mapping = [self.characterRangeMappings objectForKey:rangeValue];
+            return [mapping valueForCID:cid];
 		}
 	}
 	
@@ -265,6 +317,21 @@ NSValue *rangeValue(unsigned int from, unsigned int to)
  */
 - (void)handleCharacterRange:(NSString *)token
 {
+    int state = 0;
+    NSRange checkRange;
+    
+    checkRange = [token rangeOfString:@"["];
+    if (checkRange.location != NSNotFound) {
+        state = 1;
+        token = [token substringFromIndex:checkRange.location+checkRange.length];
+    } else {
+        checkRange = [token rangeOfString:@"]" options:NSBackwardsSearch];
+        if (checkRange.location != NSNotFound) {
+            state = -1;
+            token = [token substringToIndex:checkRange.location];
+        }
+    }
+    
 	NSNumber *value = [NSNumber numberWithInt:[self valueOfTag:token]];
 	static NSString *from = @"From";
 	static NSString *to = @"To";
@@ -280,10 +347,27 @@ NSValue *rangeValue(unsigned int from, unsigned int to)
 		[self.context setValue:value forKey:to];
 		return;
 	}
+    
 	NSValue *range = rangeValue([fromValue intValue], [toValue intValue]);
-	[self.characterRangeMappings setObject:value forKey:range];
-	[self.context removeObjectForKey:from];
-	[self.context removeObjectForKey:to];
+    CharacterRangeMapping *mapping = [self.characterRangeMappings objectForKey:range];
+    if (!mapping) {
+        if (state == 0) {
+            mapping = [[CharacterRangeMapping alloc]initWithType:MAPPING_TYPE_N_1 forRange:[range rangeValue]];
+        } else if (state == 1){
+            mapping = [[CharacterRangeMapping alloc]initWithType:MAPPING_TYPE_N_N forRange:[range rangeValue]];
+        } else {
+            NSLog(@"Error, <from> <to> <offsetrange>, no range beginning");
+        }
+    }
+    if(state != -1) [mapping addValue:value];
+    else            [mapping finishAdd];
+    
+    if (state == -1 || mapping.type == MAPPING_TYPE_N_1) {
+        [self.context removeObjectForKey:from];
+        [self.context removeObjectForKey:to];
+    }
+    
+    [self.characterRangeMappings setObject:mapping forKey:range];
 }
 
 #pragma mark -
