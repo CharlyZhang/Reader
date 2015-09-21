@@ -38,8 +38,6 @@
 #import "Selection.h"
 //#import "SingleViewBookViewController.h"        ///< 包含用户数据定义
 //#import "TeaRecord.h"
-//#import "SmallNoteView.h"
-//#import "BigNoteView.h"
 #import "PDFMainScrollView.h"
 
 #import <MessageUI/MessageUI.h>
@@ -473,6 +471,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
             noteView = [[UIView alloc]initWithFrame:self.currentView.bounds];
             noteView.tag = NOTE_TAG;
             [self.currentView addSubview:noteView];
+            PDF_RELEASE(noteView);
         }
         [noteView addSubview:view];
     }
@@ -785,15 +784,15 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
 
 - (BOOL)touchesShouldCancelInMainScrollView:(UIView *)view
 {
-//    if ([view isKindOfClass:[SmallNoteView class]]) {
-//#ifdef DEBUG
-//        NSLog(@"touchesShouldCancelInMainScrollView - NO");
-//#endif
-//        return NO;
-//    }
-//#ifdef DEBUG
-//    NSLog(@"touchesShouldCancelInMainScrollView - YES");
-//#endif
+    if (view.superview && view.superview.tag == NOTE_TAG) {
+#ifdef DEBUG
+        NSLog(@"touchesShouldCancelInMainScrollView - NO");
+#endif
+        return NO;
+    }
+#ifdef DEBUG
+    NSLog(@"touchesShouldCancelInMainScrollView - YES");
+#endif
     return YES;
 }
 

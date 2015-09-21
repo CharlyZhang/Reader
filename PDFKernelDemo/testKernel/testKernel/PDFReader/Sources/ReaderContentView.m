@@ -27,8 +27,6 @@
 #import "ReaderContentView.h"
 #import "ReaderContentPage.h"
 #import "ReaderThumbCache.h"
-//#import "SmallNoteView.h"
-
 #import <QuartzCore/QuartzCore.h>
 
 //#define DEBUG_INSET
@@ -462,15 +460,15 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 
 - (BOOL)touchesShouldCancelInContentView:(UIView *)view
 {
-//    if ([view isKindOfClass:[SmallNoteView class]]) {
-//#ifdef DEBUG
-//        NSLog(@"touchesShouldCancelInContentView - NO");
-//#endif
-//        return NO;
-//    }
-//#ifdef DEBUG
-//    NSLog(@"touchesShouldCancelInContentView - YES");
-//#endif
+    if (view.superview && view.superview.tag == NOTE_TAG) {
+#ifdef DEBUG
+        NSLog(@"touchesShouldCancelInContentView - NO");
+#endif
+        return NO;
+    }
+#ifdef DEBUG
+    NSLog(@"touchesShouldCancelInContentView - YES");
+#endif
     return YES;
 }
 

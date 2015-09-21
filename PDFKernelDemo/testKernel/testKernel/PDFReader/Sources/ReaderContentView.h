@@ -33,7 +33,7 @@
 @class Selection;
 
 #define ENDORSE_TAG     0x7456              ///< 批注视图tag
-#define EDIT_TAG        0x5951              ///< 编辑视图tag
+#define EDIT_TAG        0x5951              ///< 批注编辑tag
 #define NOTE_TAG        0x1812              ///< 便签视图tag
 
 @protocol ReaderContentViewDelegate <NSObject>
