@@ -26,6 +26,6 @@
 
 @property (nonatomic, weak, readwrite) id <PDFThumbsMainToolbarDelegate> delegate;
 
-- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title;
+- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title configuration:(NSDictionary*)config;
 
 @end

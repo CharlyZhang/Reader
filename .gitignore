@@ -1,3 +1,5 @@
 .DS_Store
 project.xcworkspace
 xcuserdata
+PDFKernelDemo/testKernel/build
+PDFKernelDemo/testKernel/Products

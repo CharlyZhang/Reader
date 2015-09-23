@@ -41,15 +41,21 @@
     return self;
 }
 
-- (id)initWithPath:(NSString *)path with:(NSString *)bookID
+- (id)initWithPath:(NSString *)path withBookID:(NSString *)bookID
+{
+    return [self initWithPath:path withBookID:bookID withPassword:nil];
+}
+
+
+-(id)initWithPath:(NSString *)path withBookID:(NSString*)bookID withPassword:(NSString *)pwd configuration:(NSDictionary*) config
 {
     assert(path != nil); // Path to first PDF file
     
-    ReaderDocument *document = [ReaderDocument withDocumentFilePath:path password:nil];
+    ReaderDocument *document = [ReaderDocument withDocumentFilePath:path password:pwd];
     
     if (document != nil) // Must have a valid ReaderDocument object in order to proceed with things
     {
-        self = [super initWithReaderDocument:document];
+        self = [super initWithReaderDocument:document configuration:config];
         
         self.pdfId = bookID;
     }
@@ -59,6 +65,7 @@
     }
     
     return self;
+    
 }
 
 #pragma mark - PDFViewController methods
@@ -71,7 +78,7 @@
     [self.currentView.layer renderInContext:UIGraphicsGetCurrentContext()];
     image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-
+    
     return image;
 }
 

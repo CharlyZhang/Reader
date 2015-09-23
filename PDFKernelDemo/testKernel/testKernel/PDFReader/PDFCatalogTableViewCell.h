@@ -19,4 +19,5 @@
 @property(nonatomic,retain) UILabel      *subTitle;
 @property(nonatomic,retain) UILabel      *pageNumber;
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withImages:(NSArray*)configImages;
 @end

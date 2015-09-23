@@ -30,6 +30,7 @@
 #import "ReaderDocument.h"
 
 #import <QuartzCore/QuartzCore.h>
+#import "PDFConstants.h"
 
 @interface ThumbsViewController () <PDFThumbsMainToolbarDelegate, ReaderThumbsViewDelegate>
 
@@ -50,6 +51,8 @@
 
 	BOOL updateBookmarked;
 	BOOL showBookmarked;
+    
+    NSDictionary *configuration;
 }
 
 #pragma mark - Constants
@@ -67,7 +70,7 @@
 
 #pragma mark - UIViewController methods
 
-- (instancetype)initWithReaderDocument:(ReaderDocument *)object
+- (instancetype)initWithReaderDocument:(ReaderDocument *)object configuration:(NSDictionary*)config
 {
 	if ((self = [super initWithNibName:nil bundle:nil])) // Initialize superclass
 	{
@@ -83,6 +86,8 @@
 		}
 	}
 
+    configuration = [NSDictionary dictionaryWithDictionary:config];
+    
 	return self;
 }
 
@@ -116,7 +121,7 @@
 
 	CGRect toolbarRect = scrollViewRect; // Toolbar frame
 	toolbarRect.size.height = TOOLBAR_HEIGHT; // Default toolbar height
-	mainToolbar = [[PDFThumbsMainToolbar alloc] initWithFrame:toolbarRect title:toolbarTitle]; // ThumbsMainToolbar
+	mainToolbar = [[PDFThumbsMainToolbar alloc] initWithFrame:toolbarRect title:toolbarTitle configuration:configuration]; // ThumbsMainToolbar
 	mainToolbar.delegate = self; // ThumbsMainToolbarDelegate
 	[self.view addSubview:mainToolbar];
 
@@ -284,7 +289,7 @@
 
 - (id)thumbsView:(ReaderThumbsView *)thumbsView thumbCellWithFrame:(CGRect)frame
 {
-	return [[ThumbsPageThumb alloc] initWithFrame:frame];
+	return [[ThumbsPageThumb alloc] initWithFrame:frame configuration:configuration];
 }
 
 - (void)thumbsView:(ReaderThumbsView *)thumbsView updateThumbCell:(ThumbsPageThumb *)thumbCell forIndex:(NSInteger)index
@@ -369,7 +374,7 @@
 	return iconRect; // Frame position rect inside of image view
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame configuration:(NSDictionary*)config
 {
 	if ((self = [super initWithFrame:frame]))
 	{
@@ -431,10 +436,12 @@
 
 		[imageView addSubview:tintView];
 
-		UIImage *image = [UIImage imageNamed:@"kernel_thum_bookmark_flag"];
+        UIImage *image = (UIImage*)[config objectForKey:BOOKMARK_FLAG_IMAGE_KEY];
+        if (!image) {
+            image = [UIImage imageNamed:@"pdf_bookmark_flag"];
+        }
 
 		bookMark = [[UIImageView alloc] initWithImage:image];
-
 		bookMark.hidden = YES;
 		bookMark.autoresizesSubviews = NO;
 		bookMark.userInteractionEnabled = NO;

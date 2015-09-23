@@ -10,15 +10,19 @@
 #import "PDFConstants.h"
 
 @interface PDFCatalogTableViewCell()
+{
+    NSArray *images;
+}
 
 @end
 
 @implementation PDFCatalogTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withImages:(NSArray*)configImages
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        images = configImages;
         [self addSubViews];
         [self constraintSubviews];
     }
@@ -48,10 +52,11 @@
     _pageNumber.font = [UIFont systemFontOfSize:11];
     _pageNumber.textColor = [UIColor lightGrayColor];
     [self.contentView addSubview:_pageNumber];
-
-    _icon.image = [UIImage imageNamed:@"PDFKernel.bundle/EPUB_MainTitle_Icon.png"];
-    _subIcon.image = [UIImage imageNamed:@"PDFKernel.bundle/EPUB_NextTitle_Icon.png"];
-
+    
+    if (images && images.count >= 2) {
+        _icon.image = (UIImage*) images[0];
+        _subIcon.image = (UIImage*) images[1];
+    }
 }
 
 -(void)constraintSubviews{

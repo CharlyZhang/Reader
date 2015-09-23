@@ -35,10 +35,13 @@
     
     UIButton *searchButton;
     UIButton *catalogButton;
-    UIButton *userRecordButton;
+    NSMutableArray *customButtons;
     
     UIImage *markImageN;
     UIImage *markImageY;
+    
+    NSArray *backgroundImages;
+    UIImageView *backgroundView;
 }
 
 #pragma mark - Constants
@@ -59,7 +62,7 @@
 
 #pragma mark - Properties
 
-@synthesize delegate,catalogButton,searchButton,userRecordButton;
+@synthesize delegate,catalogButton,searchButton,customButtons;
 
 #pragma mark - ReaderMainToolbar instance methods
 
@@ -70,11 +73,26 @@
 
 - (instancetype)initWithFrame:(CGRect)frame document:(ReaderDocument *)document
 {
+    NSDictionary *config = @{};
+    
+    return [self initWithFrame:frame document:document cofiguration:config];
+}
+
+
+- (instancetype)initWithFrame:(CGRect)frame document:(ReaderDocument *)document cofiguration:(NSDictionary*)config
+{
     assert(document != nil); // Must have a valid ReaderDocument
+    assert(config != nil);
     
     if ((self = [super initWithFrame:frame]))
     {
-        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PDFKernel.bundle/kernel_bar_bg_h.png"]];
+        backgroundImages = (NSArray*)[config objectForKey:TOOLBAR_BACKGROUND_IMAGE_KEY];
+        if (!backgroundImages) {
+            backgroundImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"pdf_topbar_bg_h"],
+                          [UIImage imageNamed:@"pdf_topbar_bg_v"], nil];
+        }
+
+        backgroundView = [[UIImageView alloc] initWithImage:backgroundImages[0]];
         [self addSubview: backgroundView];
         
         CGFloat viewWidth = self.bounds.size.width; // Toolbar view width
@@ -97,8 +115,13 @@
 #if (READER_STANDALONE == FALSE) // Option
         UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeCustom];
         returnButton.frame = CGRectMake(leftButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
-        [returnButton setImage:[UIImage imageNamed:@"PDFKernel.bundle/kernel_back_bookshelf"] forState:UIControlStateNormal];
-        [returnButton setImage:[UIImage imageNamed:@"PDFKernel.bundle/kernel_back_bookshelf_s"] forState:UIControlStateHighlighted];
+        NSArray *returnBtnImgs = (NSArray*)[config objectForKey:TOOLBAR_BACK_BTN_IMAGES_KEY];
+        if (!returnBtnImgs) {
+            returnBtnImgs = [NSArray arrayWithObjects:[UIImage imageNamed:@"pdf_exit_N"],
+                             [UIImage imageNamed:@"pdf_exit_H"], nil];
+        }
+        [returnButton setImage: (UIImage*)returnBtnImgs[0] forState:UIControlStateNormal];
+        [returnButton setImage: (UIImage*)returnBtnImgs[1] forState:UIControlStateHighlighted];
         [returnButton addTarget:self action:@selector(returnButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [returnButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
         [returnButton setBackgroundImage:buttonN forState:UIControlStateNormal];
@@ -148,6 +171,13 @@
         UIButton *flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
         flagButton.frame = CGRectMake(rightButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
         //[flagButton setImage:[UIImage imageNamed:@"Reader-Mark-N"] forState:UIControlStateNormal];
+        
+        NSArray *flagBtnImgs = (NSArray*)[config objectForKey:TOOLBAR_FLAG_BTN_IMAGES_KEY];
+        if (!flagBtnImgs) {
+            flagBtnImgs = [NSArray arrayWithObjects:[UIImage imageNamed:@"pdf_bookmark_N"],
+                           [UIImage imageNamed:@"pdf_bookmark_H"],nil];
+        }
+        
         [flagButton addTarget:self action:@selector(markButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [flagButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
         [flagButton setBackgroundImage:buttonN forState:UIControlStateNormal];
@@ -159,26 +189,43 @@
         
         markButton = flagButton; markButton.enabled = NO; markButton.tag = NSIntegerMin;
         
-        markImageN = [UIImage imageNamed:@"PDFKernel.bundle/kernel_bookmark"]; // N image
-        markImageY = [UIImage imageNamed:@"PDFKernel.bundle/kernel_bookmark_add"]; // Y image
+        
+        markImageN = flagBtnImgs[0]; // N image
+        markImageY = flagBtnImgs[1]; // Y image
+        NSLog(@"%@",flagButton);
         
 #endif // end of READER_BOOKMARKS Option
         
-        rightButtonX -= (iconButtonWidth + buttonSpacing); // Next position
+        // add custom buttons
+        customButtons = [[NSMutableArray alloc]init];
+        NSArray *customBtns = (NSArray*)[config objectForKey:TOOLBAR_CUSTOM_BTNS_KEY];
         
-        userRecordButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        userRecordButton.frame = CGRectMake(rightButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
-        [userRecordButton setImage:[UIImage imageNamed:@"kernel_record"] forState:UIControlStateNormal];
-        [userRecordButton setImage:[UIImage imageNamed:@"kernel_record_s"] forState:UIControlStateHighlighted];
-        [userRecordButton addTarget:self action:@selector(userRecordButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [userRecordButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
-        [userRecordButton setBackgroundImage:buttonN forState:UIControlStateNormal];
-        userRecordButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        //exportButton.backgroundColor = [UIColor grayColor];
-        userRecordButton.exclusiveTouch = YES;
+        NSUInteger customInd = TOOLBAR_CUSTOM_BTN_INIT_TAG;
+        for (NSDictionary *btnConfig in customBtns) {
+            rightButtonX -= (iconButtonWidth + buttonSpacing); // Next position
+            
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.frame = CGRectMake(rightButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
+            NSArray *customBtnImgs = (NSArray*)[btnConfig objectForKey:TOOLBAR_CUSTOM_BTN_IMAGES_KEY];
+            if (!customBtnImgs) {
+                [button setBackgroundColor:[UIColor redColor]];
+                NSLog(@"Warn - custom tool bar button lack background images");
+            }
+            else {
+                [button setImage:(UIImage*)customBtnImgs[0] forState:UIControlStateNormal];
+                [button setImage:(UIImage*)customBtnImgs[1] forState:UIControlStateHighlighted];
+            }
+            [button addTarget:self action:@selector(customButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [button setBackgroundImage:buttonH forState:UIControlStateHighlighted];
+            [button setBackgroundImage:buttonN forState:UIControlStateNormal];
+            button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+            button.exclusiveTouch = YES;
+            button.tag = customInd++;
+            [customButtons addObject:button];
+            [self addSubview:button]; titleWidth -= (iconButtonWidth + buttonSpacing);
+        }
         
-        [self addSubview:userRecordButton]; titleWidth -= (iconButtonWidth + buttonSpacing);
-       // userRecordButton.bhButtonType = BHRecordButton;
+        
         /// thumbs
 #if (READER_ENABLE_THUMBS == TRUE) // Option
         
@@ -186,8 +233,15 @@
         
         UIButton *thumbsButton = [UIButton buttonWithType:UIButtonTypeCustom];
         thumbsButton.frame = CGRectMake(rightButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
-        [thumbsButton setImage:[UIImage imageNamed:@"kernel_thumb"] forState:UIControlStateNormal];
-        [thumbsButton setImage:[UIImage imageNamed:@"kernel_thumb_s"] forState:UIControlStateHighlighted];
+        
+        NSArray *thumbBtnImgs = (NSArray*)[config objectForKey:TOOLBAR_THUMB_BTN_IMAGES_KEY];
+        if (!thumbBtnImgs) {
+            thumbBtnImgs = [NSArray arrayWithObjects:[UIImage imageNamed:@"pdf_thumb_N"],
+                            [UIImage imageNamed:@"pdf_thumb_H"], nil];
+        }
+        
+        [thumbsButton setImage:(UIImage*)thumbBtnImgs[0] forState:UIControlStateNormal];
+        [thumbsButton setImage:(UIImage*)thumbBtnImgs[1] forState:UIControlStateHighlighted];
         [thumbsButton addTarget:self action:@selector(thumbsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [thumbsButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
         [thumbsButton setBackgroundImage:buttonN forState:UIControlStateNormal];
@@ -204,8 +258,16 @@
         
         catalogButton = [UIButton buttonWithType:UIButtonTypeCustom];
         catalogButton.frame = CGRectMake(rightButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
-        [catalogButton setImage:[UIImage imageNamed:@"kernel_catalog"] forState:UIControlStateNormal];
-        [catalogButton setImage:[UIImage imageNamed:@"kernel_catalog_s"] forState:UIControlStateHighlighted];
+        
+        NSArray *catalogBtnImgs = (NSArray*)[config objectForKey:TOOLBAR_CATALOG_BTN_IMAGES_KEY];
+        if (!catalogBtnImgs) {
+            catalogBtnImgs = [NSArray arrayWithObjects:[UIImage imageNamed:@"pdf_catalog_N"],
+                              [UIImage imageNamed:@"pdf_catalog_H"], nil];
+        }
+        
+        [catalogButton setImage:(UIImage*)catalogBtnImgs[0] forState:UIControlStateNormal];
+        [catalogButton setImage:(UIImage*)catalogBtnImgs[1] forState:UIControlStateHighlighted];
+        
         [catalogButton addTarget:self action:@selector(catalogButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [catalogButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
         [catalogButton setBackgroundImage:buttonN forState:UIControlStateNormal];
@@ -222,8 +284,15 @@
         
         searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
         searchButton.frame = CGRectMake(rightButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
-        [searchButton setImage:[UIImage imageNamed:@"kernel_search"] forState:UIControlStateNormal];
-        [searchButton setImage:[UIImage imageNamed:@"kernel_search_s"] forState:UIControlStateHighlighted];
+        
+        NSArray *searchBtnImgs = (NSArray*)[config objectForKey:TOOLBAR_SEARCH_BTN_IMAGES_KEY];
+        if (!searchBtnImgs) {
+            searchBtnImgs = [NSArray arrayWithObjects:[UIImage imageNamed:@"pdf_search_N"],
+                             [UIImage imageNamed:@"pdf_search_H"], nil];
+        }
+        
+        [searchButton setImage:(UIImage*)searchBtnImgs[0] forState:UIControlStateNormal];
+        [searchButton setImage:(UIImage*)searchBtnImgs[1] forState:UIControlStateHighlighted];
         [searchButton addTarget:self action:@selector(searchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [searchButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
         [searchButton setBackgroundImage:buttonN forState:UIControlStateNormal];
@@ -235,96 +304,28 @@
         
 #endif // end of READER_ENABLE_SEARCH Option
         
-//        if (document.canEmail == YES) // Document email enabled
-//        {
-//            if ([MFMailComposeViewController canSendMail] == YES) // Can email
-//            {
-//                unsigned long long fileSize = [document.fileSize unsignedLongLongValue];
-//                
-//                if (fileSize < 15728640ull) // Check attachment size limit (15MB)
-//                {
-//                    rightButtonX -= (iconButtonWidth + buttonSpacing); // Next position
-//                    
-//                    UIButton *emailButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//                    emailButton.frame = CGRectMake(rightButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
-//                    [emailButton setImage:[UIImage imageNamed:@"Reader-Email"] forState:UIControlStateNormal];
-//                    [emailButton addTarget:self action:@selector(emailButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-//                    [emailButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
-//                    [emailButton setBackgroundImage:buttonN forState:UIControlStateNormal];
-//                    emailButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-//                    //emailButton.backgroundColor = [UIColor grayColor];
-//                    emailButton.exclusiveTouch = YES;
-//                    
-//                    [self addSubview:emailButton]; titleWidth -= (iconButtonWidth + buttonSpacing);
-//                }
-//            }
-//        }
-//        
-//        if ((document.canPrint == YES) && (document.password == nil)) // Document print enabled
-//        {
-//            Class printInteractionController = NSClassFromString(@"UIPrintInteractionController");
-//            
-//            if ((printInteractionController != nil) && [printInteractionController isPrintingAvailable])
-//            {
-//                rightButtonX -= (iconButtonWidth + buttonSpacing); // Next position
-//                
-//                UIButton *printButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//                printButton.frame = CGRectMake(rightButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
-//                [printButton setImage:[UIImage imageNamed:@"Reader-Print"] forState:UIControlStateNormal];
-//                [printButton addTarget:self action:@selector(printButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-//                [printButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
-//                [printButton setBackgroundImage:buttonN forState:UIControlStateNormal];
-//                printButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-//                //printButton.backgroundColor = [UIColor grayColor];
-//                printButton.exclusiveTouch = YES;
-//                
-//                [self addSubview:printButton]; titleWidth -= (iconButtonWidth + buttonSpacing);
-//            }
-//        }
-//        
-//        if (document.canExport == YES) // Document export enabled
-//        {
-//            rightButtonX -= (iconButtonWidth + buttonSpacing); // Next position
-//            
-//            UIButton *exportButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//            exportButton.frame = CGRectMake(rightButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
-//            [exportButton setImage:[UIImage imageNamed:@"Reader-Export"] forState:UIControlStateNormal];
-//            [exportButton addTarget:self action:@selector(exportButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-//            [exportButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
-//            [exportButton setBackgroundImage:buttonN forState:UIControlStateNormal];
-//            exportButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-//            //exportButton.backgroundColor = [UIColor grayColor];
-//            exportButton.exclusiveTouch = YES;
-//            
-//            [self addSubview:exportButton]; titleWidth -= (iconButtonWidth + buttonSpacing);
-//        }
-//        
-//        if (largeDevice == YES) // Show document filename in toolbar
-//        {
-//            CGRect titleRect = CGRectMake(titleX, BUTTON_Y, titleWidth, TITLE_HEIGHT);
-//            
-//            UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleRect];
-//            
-//            titleLabel.textAlignment = NSTextAlignmentCenter;
-//            titleLabel.font = [UIFont systemFontOfSize:TITLE_FONT_SIZE];
-//            titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//            titleLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
-//            titleLabel.textColor = [UIColor colorWithWhite:0.0f alpha:1.0f];
-//            titleLabel.backgroundColor = [UIColor clearColor];
-//            titleLabel.adjustsFontSizeToFitWidth = YES;
-//            titleLabel.minimumScaleFactor = 0.75f;
-//            titleLabel.text = [document.fileName stringByDeletingPathExtension];
-//#if (READER_FLAT_UI == FALSE) // Option
-//            titleLabel.shadowColor = [UIColor colorWithWhite:0.75f alpha:1.0f];
-//            titleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-//#endif // end of READER_FLAT_UI Option
-//            
-//            [self addSubview:titleLabel];
-//        }
     }
     
     
     return self;
+}
+
+- (void)dealloc {
+    PDF_RELEASE(customButtons);
+    PDF_RELEASE(backgroundView);
+    PDF_SUPER_DEALLOC;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    if (self.frame.size.width > self.frame.size.height) {
+        backgroundView.image = backgroundImages[0];
+    }
+    else{
+        backgroundView.image = backgroundImages[1];
+    }
+
 }
 
 - (void)setBookmarkState:(BOOL)state
@@ -451,9 +452,8 @@
     [delegate tappedInToolbar:self catalogButton:button];
 }
 
-- (void)userRecordButtonTapped:(UIButton *)button
-{
-    [delegate tappedInToolbar:self userRecordButton:button];
+- (void)customButtonTapped:(UIButton*)button {
+    [delegate tappedInToolbar:self customButton:button];
 }
 
 - (void)switchPOButtonTapped:(UISegmentedControl *)button

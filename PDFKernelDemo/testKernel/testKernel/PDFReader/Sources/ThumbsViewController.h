@@ -45,7 +45,7 @@
 
 @property (nonatomic, assign, readwrite) id <ThumbsViewControllerDelegate> delegate;
 
-- (instancetype)initWithReaderDocument:(ReaderDocument *)object;
+- (instancetype)initWithReaderDocument:(ReaderDocument *)object configuration:(NSDictionary*)config;
 
 @end
 
@@ -56,6 +56,8 @@
 //
 
 @interface ThumbsPageThumb : ReaderThumbView
+
+- (instancetype)initWithFrame:(CGRect)frame configuration:(NSDictionary*)config;
 
 - (CGSize)maximumContentSize;
 

@@ -15,7 +15,6 @@
 			);
 			dependencies = (
 				2D5BF6761B9D9C9E00DD5683 /* PBXTargetDependency */,
-				2D5BF6741B9D9C8900DD5683 /* PBXTargetDependency */,
 			);
 			name = Combine;
 			productName = Combine;
@@ -186,17 +185,32 @@
 		2D5BF65B1B9D922400DD5683 /* ReaderThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5BF5201B9D204C00DD5683 /* ReaderThumbView.m */; };
 		2D5BF65D1B9D922400DD5683 /* UIXToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5BF5221B9D204C00DD5683 /* UIXToolbarView.m */; };
 		2D5BF65E1B9D933400DD5683 /* PDFCatalogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5BF4BC1B9D204C00DD5683 /* PDFCatalogTableViewCell.m */; };
-		2D5BF68A1B9E7EAF00DD5683 /* EPUB_MainTitle_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF6801B9E7EAF00DD5683 /* EPUB_MainTitle_Icon.png */; };
-		2D5BF68D1B9E7EAF00DD5683 /* EPUB_MainTitle_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF6811B9E7EAF00DD5683 /* EPUB_MainTitle_Icon@2x.png */; };
-		2D5BF6901B9E7EAF00DD5683 /* EPUB_NextTitle_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF6821B9E7EAF00DD5683 /* EPUB_NextTitle_Icon.png */; };
-		2D5BF6931B9E7EAF00DD5683 /* EPUB_NextTitle_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF6831B9E7EAF00DD5683 /* EPUB_NextTitle_Icon@2x.png */; };
-		2D5BF6961B9E7EAF00DD5683 /* kernel_back_bookshelf_s.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF6841B9E7EAF00DD5683 /* kernel_back_bookshelf_s.pdf */; };
-		2D5BF6991B9E7EAF00DD5683 /* kernel_back_bookshelf.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF6851B9E7EAF00DD5683 /* kernel_back_bookshelf.pdf */; };
-		2D5BF69C1B9E7EAF00DD5683 /* kernel_bar_bg_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF6861B9E7EAF00DD5683 /* kernel_bar_bg_h.png */; };
-		2D5BF69F1B9E7EAF00DD5683 /* kernel_bar_bg_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF6871B9E7EAF00DD5683 /* kernel_bar_bg_h@2x.png */; };
-		2D5BF6E51B9EC21700DD5683 /* kernel_bookmark.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF6E41B9EC21700DD5683 /* kernel_bookmark.pdf */; };
-		2D5BF6E71B9EC27B00DD5683 /* kernel_record.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF6E61B9EC27B00DD5683 /* kernel_record.pdf */; };
 		2D5BF6E81B9ECDDB00DD5683 /* PDFKernel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D5BF5E11B9D8F8E00DD5683 /* PDFKernel.h */; };
+		2DC995071BB16EC4008394F0 /* PDFConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D5BF4BF1B9D204C00DD5683 /* PDFConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2DC995241BB240EA008394F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995231BB240EA008394F0 /* Images.xcassets */; };
+		2DC9952B1BB2556A008394F0 /* pdf_topbar_bg_v.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995291BB2556A008394F0 /* pdf_topbar_bg_v.png */; };
+		2DC9952C1BB2556A008394F0 /* pdf_topbar_bg_v@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC9952A1BB2556A008394F0 /* pdf_topbar_bg_v@2x.png */; };
+		2DC995421BB255C5008394F0 /* pdf_back_H.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC9952D1BB255C5008394F0 /* pdf_back_H.pdf */; };
+		2DC995431BB255C5008394F0 /* pdf_back_N.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC9952E1BB255C5008394F0 /* pdf_back_N.pdf */; };
+		2DC995441BB255C5008394F0 /* pdf_bookmark_flag.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC9952F1BB255C5008394F0 /* pdf_bookmark_flag.pdf */; };
+		2DC995451BB255C5008394F0 /* pdf_bookmark_H.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995301BB255C5008394F0 /* pdf_bookmark_H.pdf */; };
+		2DC995461BB255C5008394F0 /* pdf_bookmark_N.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995311BB255C5008394F0 /* pdf_bookmark_N.pdf */; };
+		2DC995471BB255C5008394F0 /* pdf_catalog_H.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995321BB255C5008394F0 /* pdf_catalog_H.pdf */; };
+		2DC995481BB255C5008394F0 /* pdf_catalog_N.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995331BB255C5008394F0 /* pdf_catalog_N.pdf */; };
+		2DC995491BB255C5008394F0 /* pdf_catalog_subtitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995341BB255C5008394F0 /* pdf_catalog_subtitle.png */; };
+		2DC9954A1BB255C5008394F0 /* pdf_catalog_subtitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995351BB255C5008394F0 /* pdf_catalog_subtitle@2x.png */; };
+		2DC9954B1BB255C5008394F0 /* pdf_catalog_title.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995361BB255C5008394F0 /* pdf_catalog_title.png */; };
+		2DC9954C1BB255C5008394F0 /* pdf_catalog_title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995371BB255C5008394F0 /* pdf_catalog_title@2x.png */; };
+		2DC9954D1BB255C5008394F0 /* pdf_exit_H.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995381BB255C5008394F0 /* pdf_exit_H.pdf */; };
+		2DC9954E1BB255C5008394F0 /* pdf_exit_N.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995391BB255C5008394F0 /* pdf_exit_N.pdf */; };
+		2DC9954F1BB255C5008394F0 /* pdf_record_H.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC9953A1BB255C5008394F0 /* pdf_record_H.pdf */; };
+		2DC995501BB255C5008394F0 /* pdf_record_N.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC9953B1BB255C5008394F0 /* pdf_record_N.pdf */; };
+		2DC995511BB255C5008394F0 /* pdf_search_H.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC9953C1BB255C5008394F0 /* pdf_search_H.pdf */; };
+		2DC995521BB255C5008394F0 /* pdf_search_N.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC9953D1BB255C5008394F0 /* pdf_search_N.pdf */; };
+		2DC995531BB255C5008394F0 /* pdf_thumb_H.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC9953E1BB255C5008394F0 /* pdf_thumb_H.pdf */; };
+		2DC995541BB255C5008394F0 /* pdf_thumb_N.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC9953F1BB255C5008394F0 /* pdf_thumb_N.pdf */; };
+		2DC995551BB255C5008394F0 /* pdf_topbar_bg_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995401BB255C5008394F0 /* pdf_topbar_bg_h.png */; };
+		2DC995561BB255C5008394F0 /* pdf_topbar_bg_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995411BB255C5008394F0 /* pdf_topbar_bg_h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,13 +227,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D5BF5DC1B9D8F8E00DD5683;
 			remoteInfo = PDFKernel;
-		};
-		2D5BF6731B9D9C8900DD5683 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2D5BF4931B9D1F2700DD5683 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2D5BF6661B9D956600DD5683;
-			remoteInfo = PDFKernelResource;
 		};
 		2D5BF6751B9D9C9E00DD5683 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -369,16 +376,30 @@
 		2D5BF5EE1B9D8F8F00DD5683 /* PDFKernelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDFKernelTests.m; sourceTree = "<group>"; };
 		2D5BF6671B9D956700DD5683 /* PDFKernel.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PDFKernel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D5BF66A1B9D956700DD5683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2D5BF6801B9E7EAF00DD5683 /* EPUB_MainTitle_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EPUB_MainTitle_Icon.png; sourceTree = "<group>"; };
-		2D5BF6811B9E7EAF00DD5683 /* EPUB_MainTitle_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EPUB_MainTitle_Icon@2x.png"; sourceTree = "<group>"; };
-		2D5BF6821B9E7EAF00DD5683 /* EPUB_NextTitle_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EPUB_NextTitle_Icon.png; sourceTree = "<group>"; };
-		2D5BF6831B9E7EAF00DD5683 /* EPUB_NextTitle_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EPUB_NextTitle_Icon@2x.png"; sourceTree = "<group>"; };
-		2D5BF6841B9E7EAF00DD5683 /* kernel_back_bookshelf_s.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = kernel_back_bookshelf_s.pdf; sourceTree = "<group>"; };
-		2D5BF6851B9E7EAF00DD5683 /* kernel_back_bookshelf.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = kernel_back_bookshelf.pdf; sourceTree = "<group>"; };
-		2D5BF6861B9E7EAF00DD5683 /* kernel_bar_bg_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kernel_bar_bg_h.png; sourceTree = "<group>"; };
-		2D5BF6871B9E7EAF00DD5683 /* kernel_bar_bg_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kernel_bar_bg_h@2x.png"; sourceTree = "<group>"; };
-		2D5BF6E41B9EC21700DD5683 /* kernel_bookmark.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = kernel_bookmark.pdf; sourceTree = "<group>"; };
-		2D5BF6E61B9EC27B00DD5683 /* kernel_record.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = kernel_record.pdf; sourceTree = "<group>"; };
+		2DC995231BB240EA008394F0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2DC995291BB2556A008394F0 /* pdf_topbar_bg_v.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pdf_topbar_bg_v.png; sourceTree = "<group>"; };
+		2DC9952A1BB2556A008394F0 /* pdf_topbar_bg_v@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pdf_topbar_bg_v@2x.png"; sourceTree = "<group>"; };
+		2DC9952D1BB255C5008394F0 /* pdf_back_H.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_back_H.pdf; sourceTree = "<group>"; };
+		2DC9952E1BB255C5008394F0 /* pdf_back_N.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_back_N.pdf; sourceTree = "<group>"; };
+		2DC9952F1BB255C5008394F0 /* pdf_bookmark_flag.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_bookmark_flag.pdf; sourceTree = "<group>"; };
+		2DC995301BB255C5008394F0 /* pdf_bookmark_H.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_bookmark_H.pdf; sourceTree = "<group>"; };
+		2DC995311BB255C5008394F0 /* pdf_bookmark_N.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_bookmark_N.pdf; sourceTree = "<group>"; };
+		2DC995321BB255C5008394F0 /* pdf_catalog_H.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_catalog_H.pdf; sourceTree = "<group>"; };
+		2DC995331BB255C5008394F0 /* pdf_catalog_N.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_catalog_N.pdf; sourceTree = "<group>"; };
+		2DC995341BB255C5008394F0 /* pdf_catalog_subtitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pdf_catalog_subtitle.png; sourceTree = "<group>"; };
+		2DC995351BB255C5008394F0 /* pdf_catalog_subtitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pdf_catalog_subtitle@2x.png"; sourceTree = "<group>"; };
+		2DC995361BB255C5008394F0 /* pdf_catalog_title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pdf_catalog_title.png; sourceTree = "<group>"; };
+		2DC995371BB255C5008394F0 /* pdf_catalog_title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pdf_catalog_title@2x.png"; sourceTree = "<group>"; };
+		2DC995381BB255C5008394F0 /* pdf_exit_H.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_exit_H.pdf; sourceTree = "<group>"; };
+		2DC995391BB255C5008394F0 /* pdf_exit_N.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_exit_N.pdf; sourceTree = "<group>"; };
+		2DC9953A1BB255C5008394F0 /* pdf_record_H.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_record_H.pdf; sourceTree = "<group>"; };
+		2DC9953B1BB255C5008394F0 /* pdf_record_N.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_record_N.pdf; sourceTree = "<group>"; };
+		2DC9953C1BB255C5008394F0 /* pdf_search_H.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_search_H.pdf; sourceTree = "<group>"; };
+		2DC9953D1BB255C5008394F0 /* pdf_search_N.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_search_N.pdf; sourceTree = "<group>"; };
+		2DC9953E1BB255C5008394F0 /* pdf_thumb_H.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_thumb_H.pdf; sourceTree = "<group>"; };
+		2DC9953F1BB255C5008394F0 /* pdf_thumb_N.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_thumb_N.pdf; sourceTree = "<group>"; };
+		2DC995401BB255C5008394F0 /* pdf_topbar_bg_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pdf_topbar_bg_h.png; sourceTree = "<group>"; };
+		2DC995411BB255C5008394F0 /* pdf_topbar_bg_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pdf_topbar_bg_h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -624,6 +645,7 @@
 			isa = PBXGroup;
 			children = (
 				2D5BF5E01B9D8F8E00DD5683 /* Info.plist */,
+				2DC995231BB240EA008394F0 /* Images.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -648,16 +670,29 @@
 		2D5BF6681B9D956700DD5683 /* PDFKernelResource */ = {
 			isa = PBXGroup;
 			children = (
-				2D5BF6801B9E7EAF00DD5683 /* EPUB_MainTitle_Icon.png */,
-				2D5BF6811B9E7EAF00DD5683 /* EPUB_MainTitle_Icon@2x.png */,
-				2D5BF6821B9E7EAF00DD5683 /* EPUB_NextTitle_Icon.png */,
-				2D5BF6831B9E7EAF00DD5683 /* EPUB_NextTitle_Icon@2x.png */,
-				2D5BF6841B9E7EAF00DD5683 /* kernel_back_bookshelf_s.pdf */,
-				2D5BF6851B9E7EAF00DD5683 /* kernel_back_bookshelf.pdf */,
-				2D5BF6861B9E7EAF00DD5683 /* kernel_bar_bg_h.png */,
-				2D5BF6871B9E7EAF00DD5683 /* kernel_bar_bg_h@2x.png */,
-				2D5BF6E41B9EC21700DD5683 /* kernel_bookmark.pdf */,
-				2D5BF6E61B9EC27B00DD5683 /* kernel_record.pdf */,
+				2DC9952D1BB255C5008394F0 /* pdf_back_H.pdf */,
+				2DC9952E1BB255C5008394F0 /* pdf_back_N.pdf */,
+				2DC9952F1BB255C5008394F0 /* pdf_bookmark_flag.pdf */,
+				2DC995301BB255C5008394F0 /* pdf_bookmark_H.pdf */,
+				2DC995311BB255C5008394F0 /* pdf_bookmark_N.pdf */,
+				2DC995321BB255C5008394F0 /* pdf_catalog_H.pdf */,
+				2DC995331BB255C5008394F0 /* pdf_catalog_N.pdf */,
+				2DC995341BB255C5008394F0 /* pdf_catalog_subtitle.png */,
+				2DC995351BB255C5008394F0 /* pdf_catalog_subtitle@2x.png */,
+				2DC995361BB255C5008394F0 /* pdf_catalog_title.png */,
+				2DC995371BB255C5008394F0 /* pdf_catalog_title@2x.png */,
+				2DC995381BB255C5008394F0 /* pdf_exit_H.pdf */,
+				2DC995391BB255C5008394F0 /* pdf_exit_N.pdf */,
+				2DC9953A1BB255C5008394F0 /* pdf_record_H.pdf */,
+				2DC9953B1BB255C5008394F0 /* pdf_record_N.pdf */,
+				2DC9953C1BB255C5008394F0 /* pdf_search_H.pdf */,
+				2DC9953D1BB255C5008394F0 /* pdf_search_N.pdf */,
+				2DC9953E1BB255C5008394F0 /* pdf_thumb_H.pdf */,
+				2DC9953F1BB255C5008394F0 /* pdf_thumb_N.pdf */,
+				2DC995401BB255C5008394F0 /* pdf_topbar_bg_h.png */,
+				2DC995411BB255C5008394F0 /* pdf_topbar_bg_h@2x.png */,
+				2DC995291BB2556A008394F0 /* pdf_topbar_bg_v.png */,
+				2DC9952A1BB2556A008394F0 /* pdf_topbar_bg_v@2x.png */,
 				2D5BF6691B9D956700DD5683 /* Supporting Files */,
 			);
 			path = PDFKernelResource;
@@ -740,6 +775,7 @@
 			files = (
 				2D5BF5E21B9D8F8E00DD5683 /* PDFKernel.h in Headers */,
 				2D5BF5F61B9D8FCB00DD5683 /* PDFViewController.h in Headers */,
+				2DC995071BB16EC4008394F0 /* PDFConstants.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -908,6 +944,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DC995241BB240EA008394F0 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -922,16 +959,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D5BF6991B9E7EAF00DD5683 /* kernel_back_bookshelf.pdf in Resources */,
-				2D5BF68A1B9E7EAF00DD5683 /* EPUB_MainTitle_Icon.png in Resources */,
-				2D5BF6901B9E7EAF00DD5683 /* EPUB_NextTitle_Icon.png in Resources */,
-				2D5BF6961B9E7EAF00DD5683 /* kernel_back_bookshelf_s.pdf in Resources */,
-				2D5BF6E71B9EC27B00DD5683 /* kernel_record.pdf in Resources */,
-				2D5BF68D1B9E7EAF00DD5683 /* EPUB_MainTitle_Icon@2x.png in Resources */,
-				2D5BF6931B9E7EAF00DD5683 /* EPUB_NextTitle_Icon@2x.png in Resources */,
-				2D5BF69C1B9E7EAF00DD5683 /* kernel_bar_bg_h.png in Resources */,
-				2D5BF6E51B9EC21700DD5683 /* kernel_bookmark.pdf in Resources */,
-				2D5BF69F1B9E7EAF00DD5683 /* kernel_bar_bg_h@2x.png in Resources */,
+				2DC995511BB255C5008394F0 /* pdf_search_H.pdf in Resources */,
+				2DC995491BB255C5008394F0 /* pdf_catalog_subtitle.png in Resources */,
+				2DC995541BB255C5008394F0 /* pdf_thumb_N.pdf in Resources */,
+				2DC995451BB255C5008394F0 /* pdf_bookmark_H.pdf in Resources */,
+				2DC995481BB255C5008394F0 /* pdf_catalog_N.pdf in Resources */,
+				2DC995461BB255C5008394F0 /* pdf_bookmark_N.pdf in Resources */,
+				2DC995421BB255C5008394F0 /* pdf_back_H.pdf in Resources */,
+				2DC9954E1BB255C5008394F0 /* pdf_exit_N.pdf in Resources */,
+				2DC995531BB255C5008394F0 /* pdf_thumb_H.pdf in Resources */,
+				2DC995431BB255C5008394F0 /* pdf_back_N.pdf in Resources */,
+				2DC9954F1BB255C5008394F0 /* pdf_record_H.pdf in Resources */,
+				2DC995471BB255C5008394F0 /* pdf_catalog_H.pdf in Resources */,
+				2DC9952B1BB2556A008394F0 /* pdf_topbar_bg_v.png in Resources */,
+				2DC9954D1BB255C5008394F0 /* pdf_exit_H.pdf in Resources */,
+				2DC995501BB255C5008394F0 /* pdf_record_N.pdf in Resources */,
+				2DC995441BB255C5008394F0 /* pdf_bookmark_flag.pdf in Resources */,
+				2DC9954B1BB255C5008394F0 /* pdf_catalog_title.png in Resources */,
+				2DC995521BB255C5008394F0 /* pdf_search_N.pdf in Resources */,
+				2DC995551BB255C5008394F0 /* pdf_topbar_bg_h.png in Resources */,
+				2DC9952C1BB2556A008394F0 /* pdf_topbar_bg_v@2x.png in Resources */,
+				2DC9954C1BB255C5008394F0 /* pdf_catalog_title@2x.png in Resources */,
+				2DC995561BB255C5008394F0 /* pdf_topbar_bg_h@2x.png in Resources */,
+				2DC9954A1BB255C5008394F0 /* pdf_catalog_subtitle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -963,7 +1013,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Sets the target folders and the final framework product.\n# 如果工程名称和Framework的Target名称不一样的话，要自定义FMKNAME\n# 例如: FMK_NAME = \"MyFramework\"\nFMK_NAME=\"PDFKernel\"\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n# Working dir will be deleted after the framework creation.\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework\n# -configuration ${CONFIGURATION}\n# Clean and Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\nmkdir -p \"${INSTALL_DIR}\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nrm -r \"${WRK_DIR}\"\n\nditto \"${BUILT_PRODUCTS_DIR}/${FMK_NAME}.bundle\" \\\n\"${SRCROOT}/Products/${FMK_NAME}.bundle\"\n\nopen \"${INSTALL_DIR}\"";
+			shellScript = "# Sets the target folders and the final framework product.\n# 如果工程名称和Framework的Target名称不一样的话，要自定义FMKNAME\n# 例如: FMK_NAME = \"MyFramework\"\nFMK_NAME=\"PDFKernel\"\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n# Working dir will be deleted after the framework creation.\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework\n# -configuration ${CONFIGURATION}\n# Clean and Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\nmkdir -p \"${INSTALL_DIR}\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nrm -r \"${WRK_DIR}\"\n\n# ditto \"${BUILT_PRODUCTS_DIR}/${FMK_NAME}.bundle\" \\\n# \"${SRCROOT}/Products/${FMK_NAME}.bundle\"\n\nopen \"${INSTALL_DIR}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1116,11 +1166,6 @@
 			isa = PBXTargetDependency;
 			target = 2D5BF5DC1B9D8F8E00DD5683 /* PDFKernel */;
 			targetProxy = 2D5BF5E91B9D8F8E00DD5683 /* PBXContainerItemProxy */;
-		};
-		2D5BF6741B9D9C8900DD5683 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2D5BF6661B9D956600DD5683 /* PDFKernelResource */;
-			targetProxy = 2D5BF6731B9D9C8900DD5683 /* PBXContainerItemProxy */;
 		};
 		2D5BF6761B9D9C9E00DD5683 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

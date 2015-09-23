@@ -26,7 +26,7 @@
     
     NSString *filePath = [pdfs firstObject];
     
-    pdfCtrl = [[PDFViewController alloc]initWithPath:filePath with:nil];
+    pdfCtrl = [[PDFViewController alloc]initWithPath:filePath withBookID:nil];
     
     [self addChildViewController:pdfCtrl];
     [self.view addSubview:pdfCtrl.view];

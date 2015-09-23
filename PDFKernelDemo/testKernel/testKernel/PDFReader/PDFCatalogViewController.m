@@ -18,16 +18,23 @@
     NSArray                 *outlinesArray;
     UITableView             *contentView;
     ReaderDocument          *document;                               ///< pdf文档
+    NSArray                 *iconImages;                             ///< 目录图标前的图片
 }
 
 @end
 
 @implementation PDFCatalogViewController
 
-- (id)initWithReaderDocument:(ReaderDocument*)object
+- (id)initWithReaderDocument:(ReaderDocument*)object configuration:(NSDictionary*)config
 {
     if (self = [super init]) {
         document = object;
+        iconImages = (NSArray*)[config objectForKey:CATALOG_TITLE_IMAGES_KEY];
+        if (!iconImages) {
+            iconImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"pdf_catalog_title"],
+                                            [UIImage imageNamed:@"pdf_catalog_subtitle"], nil];
+        }
+        
         outlinesArray = [[NSArray alloc] initWithArray:[ReaderDocumentOutline outlineFromFileURL:document.fileURL password:document.password]];
     }
     
@@ -75,7 +82,8 @@
 //      forCellReuseIdentifier:CustomCellIdentifier];
     PDFCatalogTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CustomCellIdentifier];
     if (cell == nil) {
-        cell = PDF_AUTORELEASE([[PDFCatalogTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CustomCell"]);
+        cell = PDF_AUTORELEASE([[PDFCatalogTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CustomCell" withImages:iconImages]);
+
 #ifdef DEBUG_SHOW_CELL
         static int cellNum = 0;
         NSLog(@"%d - %@",cellNum++, cell);

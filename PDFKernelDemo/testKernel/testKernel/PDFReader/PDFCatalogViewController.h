@@ -21,7 +21,7 @@
 
 @property(nonatomic,assign) id<PDFCatalogDelegate> delegate;
 
-- (id)initWithReaderDocument:(ReaderDocument*)object;
+- (id)initWithReaderDocument:(ReaderDocument*)object configuration:(NSDictionary*)config;
 
 @end
 

@@ -1,4 +1,4 @@
- //
+//
 //	ReaderViewController.m
 //	Reader v2.8.1
 //
@@ -32,19 +32,15 @@
 #import "ReaderThumbCache.h"
 #import "ReaderThumbQueue.h"
 #import "ReaderDocumentOutline.h"
-//#import "ConstantDefine.h"
 #import "PDFCatalogViewController.h"
 #import "PDFSearchViewController.h"
 #import "Selection.h"
-//#import "SingleViewBookViewController.h"        ///< 包含用户数据定义
-//#import "TeaRecord.h"
 #import "PDFMainScrollView.h"
 
 #import <MessageUI/MessageUI.h>
 //#define DEBUG
 @interface ReaderViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate, UIDocumentInteractionControllerDelegate,
 PDFMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate, ThumbsViewControllerDelegate,PDFSearchViewControllerDelegate,PDFMainScrollViewDelegate,
-//BookRecordPreviewDelegate,
 PDFCatalogDelegate,UIPopoverControllerDelegate>
 
 @end
@@ -82,9 +78,10 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
     BOOL isCurrentViewFreezing;                             ///< 当前视图是否冻结
     
     //--- added by CharlyZhang ---
-    /// 用户数据
-    UIPopoverController     *recordsPopoverController;
-    UINavigationController  *recordsNaviController;
+    NSDictionary            *configuration;                 ///< 配置
+    /// 自定义按钮
+    UIPopoverController     *customPopoverCtrl;            ///< 自定义按钮的popover控制器
+    NSMutableArray          *customNaviCtrls;               ///< 自定义按钮的导航控制器
     
     /// 目录
     UIPopoverController     *catalogPopoverController;
@@ -306,7 +303,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
         [contentViews enumerateKeysAndObjectsUsingBlock: // Enumerate content views
          ^(NSNumber *key, ReaderContentView *contentView, BOOL *stop)
          {
-            if ([key integerValue] != page){
+             if ([key integerValue] != page){
                  [contentView zoomResetAnimated:NO];
                  [contentView removeEndorseView];
                  [contentView removeNoteView];
@@ -330,7 +327,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
     
     [self showDocumentPage:[document.pageNumber integerValue]]; // Show page
     
-//    document.lastOpen = [DateMethod getBeijingDate]; // Update document last opened date
+    document.lastOpen = [NSDate date]; // Update document last opened date
 }
 
 /// 获取当前视图真正大小(保证ios 7以下版本在viewDidLoad中能取得正确view.frame)
@@ -378,10 +375,10 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
         NSLog(@"backShelfBlock is nil");
     }
     /// -
-//    else // We have a "Delegate must respond to -dismissReaderViewController:" error
-//    {
-//        NSAssert(NO, @"Delegate must respond to -dismissReaderViewController:");
-//    }
+    //    else // We have a "Delegate must respond to -dismissReaderViewController:" error
+    //    {
+    //        NSAssert(NO, @"Delegate must respond to -dismissReaderViewController:");
+    //    }
 }
 
 - (void)updateStatusBar
@@ -393,7 +390,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
 {
     if (isCurrentViewFreezing) return YES;
     if (theScrollView.decelerating) return NO;
-
+    
     isCurrentViewFreezing = YES;
     
     [self.view removeGestureRecognizer:singleTapOne];
@@ -425,6 +422,9 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
 
 - (BOOL)addEndorseView:(UIView *)view needEdit:(BOOL)flag
 {
+    [mainToolbar hideToolbar];
+    [mainPagebar hidePagebar];
+    
     if (flag) {
         if ([self.currentContentView viewWithTag:EDIT_TAG]) return NO;
         UIView *oldView = [self.currentView viewWithTag:ENDORSE_TAG];
@@ -449,7 +449,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
         [self.currentView addSubview:view];
     }
     return YES;
-
+    
 }
 
 - (BOOL)addNoteView:(UIView *)view needEdit:(BOOL)flag
@@ -475,7 +475,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
         }
         [noteView addSubview:view];
     }
-
+    
     return YES;
 }
 
@@ -502,9 +502,45 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
     }
 }
 
+- (BOOL)addActionController:(UIViewController*)controller for:(NSUInteger)customButtonIndex
+{
+    if (customButtonIndex >= customNaviCtrls.count) {
+        NSLog(@"%s - param is out of legal range!",__func__);
+        return NO;
+    }
+    if (controller == nil) {
+        NSLog(@"%s - param is nil!",__func__);
+        return NO;
+    }
+    UINavigationController* naviCtrl = [[UINavigationController alloc]initWithRootViewController:controller];
+    [customNaviCtrls replaceObjectAtIndex:customButtonIndex withObject:naviCtrl];
+    PDF_RELEASE(naviCtrl);
+    return YES;
+}
+
+- (void)dismissActionController
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [customPopoverCtrl dismissPopoverAnimated:YES];
+    }
+    else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 #pragma mark - UIViewController methods
 
 - (instancetype)initWithReaderDocument:(ReaderDocument *)object
+{
+    NSArray *customBtnImgs = [NSArray arrayWithObjects:[UIImage imageNamed:@"pdf_record_N"],
+                              [UIImage imageNamed:@"pdf_record_H"], nil];
+    NSDictionary *config = @{TOOLBAR_CUSTOM_BTNS_KEY:@[@{TOOLBAR_CUSTOM_BTN_IMAGES_KEY:customBtnImgs}]};
+    
+    return [self initWithReaderDocument:object configuration:config];
+}
+
+
+- (instancetype)initWithReaderDocument:(ReaderDocument *)object configuration:(NSDictionary*)config
 {
     if ((self = [super initWithNibName:nil bundle:nil])) // Initialize superclass
     {
@@ -532,6 +568,15 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
         }
     }
     
+    configuration = [NSDictionary dictionaryWithDictionary:config];
+    
+    // create custom buttons' popoverCtrls
+    NSArray *customBtns = (NSArray*) [configuration objectForKey:TOOLBAR_CUSTOM_BTNS_KEY];
+    NSUInteger customBtnNumber = customBtns.count;
+    
+    customNaviCtrls = [[NSMutableArray alloc] initWithCapacity:customBtnNumber];
+    for (NSUInteger i = 0; i < customBtnNumber; i++) [customNaviCtrls addObject:[NSNull null]];
+    
     return self;
 }
 
@@ -544,11 +589,11 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
     selectedSelection = nil;
     PDF_RELEASE(catalogNaviController);
     PDF_RELEASE(catalogPopoverController);
-    PDF_RELEASE(recordsNaviController);
-    PDF_RELEASE(recordsPopoverController);
+    PDF_RELEASE(customNaviCtrls);
+    PDF_RELEASE(customPopoverCtrl);
     PDF_RELEASE(doubleTapOne);
     PDF_RELEASE(singleTapOne);
-
+    
     PDF_SUPER_DEALLOC;
 }
 
@@ -567,14 +612,14 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
     {
         if ([self prefersStatusBarHidden] == NO) // Visible status bar
         {
-//            CGRect statusBarRect = viewRect; statusBarRect.size.height = STATUS_HEIGHT;
-//            fakeStatusBar = [[UIView alloc] initWithFrame:statusBarRect]; // UIView
-//            fakeStatusBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//            fakeStatusBar.backgroundColor = [UIColor blackColor];
-//            fakeStatusBar.contentMode = UIViewContentModeRedraw;
-//            fakeStatusBar.userInteractionEnabled = NO;
-//            
-//            viewRect.origin.y += STATUS_HEIGHT; viewRect.size.height -= STATUS_HEIGHT;
+            //            CGRect statusBarRect = viewRect; statusBarRect.size.height = STATUS_HEIGHT;
+            //            fakeStatusBar = [[UIView alloc] initWithFrame:statusBarRect]; // UIView
+            //            fakeStatusBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            //            fakeStatusBar.backgroundColor = [UIColor blackColor];
+            //            fakeStatusBar.contentMode = UIViewContentModeRedraw;
+            //            fakeStatusBar.userInteractionEnabled = NO;
+            //
+            //            viewRect.origin.y += STATUS_HEIGHT; viewRect.size.height -= STATUS_HEIGHT;
         }
     }
     
@@ -594,7 +639,9 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
     [self.view addSubview:theScrollView];
     
     CGRect toolbarRect = viewRect; toolbarRect.size.height = TOOLBAR_HEIGHT;
-    mainToolbar = [[PDFMainToolbar alloc] initWithFrame:toolbarRect document:document]; // PDFMainToolbar
+    
+    
+    mainToolbar = [[PDFMainToolbar alloc] initWithFrame:toolbarRect document:document cofiguration:configuration]; // PDFMainToolbar
     mainToolbar.delegate = self; // PDFMainToolbarDelegate
     [self.view addSubview:mainToolbar];
     
@@ -784,6 +831,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
 
 - (BOOL)touchesShouldCancelInMainScrollView:(UIView *)view
 {
+    //    if ([view isKindOfClass:[SmallNoteView class]]) {
     if (view.superview && view.superview.tag == NOTE_TAG) {
 #ifdef DEBUG
         NSLog(@"touchesShouldCancelInMainScrollView - NO");
@@ -841,73 +889,73 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
     if (recognizer.state == UIGestureRecognizerStateRecognized)
     {
         CGRect viewRect = recognizer.view.bounds; // View bounds
-
-        CGPoint point = [recognizer locationInView:recognizer.view]; // Point
-//
-//        CGRect areaRect = CGRectInset(viewRect, TAP_AREA_SIZE, 0.0f); // Area rect
-//        
-//        if (CGRectContainsPoint(areaRect, point) == true) // Single tap is inside area
-//        {
-//            NSNumber *key = [NSNumber numberWithInteger:currentPage]; // Page number key
-//            
-//            ReaderContentView *targetView = [contentViews objectForKey:key]; // View
-//            
-//            id target = [targetView processSingleTap:recognizer]; // Target object
-//            
-//            if (target != nil) // Handle the returned target object
-//            {
-//                if ([target isKindOfClass:[NSURL class]]) // Open a URL
-//                {
-//                    NSURL *url = (NSURL *)target; // Cast to a NSURL object
-//                    
-//                    if (url.scheme == nil) // Handle a missing URL scheme
-//                    {
-//                        NSString *www = url.absoluteString; // Get URL string
-//                        
-//                        if ([www hasPrefix:@"www"] == YES) // Check for 'www' prefix
-//                        {
-//                            NSString *http = [[NSString alloc] initWithFormat:@"http://%@", www];
-//                            
-//                            url = [NSURL URLWithString:http]; // Proper http-based URL
-//                        }
-//                    }
-//                    
-//                    if ([[UIApplication sharedApplication] openURL:url] == NO)
-//                    {
-//#ifdef DEBUG
-//                        NSLog(@"%s '%@'", __FUNCTION__, url); // Bad or unknown URL
-//#endif
-//                    }
-//                }
-//                else // Not a URL, so check for another possible object type
-//                {
-//                    if ([target isKindOfClass:[NSNumber class]]) // Goto page
-//                    {
-//                        NSInteger number = [target integerValue]; // Number
-//                        
-//                        [self showDocumentPage:number]; // Show the page
-//                    }
-//                }
-//            }
-//            else // Nothing active tapped in the target content view
-//            {
-//                if ([lastHideTime timeIntervalSinceNow] < -0.75) // Delay since hide
-//                {
-//                    if ((mainToolbar.alpha < 1.0f) || (mainPagebar.alpha < 1.0f)) // Hidden
-//                    {
-//                        [mainToolbar showToolbar]; [mainPagebar showPagebar]; // Show
-//                    }
-//                }
-//            }
-//            
-//            return;
-//        }
         
-//        if (!mainToolbar.hidden) {
-//            [mainToolbar hideToolbar];  [mainPagebar hidePagebar];
-//            return;
-//        }
-    
+        CGPoint point = [recognizer locationInView:recognizer.view]; // Point
+        //
+        //        CGRect areaRect = CGRectInset(viewRect, TAP_AREA_SIZE, 0.0f); // Area rect
+        //
+        //        if (CGRectContainsPoint(areaRect, point) == true) // Single tap is inside area
+        //        {
+        //            NSNumber *key = [NSNumber numberWithInteger:currentPage]; // Page number key
+        //
+        //            ReaderContentView *targetView = [contentViews objectForKey:key]; // View
+        //
+        //            id target = [targetView processSingleTap:recognizer]; // Target object
+        //
+        //            if (target != nil) // Handle the returned target object
+        //            {
+        //                if ([target isKindOfClass:[NSURL class]]) // Open a URL
+        //                {
+        //                    NSURL *url = (NSURL *)target; // Cast to a NSURL object
+        //
+        //                    if (url.scheme == nil) // Handle a missing URL scheme
+        //                    {
+        //                        NSString *www = url.absoluteString; // Get URL string
+        //
+        //                        if ([www hasPrefix:@"www"] == YES) // Check for 'www' prefix
+        //                        {
+        //                            NSString *http = [[NSString alloc] initWithFormat:@"http://%@", www];
+        //
+        //                            url = [NSURL URLWithString:http]; // Proper http-based URL
+        //                        }
+        //                    }
+        //
+        //                    if ([[UIApplication sharedApplication] openURL:url] == NO)
+        //                    {
+        //#ifdef DEBUG
+        //                        NSLog(@"%s '%@'", __FUNCTION__, url); // Bad or unknown URL
+        //#endif
+        //                    }
+        //                }
+        //                else // Not a URL, so check for another possible object type
+        //                {
+        //                    if ([target isKindOfClass:[NSNumber class]]) // Goto page
+        //                    {
+        //                        NSInteger number = [target integerValue]; // Number
+        //
+        //                        [self showDocumentPage:number]; // Show the page
+        //                    }
+        //                }
+        //            }
+        //            else // Nothing active tapped in the target content view
+        //            {
+        //                if ([lastHideTime timeIntervalSinceNow] < -0.75) // Delay since hide
+        //                {
+        //                    if ((mainToolbar.alpha < 1.0f) || (mainPagebar.alpha < 1.0f)) // Hidden
+        //                    {
+        //                        [mainToolbar showToolbar]; [mainPagebar showPagebar]; // Show
+        //                    }
+        //                }
+        //            }
+        //
+        //            return;
+        //        }
+        
+        //        if (!mainToolbar.hidden) {
+        //            [mainToolbar hideToolbar];  [mainPagebar hidePagebar];
+        //            return;
+        //        }
+        
         CGRect nextPageRect = viewRect;
         nextPageRect.size.width = viewRect.size.width / 3;
         nextPageRect.origin.x = (viewRect.size.width / 3) * 2;
@@ -1011,23 +1059,23 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
 
 - (void)contentView:(ReaderContentView *)contentView touchesBegan:(NSSet *)touches
 {
-//    if ((mainToolbar.alpha > 0.0f) || (mainPagebar.alpha > 0.0f))
-//    {
-//        if (touches.count == 1) // Single touches only
-//        {
-//            UITouch *touch = [touches anyObject]; // Touch info
-//            
-//            CGPoint point = [touch locationInView:self.view]; // Touch location
-//            
-//            CGRect areaRect = CGRectInset(self.view.bounds, TAP_AREA_SIZE, TAP_AREA_SIZE);
-//            
-//            if (CGRectContainsPoint(areaRect, point) == false) return;
-//        }
-//        
-//        [mainToolbar hideToolbar]; [mainPagebar hidePagebar]; // Hide
-//        
-//        lastHideTime = [NSDate date]; // Set last hide time
-//    }
+    //    if ((mainToolbar.alpha > 0.0f) || (mainPagebar.alpha > 0.0f))
+    //    {
+    //        if (touches.count == 1) // Single touches only
+    //        {
+    //            UITouch *touch = [touches anyObject]; // Touch info
+    //
+    //            CGPoint point = [touch locationInView:self.view]; // Touch location
+    //
+    //            CGRect areaRect = CGRectInset(self.view.bounds, TAP_AREA_SIZE, TAP_AREA_SIZE);
+    //
+    //            if (CGRectContainsPoint(areaRect, point) == false) return;
+    //        }
+    //
+    //        [mainToolbar hideToolbar]; [mainPagebar hidePagebar]; // Hide
+    //
+    //        lastHideTime = [NSDate date]; // Set last hide time
+    //    }
 }
 
 #pragma mark - ReaderMainToolbarDelegate methods
@@ -1090,7 +1138,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
         searchController.currentPage = currentPage;
     }
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if (isPad) {
         if (!searchPopoverController) {
             searchPopoverController = [[UIPopoverController alloc]initWithContentViewController:searchNaviController];
             searchPopoverController.delegate = self;
@@ -1103,7 +1151,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
     }
     
 #endif // end of READER_ENABLE_SEARCH Option
-
+    
 }
 
 - (void)tappedInToolbar:(PDFMainToolbar *)toolbar thumbsButton:(UIButton *)button
@@ -1112,7 +1160,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
     
     if (printInteraction != nil) [printInteraction dismissAnimated:NO];
     
-    ThumbsViewController *thumbsViewController = [[ThumbsViewController alloc] initWithReaderDocument:document];
+    ThumbsViewController *thumbsViewController = [[ThumbsViewController alloc] initWithReaderDocument:document configuration:configuration];
     
     thumbsViewController.title = self.title; thumbsViewController.delegate = self; // ThumbsViewControllerDelegate
     
@@ -1237,13 +1285,13 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
 - (void)tappedInToolbar:(PDFMainToolbar *)toolbar catalogButton:(UIButton *)button
 {
     if (!catalogNaviController) {
-        PDFCatalogViewController *catalogController = [[PDFCatalogViewController alloc]initWithReaderDocument:document];
+        PDFCatalogViewController *catalogController = [[PDFCatalogViewController alloc]initWithReaderDocument:document configuration:configuration];
         catalogController.delegate = self;
         catalogNaviController =[[UINavigationController alloc]initWithRootViewController:catalogController];
         PDF_RELEASE(catalogController);
     }
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if (isPad) {
         if (!catalogPopoverController) {
             catalogPopoverController = [[UIPopoverController alloc]initWithContentViewController:catalogNaviController];
             catalogPopoverController.delegate = self;
@@ -1254,62 +1302,40 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
     else{
         [self presentViewController:catalogNaviController animated:YES completion:nil];
     }
-
+    
 }
 
-- (void)tappedInToolbar:(PDFMainToolbar *)toolbar userRecordButton:(UIButton *)button
+- (void)tappedInToolbar:(PDFMainToolbar *)toolbar customButton:(UIButton *)button
 {
-//    if(!recordsNaviController)
-//    {
-//        SingleViewBookViewController *bookViewController =[[SingleViewBookViewController alloc]init];
-//        bookViewController.showOptionFlag = ALL_RECORD_FLAG;
-//        bookViewController.showShareOptionFlag = 2;
-//        bookViewController.bookId = self.pdfId;
-//        bookViewController.pageNum = currentPage;
-//        bookViewController.delegate = self;
-//        recordsNaviController = [[UINavigationController alloc]initWithRootViewController:bookViewController];
-//        PDF_RELEASE(bookViewController);
-//    }
-//    else {
-//        SingleViewBookViewController *bookViewController = (SingleViewBookViewController*)[recordsNaviController topViewController];
-//        bookViewController.pageNum = currentPage;
-//        [bookViewController setRecordWithSegmentFlag];
-//    }
+    NSUInteger buttonTag = button.tag - TOOLBAR_CUSTOM_BTN_INIT_TAG;
+    assert(buttonTag >= 0 && buttonTag < customNaviCtrls.count);
     
-    
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
-        if(!recordsPopoverController){
-            recordsPopoverController = [[UIPopoverController alloc] initWithContentViewController:recordsNaviController];
-        }
-        [recordsPopoverController setPopoverContentSize:CGSizeMake(340,678)];
-        recordsPopoverController.delegate = self;
-        [recordsPopoverController presentPopoverFromRect:button.frame
-                                                  inView:mainToolbar
-                                permittedArrowDirections:UIPopoverArrowDirectionUp
-                                                animated:YES];
+    // add default ctrl
+    if ((NSNull *)customNaviCtrls[buttonTag] == [NSNull null]) {
+        UIViewController *ctrl = [[UIViewController alloc]init];
+        UINavigationController* naviCtrl = [[UINavigationController alloc]initWithRootViewController:ctrl];
+        [customNaviCtrls replaceObjectAtIndex:buttonTag withObject:naviCtrl];
+        PDF_RELEASE(naviCtrl);
+        PDF_RELEASE(ctrl);
     }
-    else{
-        [self presentViewController:recordsNaviController animated:YES completion:nil];
+    
+    [self.delegate pdfCustomActionControllerWillAppearFor:buttonTag];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (customPopoverCtrl) PDF_RELEASE(customPopoverCtrl);
+        customPopoverCtrl = [[UIPopoverController alloc] initWithContentViewController:customNaviCtrls[buttonTag]];
+        customPopoverCtrl.delegate = self;
+        [customPopoverCtrl presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
+    else {
+        [self presentViewController:customNaviCtrls[buttonTag] animated:YES completion:nil];
     }
 }
+
 
 - (void)tappedInToolbar:(PDFMainToolbar *)toolbar switchPOButton:(UISegmentedControl *)button
 {
 }
-
-#pragma mark - BookRecordPreviewDelegate methods
-
-//-(void)showTeaRecordContent:(TeaRecord *)record
-//{
-//    if (record.recordType != ReadingCapture) [self showDocumentPage:record.pageNum];
-//    [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationShowTeaRecordContent object:@[record]];
-//    if (isPad) {
-//        [recordsPopoverController dismissPopoverAnimated:YES];
-//    }
-//    else{
-//        [self dismissViewControllerAnimated:YES completion:nil];
-//    }
-//}
 
 
 #pragma mark - PDFCatalogDelegate methods
@@ -1321,7 +1347,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [catalogPopoverController dismissPopoverAnimated:YES];
     }
-    else{
+    else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
@@ -1336,6 +1362,14 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
             PDFSearchViewController *searchController = (PDFSearchViewController*)viewCtrl;
             [searchController pauseSearching];
         }
+        else if ([popoverController isEqual:customPopoverCtrl]) {
+            for (int i = 0; i < customNaviCtrls.count; i++) {
+                if ([popoverController.contentViewController isEqual:customNaviCtrls[i]]) {
+                    [self.delegate pdfCustomActionControllerDiddissmissFor:i];
+                    break;
+                }
+            }
+        }
     }
     
     [mainToolbar hideToolbar]; [mainPagebar hidePagebar];
@@ -1344,7 +1378,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
 /// for IOS 7
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
 - (void)popoverController:(UIPopoverController *)popoverController willRepositionPopoverToRect:(inout CGRect *)rect inView:(inout UIView **)view {
-   
+    
     if ([popoverController.contentViewController isKindOfClass:[UINavigationController class]]){
         UIViewController *viewCtrl = [(UINavigationController*) popoverController.contentViewController topViewController];
         if ([viewCtrl isKindOfClass:[PDFCatalogViewController class]]) {
@@ -1353,9 +1387,13 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
         if ([viewCtrl isKindOfClass:[PDFSearchViewController class]]) {
             *rect = mainToolbar.searchButton.frame;
         }
-//        if ([viewCtrl isKindOfClass:[SingleViewBookViewController class]]) {
-//            *rect = mainToolbar.userRecordButton.frame;
-//        }
+        else {
+            for (int i = 0; i < customNaviCtrls.count; i++) {
+                if ([popoverController.contentViewController isEqual:customNaviCtrls[i]]) {
+                    *rect = [(UIButton*)mainToolbar.customButtons[i] frame];
+                }
+            }
+        }
     }
 }
 #endif
@@ -1422,7 +1460,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
     selectedSelection = [selection copy];
     [self showDocumentPage:selection.pageNo];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if (isPad) {
         [searchPopoverController dismissPopoverAnimated:YES];
     }
     else{

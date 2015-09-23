@@ -8,10 +8,12 @@
 
 #import "ReaderConstants.h"
 #import "PDFThumbsMainToolbar.h"
+#import "PDFConstants.h"
 
 @implementation PDFThumbsMainToolbar
 {
     UIImageView *backgroundView;            ///< 背景图
+    NSArray *backgroundImages;
 }
 
 #pragma mark - Constants
@@ -39,14 +41,21 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    return [self initWithFrame:frame title:nil];
+    NSDictionary *config = @{};
+    return [self initWithFrame:frame title:nil configuration:config ];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title
+- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title configuration:(NSDictionary*)config
 {
     if ((self = [super initWithFrame:frame]))
     {
-        backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"kernel_bar_bg_h.png"]];
+        backgroundImages = (NSArray*)[config objectForKey:TOOLBAR_BACKGROUND_IMAGE_KEY];
+        if (!backgroundImages) {
+            backgroundImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"pdf_topbar_bg_h"],
+                          [UIImage imageNamed:@"pdf_topbar_bg_v"], nil];
+        }
+        
+        backgroundView = [[UIImageView alloc] initWithImage:backgroundImages[0]];
         [self addSubview: backgroundView];
         
         CGFloat viewWidth = self.bounds.size.width; // Toolbar view width
@@ -67,9 +76,15 @@
         CGFloat leftButtonX = BUTTON_X; // Left-side button start X position
         
         UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeCustom];
-      //  returnButton.frame = CGRectMake(leftButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
-        [returnButton setImage:[UIImage imageNamed:@"kernel_back"] forState:UIControlStateNormal];
-        [returnButton setImage:[UIImage imageNamed:@"kernel_back_s"] forState:UIControlStateHighlighted];
+        returnButton.frame = CGRectMake(leftButtonX, BUTTON_Y, iconButtonWidth, BUTTON_HEIGHT);
+        NSArray *returnBtnImgs = (NSArray*)[config objectForKey:TOOLBAR_BACK_BTN_IMAGES_KEY];
+        if (!returnBtnImgs) {
+            returnBtnImgs = [NSArray arrayWithObjects:[UIImage imageNamed:@"pdf_back_N"],
+                             [UIImage imageNamed:@"pdf_back_H"], nil];
+        }
+        [returnButton setImage: (UIImage*)returnBtnImgs[0] forState:UIControlStateNormal];
+        [returnButton setImage: (UIImage*)returnBtnImgs[1] forState:UIControlStateHighlighted];
+        
         [returnButton addTarget:self action:@selector(returnButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [returnButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
         [returnButton setBackgroundImage:buttonN forState:UIControlStateNormal];
@@ -164,10 +179,10 @@
     [super layoutSubviews];
     
     if (self.frame.size.width > self.frame.size.height) {
-        backgroundView.image = [UIImage imageNamed:@"kernel_bar_bg_h"];
+        backgroundView.image = backgroundImages[0];
     }
     else{
-        backgroundView.image = [UIImage imageNamed:@"kernel_bar_bg_v"];
+        backgroundView.image = backgroundImages[1];
     }
 }
 

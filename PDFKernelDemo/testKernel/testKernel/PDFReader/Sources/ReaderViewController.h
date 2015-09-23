@@ -32,11 +32,14 @@
 
 @protocol PDFControllerDelegate <NSObject>
 
-@optional // Delegate protocols
+@required // Delegate protocols
 
 - (void)dismissReaderViewController:(ReaderViewController *)viewController;
 
 - (void)updatePDFCurrentPage:(NSInteger) currentPage;                       ///< 更新当前页处理
+
+- (void)pdfCustomActionControllerWillAppearFor:(NSInteger)index;
+- (void)pdfCustomActionControllerDiddissmissFor:(NSInteger)index;
 
 @end
 
@@ -52,6 +55,7 @@
 @property (nonatomic,readonly)NSInteger currentPage;                     ///< 当前页码
 
 - (instancetype)initWithReaderDocument:(ReaderDocument *)object;
+- (instancetype)initWithReaderDocument:(ReaderDocument *)object configuration:(NSDictionary*)config;
 
 - (BOOL)freezeCurrentView;                               ///< 冻结当前视图
 - (BOOL)restoreCurrentView;                              ///< 恢复当前视图
@@ -60,5 +64,11 @@
 
 - (BOOL)addNoteView:(UIView*)view needEdit:(BOOL)flag;   ///< 添加一个便签到当前视图
 - (void)removeNoteView:(BOOL)isEditing;
+
+// 添加自定义按钮的弹出控制器
+- (BOOL)addActionController:(UIViewController*)controller for:(NSUInteger)customButtonIndex;
+- (void)dismissActionController;
+
+- (void)showDocumentPage:(NSInteger)page;
 
 @end
