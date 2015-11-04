@@ -108,7 +108,7 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
 
 #pragma mark - Properties
 
-@synthesize delegate,currentPage;
+@synthesize delegate,currentPage,document;
 
 - (ReaderContentView*)currentContentView
 {

@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-//#import <PDFKernel/PDFViewController.h>
+#import <PDFKernel/PDFConstants.h>
+#import <PDFKernel/PDFViewController.h>
 
 //! Project version number for PDFKernel.
 FOUNDATION_EXPORT double PDFKernelVersionNumber;

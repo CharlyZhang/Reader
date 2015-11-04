@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import <PDFKernel/PDFKernel.h>
-#import <PDFKernel/PDFViewController.h>
 
 @interface ViewController ()
 {

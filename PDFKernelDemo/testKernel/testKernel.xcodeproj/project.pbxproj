@@ -211,6 +211,10 @@
 		2DC995541BB255C5008394F0 /* pdf_thumb_N.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DC9953F1BB255C5008394F0 /* pdf_thumb_N.pdf */; };
 		2DC995551BB255C5008394F0 /* pdf_topbar_bg_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995401BB255C5008394F0 /* pdf_topbar_bg_h.png */; };
 		2DC995561BB255C5008394F0 /* pdf_topbar_bg_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC995411BB255C5008394F0 /* pdf_topbar_bg_h@2x.png */; };
+		2DC9955F1BB28AB4008394F0 /* ReaderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D5BF5081B9D204C00DD5683 /* ReaderViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2DC995601BB28AE8008394F0 /* ReaderContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D5BF5001B9D204C00DD5683 /* ReaderContentView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2DC995611BB28B09008394F0 /* ReaderDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D5BF5021B9D204C00DD5683 /* ReaderDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2DC995621BB28BDE008394F0 /* ReaderThumbView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D5BF51F1B9D204C00DD5683 /* ReaderThumbView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -776,6 +780,10 @@
 				2D5BF5E21B9D8F8E00DD5683 /* PDFKernel.h in Headers */,
 				2D5BF5F61B9D8FCB00DD5683 /* PDFViewController.h in Headers */,
 				2DC995071BB16EC4008394F0 /* PDFConstants.h in Headers */,
+				2DC995601BB28AE8008394F0 /* ReaderContentView.h in Headers */,
+				2DC9955F1BB28AB4008394F0 /* ReaderViewController.h in Headers */,
+				2DC995611BB28B09008394F0 /* ReaderDocument.h in Headers */,
+				2DC995621BB28BDE008394F0 /* ReaderThumbView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

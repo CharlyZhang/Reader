@@ -52,6 +52,8 @@
 @property (nonatomic,strong,readonly)UIView* currentView;                ///< 当前的ContentView所包含的theContainerView
 @property (nonatomic,strong)ReaderContentView* currentContentView;       ///< 当前的ContentView
 
+@property (nonatomic,strong) ReaderDocument *document;                   ///< pdf文档
+
 @property (nonatomic,readonly)NSInteger currentPage;                     ///< 当前页码
 
 - (instancetype)initWithReaderDocument:(ReaderDocument *)object;
