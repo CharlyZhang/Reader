@@ -11,6 +11,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		2DD295091C23E2E7001FF223 /* 美术六年级下册.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DD295081C23E2E7001FF223 /* 美术六年级下册.pdf */; };
 		2DFC82621A836A0A00D88928 /* 茶花女.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DFC825B1A836A0A00D88928 /* 茶花女.pdf */; };
 		2DFC82631A836A0A00D88928 /* 疯狂iOS讲义.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DFC825C1A836A0A00D88928 /* 疯狂iOS讲义.pdf */; };
 		2DFC82641A836A0A00D88928 /* 建筑构造.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2DFC825D1A836A0A00D88928 /* 建筑构造.pdf */; };
@@ -107,6 +108,7 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2DD295081C23E2E7001FF223 /* 美术六年级下册.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "美术六年级下册.pdf"; path = "Resources/美术六年级下册.pdf"; sourceTree = "<group>"; };
 		2DFC825B1A836A0A00D88928 /* 茶花女.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "茶花女.pdf"; path = "Resources/茶花女.pdf"; sourceTree = "<group>"; };
 		2DFC825C1A836A0A00D88928 /* 疯狂iOS讲义.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "疯狂iOS讲义.pdf"; path = "Resources/疯狂iOS讲义.pdf"; sourceTree = "<group>"; };
 		2DFC825D1A836A0A00D88928 /* 建筑构造.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "建筑构造.pdf"; path = "Resources/建筑构造.pdf"; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2DD295081C23E2E7001FF223 /* 美术六年级下册.pdf */,
 				2DFC825B1A836A0A00D88928 /* 茶花女.pdf */,
 				2DFC825C1A836A0A00D88928 /* 疯狂iOS讲义.pdf */,
 				2DFC825D1A836A0A00D88928 /* 建筑构造.pdf */,
@@ -674,6 +677,7 @@
 				4513ACFB19C4A1FB004916D1 /* AppIcon-180.png in Resources */,
 				45AB72DC141FC039003524C3 /* Reader.pdf in Resources */,
 				455C789D14268F6A0053D73B /* Reader-Button-H.png in Resources */,
+				2DD295091C23E2E7001FF223 /* 美术六年级下册.pdf in Resources */,
 				455C789E14268F6A0053D73B /* Reader-Button-H@2x.png in Resources */,
 				455C789F14268F6A0053D73B /* Reader-Button-N.png in Resources */,
 				455C78A014268F6A0053D73B /* Reader-Button-N@2x.png in Resources */,

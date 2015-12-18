@@ -12,6 +12,7 @@
 @interface PDFViewController : ReaderViewController
 
 + (UIImage*) pdfCoverWithPath:(NSString*)filePath;
++ (UIImage*) pdfCoverWithPath:(NSString*)filePath withPassword:(NSString *)pwd;
 
 -(id)initWithPath:(NSString *)path withBookID:(NSString*)bookID;
 

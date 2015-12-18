@@ -83,33 +83,31 @@
 }
 
 #pragma mark - Class methods
-
-+ (UIImage*) pdfCoverWithPath:(NSString*)filePath
++ (UIImage*) pdfCoverWithPath:(NSString*)filePath withPassword:(NSString *)pwd
 {
     NSAssert(filePath != nil, @"文件路径不能为空");
     if (filePath == nil) return nil;    //检查文件是否存在
     
+    ReaderViewController *rdCtrl;
     
-    //创建PDF document
-    NSURL *pdfURL = [NSURL fileURLWithPath:filePath];
-    CGPDFDocumentRef pdfDocument = CGPDFDocumentCreateWithURL((CFURLRef)pdfURL);
-    
-    CGPDFPageRef pageRef = CGPDFDocumentGetPage(pdfDocument, 1);
-    CGRect pageRect = CGPDFPageGetBoxRect(pageRef, kCGPDFCropBox);
-    UIGraphicsBeginImageContext(pageRect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(context, CGRectGetMinX(pageRect),CGRectGetMaxY(pageRect));
-    CGContextScaleCTM(context, 1, -1);
-    CGContextTranslateCTM(context, -(pageRect.origin.x), -(pageRect.origin.y));
-    CGContextDrawPDFPage(context, pageRef);
-    
-    
-    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    CGPDFDocumentRelease(pdfDocument);
-    
-    return finalImage;
+    ReaderDocument *document = [ReaderDocument withDocumentFilePath:filePath password:pwd];
+
+    if (document != nil) // Must have a valid ReaderDocument object in order to proceed with things
+    {
+        rdCtrl = [[ReaderViewController alloc]initWithReaderDocument:document];
+        return [rdCtrl getCoverImage];
+    }
+    else // Log an error so that we know that something went wrong
+    {
+        NSLog(@"%s [ReaderDocument withDocumentFilePath:'%@' password:'%@'] failed.", __FUNCTION__, filePath, nil);
+        return nil;
+    }
+
+}
+
++ (UIImage*) pdfCoverWithPath:(NSString*)filePath
+{
+    return [[self class] pdfCoverWithPath:filePath withPassword:nil];
 }
 
 @end

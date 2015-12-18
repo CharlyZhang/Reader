@@ -72,5 +72,6 @@
 - (void)dismissActionController;
 
 - (void)showDocumentPage:(NSInteger)page;
+- (UIImage*) getCoverImage;
 
 @end

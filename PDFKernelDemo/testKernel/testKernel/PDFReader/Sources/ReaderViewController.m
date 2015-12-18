@@ -35,6 +35,7 @@
 #import "PDFCatalogViewController.h"
 #import "PDFSearchViewController.h"
 #import "Selection.h"
+#import "ReaderContentPage.h"
 #import "PDFMainScrollView.h"
 
 #import <MessageUI/MessageUI.h>
@@ -1467,5 +1468,29 @@ PDFCatalogDelegate,UIPopoverControllerDelegate>
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
+
+- (UIImage*) getCoverImage;
+{
+    NSURL *fileURL = document.fileURL; NSString *phrase = document.password;
+    
+    ReaderContentPage *theContentPage = [[ReaderContentPage alloc] initWithURL:fileURL page:1 password:phrase];
+    
+    // render the image
+    CGFloat scale = [UIScreen mainScreen].scale;
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(theContentPage.frame.size.width,
+                                                      theContentPage.frame.size.height),
+                                           YES,
+                                           scale);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(context);
+    [theContentPage.layer renderInContext:context];
+    CGContextRestoreGState(context);
+    
+    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 
 @end
