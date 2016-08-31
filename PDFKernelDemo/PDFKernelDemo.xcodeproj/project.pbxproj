@@ -7,17 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D0C72CB1BEA0C9600D7FB30 /* PDFKernel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D0C72C91BEA0C9600D7FB30 /* PDFKernel.bundle */; };
-		2D0C72CC1BEA0C9600D7FB30 /* PDFKernel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D0C72CA1BEA0C9600D7FB30 /* PDFKernel.framework */; };
-		2D3F20671BF42A170089F1E9 /* PDFKernel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D0C72CA1BEA0C9600D7FB30 /* PDFKernel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2D5BF4611B9C460C00DD5683 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5BF4601B9C460C00DD5683 /* main.m */; };
 		2D5BF4641B9C460C00DD5683 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5BF4631B9C460C00DD5683 /* AppDelegate.m */; };
 		2D5BF4671B9C460C00DD5683 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5BF4661B9C460C00DD5683 /* ViewController.m */; };
 		2D5BF46A1B9C460C00DD5683 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF4681B9C460C00DD5683 /* Main.storyboard */; };
-		2D5BF46C1B9C460C00DD5683 /* PDFKernel.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF46B1B9C460C00DD5683 /* PDFKernel.xcassets */; };
 		2D5BF46F1B9C460C00DD5683 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF46D1B9C460C00DD5683 /* LaunchScreen.xib */; };
 		2D5BF47B1B9C460C00DD5683 /* PDFKernelDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5BF47A1B9C460C00DD5683 /* PDFKernelDemoTests.m */; };
 		2D5BF4871B9C4AC800DD5683 /* 茶花女.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 2D5BF4861B9C4AC800DD5683 /* 茶花女.pdf */; };
+		2D7A364C1D75931E00712FE0 /* libPDFKernel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7A36451D7592E100712FE0 /* libPDFKernel.a */; };
+		2D7A364E1D75939500712FE0 /* PDFKernel.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D7A364D1D75939500712FE0 /* PDFKernel.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +26,20 @@
 			remoteGlobalIDString = 2D5BF45A1B9C460C00DD5683;
 			remoteInfo = PDFKernelDemo;
 		};
+		2D7A36441D7592E100712FE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D7A363E1D7592E100712FE0 /* PDFKernel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2D7A34AA1D757CDE00712FE0;
+			remoteInfo = PDFKernel;
+		};
+		2D7A36461D7592E100712FE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D7A363E1D7592E100712FE0 /* PDFKernel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2D7A35DC1D75817100712FE0;
+			remoteInfo = PDFKernelResources;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,7 +49,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2D3F20671BF42A170089F1E9 /* PDFKernel.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,8 +56,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2D0C72C91BEA0C9600D7FB30 /* PDFKernel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = PDFKernel.bundle; path = testKernel/Products/PDFKernel.bundle; sourceTree = "<group>"; };
-		2D0C72CA1BEA0C9600D7FB30 /* PDFKernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKernel.framework; path = testKernel/Products/PDFKernel.framework; sourceTree = "<group>"; };
 		2D5BF45B1B9C460C00DD5683 /* PDFKernelDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PDFKernelDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D5BF45F1B9C460C00DD5683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D5BF4601B9C460C00DD5683 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -55,12 +64,13 @@
 		2D5BF4651B9C460C00DD5683 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		2D5BF4661B9C460C00DD5683 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2D5BF4691B9C460C00DD5683 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2D5BF46B1B9C460C00DD5683 /* PDFKernel.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PDFKernel.xcassets; sourceTree = "<group>"; };
 		2D5BF46E1B9C460C00DD5683 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		2D5BF4741B9C460C00DD5683 /* PDFKernelDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PDFKernelDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D5BF4791B9C460C00DD5683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D5BF47A1B9C460C00DD5683 /* PDFKernelDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDFKernelDemoTests.m; sourceTree = "<group>"; };
 		2D5BF4861B9C4AC800DD5683 /* 茶花女.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "茶花女.pdf"; path = "../../Resources/茶花女.pdf"; sourceTree = "<group>"; };
+		2D7A363E1D7592E100712FE0 /* PDFKernel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PDFKernel.xcodeproj; path = ../PDFKernel/PDFKernel.xcodeproj; sourceTree = "<group>"; };
+		2D7A364D1D75939500712FE0 /* PDFKernel.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = PDFKernel.xcassets; path = ../PDFKernel/PDFKernel.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D0C72CC1BEA0C9600D7FB30 /* PDFKernel.framework in Frameworks */,
+				2D7A364C1D75931E00712FE0 /* libPDFKernel.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,8 +95,8 @@
 		2D5BF4521B9C460C00DD5683 = {
 			isa = PBXGroup;
 			children = (
-				2D0C72C91BEA0C9600D7FB30 /* PDFKernel.bundle */,
-				2D0C72CA1BEA0C9600D7FB30 /* PDFKernel.framework */,
+				2D7A364D1D75939500712FE0 /* PDFKernel.xcassets */,
+				2D7A363E1D7592E100712FE0 /* PDFKernel.xcodeproj */,
 				2D5BF45D1B9C460C00DD5683 /* PDFKernelDemo */,
 				2D5BF4771B9C460C00DD5683 /* PDFKernelDemoTests */,
 				2D5BF45C1B9C460C00DD5683 /* Products */,
@@ -110,7 +120,6 @@
 				2D5BF4651B9C460C00DD5683 /* ViewController.h */,
 				2D5BF4661B9C460C00DD5683 /* ViewController.m */,
 				2D5BF4681B9C460C00DD5683 /* Main.storyboard */,
-				2D5BF46B1B9C460C00DD5683 /* PDFKernel.xcassets */,
 				2D5BF46D1B9C460C00DD5683 /* LaunchScreen.xib */,
 				2D5BF45E1B9C460C00DD5683 /* Supporting Files */,
 			);
@@ -142,6 +151,15 @@
 				2D5BF4791B9C460C00DD5683 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2D7A363F1D7592E100712FE0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2D7A36451D7592E100712FE0 /* libPDFKernel.a */,
+				2D7A36471D7592E100712FE0 /* PDFKernelResources.bundle */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +230,12 @@
 			mainGroup = 2D5BF4521B9C460C00DD5683;
 			productRefGroup = 2D5BF45C1B9C460C00DD5683 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2D7A363F1D7592E100712FE0 /* Products */;
+					ProjectRef = 2D7A363E1D7592E100712FE0 /* PDFKernel.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				2D5BF45A1B9C460C00DD5683 /* PDFKernelDemo */,
@@ -220,16 +244,32 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		2D7A36451D7592E100712FE0 /* libPDFKernel.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPDFKernel.a;
+			remoteRef = 2D7A36441D7592E100712FE0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2D7A36471D7592E100712FE0 /* PDFKernelResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PDFKernelResources.bundle;
+			remoteRef = 2D7A36461D7592E100712FE0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		2D5BF4591B9C460C00DD5683 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				2D5BF46A1B9C460C00DD5683 /* Main.storyboard in Resources */,
+				2D7A364E1D75939500712FE0 /* PDFKernel.xcassets in Resources */,
 				2D5BF4871B9C4AC800DD5683 /* 茶花女.pdf in Resources */,
-				2D0C72CB1BEA0C9600D7FB30 /* PDFKernel.bundle in Resources */,
 				2D5BF46F1B9C460C00DD5683 /* LaunchScreen.xib in Resources */,
-				2D5BF46C1B9C460C00DD5683 /* PDFKernel.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +428,11 @@
 				);
 				INFOPLIST_FILE = PDFKernelDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PDFKernelResources.bundle",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.founder.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -407,6 +452,11 @@
 				);
 				INFOPLIST_FILE = PDFKernelDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PDFKernelResources.bundle",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.founder.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
