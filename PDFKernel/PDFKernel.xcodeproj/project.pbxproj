@@ -106,7 +106,7 @@
 		2D7A34A81D757CDE00712FE0 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = include;
+			dstPath = "../include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
 				2D7A36261D7585A400712FE0 /* PDFConstants.h in CopyFiles */,
