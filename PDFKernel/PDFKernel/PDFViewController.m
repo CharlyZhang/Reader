@@ -62,6 +62,7 @@
     else // Log an error so that we know that something went wrong
     {
         NSLog(@"%s [ReaderDocument withDocumentFilePath:'%@' password:'%@'] failed.", __FUNCTION__, path, nil);
+        self = nil;
     }
     
     return self;
